@@ -1,5 +1,6 @@
 package com.example.projectmanagement.service.impl;
 
+import com.example.projectmanagement.dao.AuthUserDTO;
 import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class UserServiceImpl implements UserService {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                return userRepository.findByUsername(username).map(AuthUserDTO::new).orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
     }

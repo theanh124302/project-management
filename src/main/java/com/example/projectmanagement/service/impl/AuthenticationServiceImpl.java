@@ -1,10 +1,7 @@
 package com.example.projectmanagement.service.impl;
 
 
-import com.example.projectmanagement.dao.AuthenticationResponse;
-import com.example.projectmanagement.dao.RefreshTokenRequest;
-import com.example.projectmanagement.dao.SignInRequest;
-import com.example.projectmanagement.dao.SignUpRequest;
+import com.example.projectmanagement.dao.*;
 import com.example.projectmanagement.dto.User;
 import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.service.AuthenticationService;
@@ -30,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         System.out.println(request.getUsername());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+        AuthUserDTO user = userRepository.findByUsername(request.getUsername()).map(AuthUserDTO::new).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
 
         var jwt = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
@@ -55,7 +52,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
         String username = jwtService.extractUserName(refreshTokenRequest.getToken());
-        User user = userRepository.findByUsername(username).orElseThrow();
+        AuthUserDTO user = userRepository.findByUsername(username).map(AuthUserDTO::new).orElseThrow();
         if(jwtService.isTokenValid(refreshTokenRequest.getToken(),user)){
             var jwt = jwtService.generateToken(user);
             AuthenticationResponse authenticationResponse = new AuthenticationResponse();
