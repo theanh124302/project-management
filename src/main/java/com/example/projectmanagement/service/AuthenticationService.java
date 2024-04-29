@@ -1,14 +1,14 @@
 package com.example.projectmanagement.service;
 
-import com.example.projectmanagement.dao.AuthenticationResponse;
-import com.example.projectmanagement.dao.RefreshTokenRequest;
-import com.example.projectmanagement.dao.SignInRequest;
-import com.example.projectmanagement.dao.SignUpRequest;
+import com.example.projectmanagement.dao.AuthenticationResponseDTO;
+import com.example.projectmanagement.dao.RefreshTokenRequestDTO;
+import com.example.projectmanagement.dao.SignInRequestDTO;
+import com.example.projectmanagement.dao.SignUpRequestDTO;
 import com.example.projectmanagement.dto.User;
 
 public interface AuthenticationService {
-    AuthenticationResponse signIn(SignInRequest signinRequest);
+    AuthenticationResponseDTO signIn(SignInRequestDTO signinRequestDTO);
 
-    User signUp(SignUpRequest signUpRequest);
-    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
+    User signUp(SignUpRequestDTO signUpRequestDTO);
+    public AuthenticationResponseDTO refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO);
 }

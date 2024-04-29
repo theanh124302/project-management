@@ -1,10 +1,10 @@
 package com.example.projectmanagement.controller;
 
 
-import com.example.projectmanagement.dao.AuthenticationResponse;
-import com.example.projectmanagement.dao.RefreshTokenRequest;
-import com.example.projectmanagement.dao.SignInRequest;
-import com.example.projectmanagement.dao.SignUpRequest;
+import com.example.projectmanagement.dao.AuthenticationResponseDTO;
+import com.example.projectmanagement.dao.RefreshTokenRequestDTO;
+import com.example.projectmanagement.dao.SignInRequestDTO;
+import com.example.projectmanagement.dao.SignUpRequestDTO;
 import com.example.projectmanagement.dto.User;
 import com.example.projectmanagement.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -22,19 +22,19 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
     @PostMapping("/signup")
-    public ResponseEntity<User> signUp(@RequestBody SignUpRequest signUpRequest){
-        System.out.println(signUpRequest);
-        return ResponseEntity.ok(authenticationService.signUp(signUpRequest));
+    public ResponseEntity<User> signUp(@RequestBody SignUpRequestDTO signUpRequestDTO){
+        System.out.println(signUpRequestDTO);
+        return ResponseEntity.ok(authenticationService.signUp(signUpRequestDTO));
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<AuthenticationResponse> signIn(@RequestBody SignInRequest signInRequest){
-        return ResponseEntity.ok(authenticationService.signIn(signInRequest));
+    public ResponseEntity<AuthenticationResponseDTO> signIn(@RequestBody SignInRequestDTO signInRequestDTO){
+        return ResponseEntity.ok(authenticationService.signIn(signInRequestDTO));
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<AuthenticationResponse> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest){
-        return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
+    public ResponseEntity<AuthenticationResponseDTO> refresh(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO){
+        return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequestDTO));
     }
 }
 

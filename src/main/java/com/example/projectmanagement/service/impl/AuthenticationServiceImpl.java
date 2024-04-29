@@ -23,7 +23,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public AuthenticationResponse signIn(SignInRequest request) {
+    public AuthenticationResponseDTO signIn(SignInRequestDTO request) {
         System.out.println(request.getUsername());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
@@ -31,14 +31,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var jwt = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-        authenticationResponse.setToken(jwt);
-        authenticationResponse.setRefreshToken(refreshToken);
-        return authenticationResponse;
+        AuthenticationResponseDTO authenticationResponseDTO = new AuthenticationResponseDTO();
+        authenticationResponseDTO.setToken(jwt);
+        authenticationResponseDTO.setRefreshToken(refreshToken);
+        return authenticationResponseDTO;
     }
 
     @Override
-    public User signUp(SignUpRequest request) {
+    public User signUp(SignUpRequestDTO request) {
         System.out.println(request.getEmail());
         User user = new User();
         user.setEmail(request.getEmail());
@@ -50,15 +50,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return userRepository.save(user);
     }
 
-    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
-        String username = jwtService.extractUserName(refreshTokenRequest.getToken());
+    public AuthenticationResponseDTO refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO){
+        String username = jwtService.extractUserName(refreshTokenRequestDTO.getToken());
         AuthUserDTO user = userRepository.findByUsername(username).map(AuthUserDTO::new).orElseThrow();
-        if(jwtService.isTokenValid(refreshTokenRequest.getToken(),user)){
+        if(jwtService.isTokenValid(refreshTokenRequestDTO.getToken(),user)){
             var jwt = jwtService.generateToken(user);
-            AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-            authenticationResponse.setToken(jwt);
-            authenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
-            return authenticationResponse;
+            AuthenticationResponseDTO authenticationResponseDTO = new AuthenticationResponseDTO();
+            authenticationResponseDTO.setToken(jwt);
+            authenticationResponseDTO.setRefreshToken(refreshTokenRequestDTO.getToken());
+            return authenticationResponseDTO;
         }
         return null;
     }
