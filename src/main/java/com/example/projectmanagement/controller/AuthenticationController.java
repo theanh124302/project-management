@@ -1,11 +1,11 @@
 package com.example.projectmanagement.controller;
 
 
-import com.example.projectmanagement.dao.AuthenticationResponseDTO;
-import com.example.projectmanagement.dao.RefreshTokenRequestDTO;
-import com.example.projectmanagement.dao.SignInRequestDTO;
-import com.example.projectmanagement.dao.SignUpRequestDTO;
-import com.example.projectmanagement.dto.User;
+import com.example.projectmanagement.model.auth.response.AuthenticationResponseDTO;
+import com.example.projectmanagement.model.auth.request.RefreshTokenRequestDTO;
+import com.example.projectmanagement.model.auth.request.SignInRequestDTO;
+import com.example.projectmanagement.model.auth.request.SignUpRequestDTO;
+import com.example.projectmanagement.entity.User;
 import com.example.projectmanagement.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

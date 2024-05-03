@@ -1,8 +1,12 @@
 package com.example.projectmanagement.service.impl;
 
 
-import com.example.projectmanagement.dao.*;
-import com.example.projectmanagement.dto.User;
+import com.example.projectmanagement.dto.*;
+import com.example.projectmanagement.entity.User;
+import com.example.projectmanagement.model.auth.request.RefreshTokenRequestDTO;
+import com.example.projectmanagement.model.auth.request.SignInRequestDTO;
+import com.example.projectmanagement.model.auth.request.SignUpRequestDTO;
+import com.example.projectmanagement.model.auth.response.AuthenticationResponseDTO;
 import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.service.AuthenticationService;
 import com.example.projectmanagement.service.JwtService;

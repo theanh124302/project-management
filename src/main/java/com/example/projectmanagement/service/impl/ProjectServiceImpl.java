@@ -1,6 +1,6 @@
 package com.example.projectmanagement.service.impl;
 
-import com.example.projectmanagement.dto.Project;
+import com.example.projectmanagement.entity.Project;
 import com.example.projectmanagement.repository.ProjectRepository;
 import com.example.projectmanagement.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;

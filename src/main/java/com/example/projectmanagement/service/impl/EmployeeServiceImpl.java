@@ -1,8 +1,8 @@
 package com.example.projectmanagement.service.impl;
 
-import com.example.projectmanagement.dao.CreateEmployee;
-import com.example.projectmanagement.dao.Role;
-import com.example.projectmanagement.dto.Employee;
+import com.example.projectmanagement.dto.CreateEmployee;
+import com.example.projectmanagement.enums.Role;
+import com.example.projectmanagement.entity.Employee;
 import com.example.projectmanagement.repository.EmployeeRepository;
 import com.example.projectmanagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,8 @@
 package com.example.projectmanagement.service;
 
-import com.example.projectmanagement.dto.EmployeeProject;
-
-import java.util.List;
-import java.util.Optional;
+import com.example.projectmanagement.entity.UserProject;
 
 public interface EmployeeProjectService {
-    public void saveOrUpdateEmployeeProject(EmployeeProject employeeProject);
+    public void saveOrUpdateEmployeeProject(UserProject userProject);
     public void deleteEmployeeProjectById(Long id);
 }

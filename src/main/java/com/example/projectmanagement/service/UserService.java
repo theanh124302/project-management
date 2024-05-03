@@ -1,7 +1,15 @@
 package com.example.projectmanagement.service;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.example.projectmanagement.entity.User;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
-    UserDetailsService userDetailsService();
+    List<User> findAll();
+    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+    void save(User user);
+    Optional<User> update(User user);
+    void delete(User user);
 }

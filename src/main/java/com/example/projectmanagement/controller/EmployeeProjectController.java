@@ -1,6 +1,6 @@
 package com.example.projectmanagement.controller;
 
-import com.example.projectmanagement.dto.EmployeeProject;
+import com.example.projectmanagement.entity.UserProject;
 import com.example.projectmanagement.service.EmployeeProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +11,8 @@ public class EmployeeProjectController {
     @Autowired
     EmployeeProjectService employeeProjectService;
     @PostMapping()
-    public void createEp(@RequestBody EmployeeProject employeeProject){
-        employeeProjectService.saveOrUpdateEmployeeProject(employeeProject);
+    public void createEp(@RequestBody UserProject userProject){
+        employeeProjectService.saveOrUpdateEmployeeProject(userProject);
     }
     @DeleteMapping("/{id}")
     public void deleteProject(@PathVariable Long id){

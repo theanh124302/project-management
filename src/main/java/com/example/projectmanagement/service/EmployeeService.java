@@ -1,7 +1,7 @@
 package com.example.projectmanagement.service;
 
-import com.example.projectmanagement.dao.CreateEmployee;
-import com.example.projectmanagement.dto.Employee;
+import com.example.projectmanagement.dto.CreateEmployee;
+import com.example.projectmanagement.entity.Employee;
 
 import java.util.List;
 import java.util.Optional;

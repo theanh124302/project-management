@@ -1,6 +1,6 @@
 package com.example.projectmanagement.service;
 
-import com.example.projectmanagement.dto.Project;
+import com.example.projectmanagement.entity.Project;
 
 import java.util.List;
 import java.util.Optional;

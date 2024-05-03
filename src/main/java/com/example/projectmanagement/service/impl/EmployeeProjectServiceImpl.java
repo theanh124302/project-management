@@ -1,8 +1,7 @@
 package com.example.projectmanagement.service.impl;
 
-import com.example.projectmanagement.dto.EmployeeProject;
-import com.example.projectmanagement.dto.Project;
-import com.example.projectmanagement.repository.EmployeeProjectRepository;
+import com.example.projectmanagement.entity.UserProject;
+import com.example.projectmanagement.repository.UserProjectRepository;
 import com.example.projectmanagement.service.EmployeeProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,15 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeProjectServiceImpl implements EmployeeProjectService {
     @Autowired
-    EmployeeProjectRepository employeeProjectRepository;
+    UserProjectRepository userProjectRepository;
 
     @Override
-    public void saveOrUpdateEmployeeProject(EmployeeProject employeeProject) {
-        employeeProjectRepository.save(employeeProject);
+    public void saveOrUpdateEmployeeProject(UserProject userProject) {
+        userProjectRepository.save(userProject);
     }
 
     @Override
     public void deleteEmployeeProjectById(Long id) {
-        employeeProjectRepository.deleteById(id);
+        userProjectRepository.deleteById(id);
     }
 }
