@@ -1,26 +1,21 @@
 package com.example.projectmanagement.entity;
 
-
-import com.example.projectmanagement.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="employees")
+@Table(name ="folders")
 @Entity
-public class Employee {
+public class Folder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long departmentId;
     private String name;
-    private String gender;
-    private Date dateOfBirth;
-    private Role role;
+    private Long workspaceId;
+    private Long parentId;
 }

@@ -3,6 +3,8 @@ package com.example.projectmanagement.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 
 @Data
 @AllArgsConstructor
@@ -17,4 +19,6 @@ public class Workspace {
     private Long id;
     private String name;
     private String description;
+    private String creator;
+    private Date creationDate;
 }

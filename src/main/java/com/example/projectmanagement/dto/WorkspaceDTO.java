@@ -1,13 +1,13 @@
-package com.example.projectmanagement.dto;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class WorkspaceDTO {
-}
+//package com.example.projectmanagement.dto;
+//
+//import lombok.AllArgsConstructor;
+//import lombok.Builder;
+//import lombok.Data;
+//import lombok.NoArgsConstructor;
+//
+//@Data
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
+//public class WorkspaceDTO {
+//}

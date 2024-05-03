@@ -3,6 +3,7 @@ package com.example.projectmanagement.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -15,8 +16,18 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long departmentId;
     private String name;
     private String description;
-    private Long leaderId;
+    private String creator;
+    private Date creationDate;
+    private String status;
+    private Date startDate;
+    private Date expectedEndDate;
+    private String notes;
+    private String version;
+    private String platform;
+    private String copyright;
+    private String tags;
+    private String coverImage;
+    private String sourceCode;
 }

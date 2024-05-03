@@ -8,9 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="feedbacks")
+@Table(name ="comments")
 @Entity
-public class Feedback {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
