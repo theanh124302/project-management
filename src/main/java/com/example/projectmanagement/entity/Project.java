@@ -18,7 +18,7 @@ public class Project {
     private Long id;
     private String name;
     private String description;
-    private String creator;
+    private Long leaderId;
     private Date creationDate;
     private String status;
     private Date startDate;

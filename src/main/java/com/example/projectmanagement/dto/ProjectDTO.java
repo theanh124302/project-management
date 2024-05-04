@@ -12,9 +12,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectDTO {
+    private Long id;
     private String name;
     private String description;
-    private String creator;
+    private Long leaderId;
     private Date creationDate;
     private String status;
     private Date startDate;

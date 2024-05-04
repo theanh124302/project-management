@@ -1,14 +1,15 @@
 package com.example.projectmanagement.service;
 
-import com.example.projectmanagement.entity.Project;
+import com.example.projectmanagement.dto.ProjectDTO;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProjectService {
-    public List<Project> getAllProjects();
-    public Optional<Project> getProjectById(Long id);
-    public Project saveOrUpdateProject(Project project);
-    public void deleteProjectById(Long id);
-    public List<Project> findProjectsByName(String name);
+    ProjectDTO update(ProjectDTO projectDTO);
+    ProjectDTO delete(ProjectDTO projectDTO);
+    List<ProjectDTO> getAllProjects(Pageable pageable);
+    List<ProjectDTO> findByName(String name, Pageable pageable);
+    List<ProjectDTO> findByLeaderId(Long leaderId, Pageable pageable);
+    Long count();
 }
