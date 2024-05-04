@@ -95,6 +95,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<ProjectDTO> findByWorkspaceId(Long workspaceId, Pageable pageable) {
+        return projectRepository.findByWorkspaceId(workspaceId, pageable).getContent().stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+    @Override
     public Long count() {
         return projectRepository.count();
     }

@@ -12,5 +12,6 @@ public interface ProjectService {
     List<ProjectDTO> getAllProjects(Pageable pageable);
     List<ProjectDTO> findByName(String name, Pageable pageable);
     List<ProjectDTO> findByLeaderId(Long leaderId, Pageable pageable);
+    List<ProjectDTO> findByWorkspaceId(Long workspaceId, Pageable pageable);
     Long count();
 }

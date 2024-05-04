@@ -129,5 +129,24 @@ public class ProjectController {
                 .data(projects)
                 .build());
     }
+
+    @GetMapping("/findByWorkspaceId")
+    public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> findProjectsByWorkspaceId(@RequestParam Long workspaceId,
+                                                                                     @RequestParam(defaultValue = "0") int page,
+                                                                                     @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<ProjectDTO> projects = projectService.findByWorkspaceId(workspaceId, pageable);
+        long totalItems = projectService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        return ResponseEntity.ok(ResponseTemplate.<List<ProjectDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Projects found successfully")
+                .page(page)
+                .size(size)
+                .totalItems(totalItems)
+                .totalPages(totalPages)
+                .data(projects)
+                .build());
+    }
 }
 

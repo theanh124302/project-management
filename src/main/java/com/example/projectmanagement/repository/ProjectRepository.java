@@ -15,4 +15,5 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
     @Query("SELECT p FROM Project p WHERE lower(p.name) LIKE lower(concat('%', :name, '%'))")
     Page<Project> findByName(String name, Pageable pageable);
     Page<Project> findByLeaderId(Long leaderId, Pageable pageable);
+    Page<Project> findByWorkspaceId(Long workspaceId, Pageable pageable);
 }

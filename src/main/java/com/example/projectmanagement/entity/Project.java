@@ -19,6 +19,7 @@ public class Project {
     private String name;
     private String description;
     private Long leaderId;
+    private Long workspaceId;
     private Date creationDate;
     private String status;
     private Date startDate;

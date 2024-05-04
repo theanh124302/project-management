@@ -1,6 +1,5 @@
 package com.example.projectmanagement.controller;
 
-
 import com.example.projectmanagement.dto.WorkspaceDTO;
 import com.example.projectmanagement.service.WorkspaceService;
 import com.example.projectmanagement.template.ResponseTemplate;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
