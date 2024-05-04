@@ -25,4 +25,6 @@ public class Api {
     private Method method;
     private Long createdBy;
     private LocalDateTime createdAt;
+    private String status;
+    private Long executorID;
 }

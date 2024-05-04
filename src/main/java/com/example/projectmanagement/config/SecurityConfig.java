@@ -27,27 +27,27 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthUserService authUserService;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**" )
-                        .permitAll()
-                        .requestMatchers("/api/v1/admin").hasAnyAuthority(Role.ADMIN.name())
-                        .requestMatchers("/api/v1/user").hasAnyAuthority(Role.USER.name())
-                        .anyRequest().authenticated())
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider()).addFilterBefore(
-                        jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
-
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http.csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(request -> request.requestMatchers("/**" )
-//                        .permitAll());
+//                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**" )
+//                        .permitAll()
+//                        .requestMatchers("/api/v1/admin").hasAnyAuthority(Role.ADMIN.name())
+//                        .requestMatchers("/api/v1/user").hasAnyAuthority(Role.USER.name())
+//                        .anyRequest().authenticated())
+//                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+//                .authenticationProvider(authenticationProvider()).addFilterBefore(
+//                        jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 //        return http.build();
 //    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request -> request.requestMatchers("/**" )
+                        .permitAll());
+        return http.build();
+    }
 
 
     @Bean

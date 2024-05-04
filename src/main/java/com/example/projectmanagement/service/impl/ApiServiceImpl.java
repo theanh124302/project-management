@@ -30,6 +30,10 @@ public class ApiServiceImpl implements ApiService {
         return null;
     }
 
+    public List<Api> findByProjectId(Long projectId) {
+        return apiRepository.findByProjectId(projectId);
+    }
+
     @Override
     public Api save(Api api) {
         return apiRepository.save(api);

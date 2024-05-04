@@ -9,6 +9,7 @@ public interface ApiService {
     List<Api> findAllApi();
     Optional<Api> findApiById(Long id);
     Api findApiByName(String name);
+    public List<Api> findByProjectId(Long projectId);
     Api save(Api api);
     Api update(Api api);
     void deleteApiById(Long id);
