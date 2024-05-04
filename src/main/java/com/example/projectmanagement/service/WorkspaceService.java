@@ -1,13 +1,16 @@
 package com.example.projectmanagement.service;
 
-import com.example.projectmanagement.entity.Workspace;
+import com.example.projectmanagement.dto.WorkspaceDTO;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface WorkspaceService {
-    public List<Workspace> getAllWorkspaces();
-    public Optional<Workspace> getWorkspaceById(Long id);
-    public Workspace saveOrUpdateWorkspace(Workspace workspace);
-    public void deleteWorkspaceById(Long id);
+    WorkspaceDTO create(WorkspaceDTO workspaceDTO);
+    WorkspaceDTO update(WorkspaceDTO workspaceDTO);
+    WorkspaceDTO delete(WorkspaceDTO workspaceDTO);
+    List<WorkspaceDTO> getAllWorkspaces(Pageable pageable);
+    List<WorkspaceDTO> findByName(String name, Pageable pageable);
+    List<WorkspaceDTO> findByCreatorId(Long leaderId, Pageable pageable);
+    Long count();
 }

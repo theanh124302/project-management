@@ -19,6 +19,6 @@ public class Workspace {
     private Long id;
     private String name;
     private String description;
-    private String creator;
+    private Long creatorId;
     private Date creationDate;
 }
