@@ -15,7 +15,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/projects")
+@RequestMapping("/api/v1/user/project")
 public class ProjectController {
 
     @Autowired
@@ -98,10 +98,8 @@ public class ProjectController {
                                                                                  @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<ProjectDTO> projects = projectService.findByName(name, pageable);
-
         long totalItems = projectService.count();
         int totalPages = (int) Math.ceil((double) totalItems / size);
-
         return ResponseEntity.ok(ResponseTemplate.<List<ProjectDTO>>builder()
                 .status(HttpStatus.OK)
                 .message("Projects found successfully")
