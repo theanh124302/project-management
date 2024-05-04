@@ -41,6 +41,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO findById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        User user = userOptional.orElse(null);
+        if (user == null) {
+            return null;
+        }
+        return convertToDTO(user);
+    }
+
+    @Override
     public List<UserDTO> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable).getContent().stream().map(this::convertToDTO).toList();
     }

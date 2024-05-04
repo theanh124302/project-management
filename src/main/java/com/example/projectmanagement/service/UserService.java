@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface UserService {
     UserDTO update(UserDTO userDTO);
     UserDTO delete(UserDTO userDTO);
+    UserDTO findById(Long id);
     List<UserDTO> getAllUsers(Pageable pageable);
     List<UserDTO> findByName(String name, Pageable pageable);
     UserDTO findByUsername(String username);

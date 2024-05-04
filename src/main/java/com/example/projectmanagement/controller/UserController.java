@@ -52,6 +52,23 @@ public class UserController {
         }
     }
 
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<ResponseTemplate<UserDTO>> getUserById(@PathVariable Long id) {
+        UserDTO user = userService.findById(id);
+        if (user != null) {
+            return ResponseEntity.ok(ResponseTemplate.<UserDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("User found successfully")
+                    .data(user)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<UserDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("User not found")
+                    .build());
+        }
+    }
+
     @GetMapping("/all")
     public ResponseEntity<ResponseTemplate<List<UserDTO>>> getAllUsers(Pageable pageable) {
         List<UserDTO> users = userService.getAllUsers(pageable);
@@ -72,7 +89,7 @@ public class UserController {
                 .build());
     }
 
-    @GetMapping("/by-name/{name}")
+    @GetMapping("/findByName/{name}")
     public ResponseEntity<ResponseTemplate<List<UserDTO>>> getUsersByName(@PathVariable String name,Pageable pageable) {
         List<UserDTO> users = userService.findByName(name,pageable);
         System.out.println(users);
@@ -91,7 +108,7 @@ public class UserController {
                 .build());
     }
 
-    @GetMapping("/by-username/{username}")
+    @GetMapping("/findByUsername/{username}")
     public ResponseEntity<ResponseTemplate<UserDTO>> getUserByUsername(@PathVariable String username) {
         UserDTO user = userService.findByUsername(username);
         if (user != null) {
@@ -108,7 +125,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/by-email/{email}")
+    @GetMapping("/findByEmail/{email}")
     public ResponseEntity<ResponseTemplate<UserDTO>> getUsersByEmail(@PathVariable String email) {
         UserDTO user = userService.findByEmail(email);
         if (user != null) {

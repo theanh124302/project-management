@@ -1,19 +1,13 @@
-package com.example.projectmanagement.entity;
+package com.example.projectmanagement.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
-
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="folders")
-@Entity
-public class Folder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class FolderDTO {
     private Long id;
     private String name;
     private String description;

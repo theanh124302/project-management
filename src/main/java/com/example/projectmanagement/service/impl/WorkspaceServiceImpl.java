@@ -58,6 +58,16 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     @Override
+    public WorkspaceDTO findById(Long id) {
+        Optional<Workspace> workspaceOptional = workspaceRepository.findById(id);
+        Workspace workspace = workspaceOptional.orElse(null);
+        if (workspace == null) {
+            return null; // or throw an exception if required
+        }
+        return convertToDTO(workspace);
+    }
+
+    @Override
     public List<WorkspaceDTO> getAllWorkspaces(Pageable pageable) {
         return workspaceRepository.findAll(pageable)
                 .stream()

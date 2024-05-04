@@ -72,6 +72,23 @@ public class ProjectController {
         }
     }
 
+    @GetMapping("/findById")
+    public ResponseEntity<ResponseTemplate<ProjectDTO>> findProjectById(@RequestParam Long id) {
+        ProjectDTO project = projectService.findById(id);
+        if (project != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Project found successfully")
+                    .data(project)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Project not found")
+                    .build());
+        }
+    }
+
     @GetMapping("/all")
     public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> getAllProjects(@RequestParam(defaultValue = "0") int page,
                                                                              @RequestParam(defaultValue = "10") int size) {

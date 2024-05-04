@@ -69,6 +69,23 @@ public class WorkspaceController {
         }
     }
 
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<ResponseTemplate<WorkspaceDTO>> getWorkspaceById(@PathVariable Long id) {
+        WorkspaceDTO workspace = workspaceService.findById(id);
+        if (workspace != null) {
+            return ResponseEntity.ok(ResponseTemplate.<WorkspaceDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Workspace found successfully")
+                    .data(workspace)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<WorkspaceDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Workspace not found")
+                    .build());
+        }
+    }
+
     @GetMapping("/all")
     public ResponseEntity<ResponseTemplate<List<WorkspaceDTO>>> getAllWorkspaces(@RequestParam(defaultValue = "0") int page,
                                                                                  @RequestParam(defaultValue = "10") int size) {

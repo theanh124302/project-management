@@ -9,6 +9,7 @@ public interface ProjectService {
     ProjectDTO create(ProjectDTO projectDTO);
     ProjectDTO update(ProjectDTO projectDTO);
     ProjectDTO delete(ProjectDTO projectDTO);
+    ProjectDTO findById(Long id);
     List<ProjectDTO> getAllProjects(Pageable pageable);
     List<ProjectDTO> findByName(String name, Pageable pageable);
     List<ProjectDTO> findByLeaderId(Long leaderId, Pageable pageable);

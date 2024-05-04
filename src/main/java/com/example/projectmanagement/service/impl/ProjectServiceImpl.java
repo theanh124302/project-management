@@ -74,6 +74,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public ProjectDTO findById(Long id) {
+        Optional<Project> existingProjectOptional = projectRepository.findById(id);
+        return existingProjectOptional.map(this::convertToDTO).orElse(null);
+    }
+
+    @Override
     public List<ProjectDTO> getAllProjects(Pageable pageable) {
         return projectRepository.findAll(pageable).getContent().stream()
                 .map(this::convertToDTO)
