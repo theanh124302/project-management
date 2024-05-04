@@ -21,6 +21,23 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @PostMapping("/create")
+    public ResponseEntity<ResponseTemplate<ProjectDTO>> createProject(@RequestBody ProjectDTO projectDTO) {
+        ProjectDTO createdProject = projectService.create(projectDTO);
+        if (createdProject != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.CREATED)
+                    .message("Project created successfully")
+                    .data(createdProject)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .message("Failed to create project")
+                    .build());
+        }
+    }
+
     @PostMapping("/update")
     public ResponseEntity<ResponseTemplate<ProjectDTO>> updateProject(@RequestBody ProjectDTO projectDTO) {
         ProjectDTO updatedProject = projectService.update(projectDTO);

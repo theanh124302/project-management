@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ProjectService {
+    ProjectDTO create(ProjectDTO projectDTO);
     ProjectDTO update(ProjectDTO projectDTO);
     ProjectDTO delete(ProjectDTO projectDTO);
     List<ProjectDTO> getAllProjects(Pageable pageable);

@@ -18,6 +18,25 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository projectRepository;
 
     @Override
+    public ProjectDTO create(ProjectDTO projectDTO) {
+        Project project = new Project();
+        project.setName(projectDTO.getName());
+        project.setDescription(projectDTO.getDescription());
+        project.setLeaderId(projectDTO.getLeaderId());
+        project.setCreationDate(projectDTO.getCreationDate());
+        project.setStatus(projectDTO.getStatus());
+        project.setStartDate(projectDTO.getStartDate());
+        project.setExpectedEndDate(projectDTO.getExpectedEndDate());
+        project.setNotes(projectDTO.getNotes());
+        project.setVersion(projectDTO.getVersion());
+        project.setPlatform(projectDTO.getPlatform());
+        project.setTags(projectDTO.getTags());
+        project.setCoverImage(projectDTO.getCoverImage());
+        project.setSourceCode(projectDTO.getSourceCode());
+        return convertToDTO(projectRepository.save(project));
+    }
+
+    @Override
     public ProjectDTO update(ProjectDTO projectDTO) {
         Optional<Project> existingProjectOptional = projectRepository.findById(projectDTO.getId());
         if (existingProjectOptional.isPresent()) {
