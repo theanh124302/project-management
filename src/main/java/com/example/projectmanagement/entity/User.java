@@ -18,9 +18,11 @@ public class User {
     private Long  id;
     @Column(nullable = false)
     private String name;
-    private String phoneNumber;
-    private String email;
     @Column(unique = true)
+    private String phoneNumber;
+    @Column(unique = true)
+    private String email;
+    @Column(unique = true, nullable = false)
     private String username;
     private String password;
     private Long age;

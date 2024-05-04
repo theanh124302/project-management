@@ -13,5 +13,9 @@ import org.springframework.http.HttpStatus;
 public class ResponseTemplate<T> {
     private HttpStatus status;
     private String message;
+    private Integer page;
+    private Integer size;
+    private Long totalItems;
+    private Integer totalPages;
     private T data;
 }

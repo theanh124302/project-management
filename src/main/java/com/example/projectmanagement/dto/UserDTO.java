@@ -1,5 +1,6 @@
 package com.example.projectmanagement.dto;
 
+import com.example.projectmanagement.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,5 +17,13 @@ public class UserDTO {
     private Long age;
     private String email;
     private String username;
-    private String password;
+
+    public UserDTO(User user){
+        this.id = user.getId();
+        this.name = user.getName();
+        this.phoneNumber = user.getPhoneNumber();
+        this.age = user.getAge();
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+    }
 }

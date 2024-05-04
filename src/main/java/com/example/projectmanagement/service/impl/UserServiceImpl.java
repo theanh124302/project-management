@@ -5,9 +5,10 @@ import com.example.projectmanagement.entity.User;
 import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,69 +18,81 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO update(UserDTO userDTO) {
-        // Check if the user exists
         User existingUser = userRepository.findById(userDTO.getId()).orElse(null);
         if (existingUser == null) {
-            // User does not exist, return null or throw an exception
             return null;
         }
-
-        // Update user fields
         existingUser.setUsername(userDTO.getUsername());
         existingUser.setEmail(userDTO.getEmail());
         existingUser.setAge(userDTO.getAge());
         existingUser.setName(userDTO.getName());
         existingUser.setPhoneNumber(userDTO.getPhoneNumber());
-
-        // Save and return updated user
         return convertToDTO(userRepository.save(existingUser));
     }
 
     @Override
     public UserDTO delete(UserDTO userDTO) {
-        // Check if the user exists
         User existingUser = userRepository.findById(userDTO.getId()).orElse(null);
         if (existingUser == null) {
-            // User does not exist, return null or throw an exception
             return null;
         }
-
-        // Delete the user
         userRepository.delete(existingUser);
-
-        // Return deleted user
         return convertToDTO(existingUser);
     }
 
     @Override
-    public List<UserDTO> findAll() {
-        return userRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .toList();
+    public List<UserDTO> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable).getContent().stream().map(this::convertToDTO).toList();
+    }
+
+    @Override
+    public List<UserDTO> findByName(String name, Pageable pageable) {
+        return userRepository.findByName(name, pageable).getContent().stream().map(this::convertToDTO).toList();
     }
 
     @Override
     public UserDTO findByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        User user = userOptional.orElse(null);
         if (user == null) {
-            // User not found
             return null;
         }
         return convertToDTO(user);
     }
 
     @Override
-    public List<UserDTO> findByEmail(String email) {
-        return userRepository.findByEmail(email).stream()
-                .map(this::convertToDTO)
-                .toList();
+    public UserDTO findByEmail(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        User user = userOptional.orElse(null);
+        if (user == null) {
+            return null;
+        }
+        return convertToDTO(user);
     }
 
     @Override
-    public List<UserDTO> findByName(String name) {
-        return userRepository.findByName(name).stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public UserDTO findByPhoneNumber(String phoneNumber) {
+        Optional<User> userOptional = userRepository.findByPhoneNumber(phoneNumber);
+        User user = userOptional.orElse(null);
+        if (user == null) {
+            return null;
+        }
+        return convertToDTO(user);
+    }
+
+    @Override
+    public UserDTO findByEmailOrUsername(String email, String username) {
+        Optional<User> userOptional = userRepository.findByEmailOrUsername(email, username);
+        User user = userOptional.orElse(null);
+        if (user == null) {
+            return null;
+        }
+        return convertToDTO(user);
+    }
+
+    @Override
+    public Long count() {
+        return userRepository.count();
     }
 
     private UserDTO convertToDTO(User user) {
