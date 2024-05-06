@@ -1,5 +1,6 @@
 package com.example.projectmanagement.entity;
 
+import com.example.projectmanagement.enums.LifeCycle;
 import com.example.projectmanagement.enums.Method;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,4 +28,5 @@ public class Api {
     private LocalDateTime createdAt;
     private String status;
     private Long executorID;
+    private LifeCycle lifeCycle;
 }
