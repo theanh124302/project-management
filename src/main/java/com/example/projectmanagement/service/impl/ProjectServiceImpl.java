@@ -2,12 +2,15 @@ package com.example.projectmanagement.service.impl;
 
 import com.example.projectmanagement.dto.ProjectDTO;
 import com.example.projectmanagement.entity.Project;
+import com.example.projectmanagement.entity.UserProject;
 import com.example.projectmanagement.repository.ProjectRepository;
+import com.example.projectmanagement.repository.UserProjectRepository;
 import com.example.projectmanagement.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private UserProjectRepository userProjectRepository;
 
     @Override
     public ProjectDTO create(ProjectDTO projectDTO) {
@@ -104,6 +110,17 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findByWorkspaceId(workspaceId, pageable).getContent().stream()
                 .map(this::convertToDTO)
                 .toList();
+    }
+
+    @Override
+    public List<ProjectDTO> findUserId(Long userId, Pageable pageable) {
+        List<UserProject> userProjects = userProjectRepository.findByUserId(userId);
+        List<ProjectDTO> projectDTOList = new ArrayList<>();
+        for (UserProject userProject : userProjects) {
+            Optional<Project> projectOptional = projectRepository.findById(userProject.getProjectId());
+            projectDTOList.add(projectOptional.map(this::convertToDTO).orElse(null));
+        }
+        return projectDTOList;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class UserProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int uid;
-    private int pid;
+    private Long userId;
+    private Long projectId;
     private ProjectRole role;
 }
