@@ -41,18 +41,15 @@ public class TaskServiceImpl implements TaskService {
             existingTask.setStartDate(taskDTO.getStartDate());
             existingTask.setEndDate(taskDTO.getEndDate());
             existingTask.setDueDate(taskDTO.getDueDate());
-            existingTask.setCompletionDate(taskDTO.getCompletionDate());
-            existingTask.setEstimatedTime(taskDTO.getEstimatedTime());
-            existingTask.setSpentTime(taskDTO.getSpentTime());
-            existingTask.setRemainingTime(taskDTO.getRemainingTime());
             existingTask.setProgress(taskDTO.getProgress());
             existingTask.setCreatedBy(taskDTO.getCreatedBy());
             existingTask.setCreatedAt(taskDTO.getCreatedAt());
             existingTask.setUpdatedAt(taskDTO.getUpdatedAt());
-            existingTask.setDeletedAt(taskDTO.getDeletedAt());
-            existingTask.setDeletedBy(taskDTO.getDeletedBy());
-            existingTask.setDeletedReason(taskDTO.getDeletedReason());
-            existingTask.setDeletedNote(taskDTO.getDeletedNote());
+            existingTask.setCanceledAt(taskDTO.getCanceledAt());
+            existingTask.setCanceledBy(taskDTO.getCanceledBy());
+            existingTask.setCanceledReason(taskDTO.getCanceledReason());
+            existingTask.setCanceledNote(taskDTO.getCanceledNote());
+
             return convertToDTO(taskRepository.save(existingTask));
         } else {
             return null;
@@ -81,35 +78,35 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDTO> getAllTasks(Pageable pageable) {
         return taskRepository.findAll(pageable).getContent().stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<TaskDTO> findByName(String name, Pageable pageable) {
         return taskRepository.findByName(name, pageable).getContent().stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<TaskDTO> findByProjectId(Long projectId, Pageable pageable) {
         return taskRepository.findByProjectId(projectId, pageable).getContent().stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<TaskDTO> findByExecutorId(Long executorId, Pageable pageable) {
         return taskRepository.findByExecutorId(executorId, pageable).getContent().stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<TaskDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable) {
         return taskRepository.findByProjectIdAndStatus(projectId, status, pageable).getContent().stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -120,6 +117,7 @@ public class TaskServiceImpl implements TaskService {
     private TaskDTO convertToDTO(Task task) {
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setId(task.getId());
+        taskDTO.setApiId(task.getApiId());
         taskDTO.setProjectId(task.getProjectId());
         taskDTO.setExecutorId(task.getExecutorId());
         taskDTO.setName(task.getName());
@@ -132,24 +130,22 @@ public class TaskServiceImpl implements TaskService {
         taskDTO.setStartDate(task.getStartDate());
         taskDTO.setEndDate(task.getEndDate());
         taskDTO.setDueDate(task.getDueDate());
-        taskDTO.setCompletionDate(task.getCompletionDate());
-        taskDTO.setEstimatedTime(task.getEstimatedTime());
-        taskDTO.setSpentTime(task.getSpentTime());
-        taskDTO.setRemainingTime(task.getRemainingTime());
         taskDTO.setProgress(task.getProgress());
         taskDTO.setCreatedBy(task.getCreatedBy());
         taskDTO.setCreatedAt(task.getCreatedAt());
         taskDTO.setUpdatedAt(task.getUpdatedAt());
-        taskDTO.setDeletedAt(task.getDeletedAt());
-        taskDTO.setDeletedBy(task.getDeletedBy());
-        taskDTO.setDeletedReason(task.getDeletedReason());
-        taskDTO.setDeletedNote(task.getDeletedNote());
+        taskDTO.setCanceledAt(task.getCanceledAt());
+        taskDTO.setCanceledBy(task.getCanceledBy());
+        taskDTO.setCanceledReason(task.getCanceledReason());
+        taskDTO.setCanceledNote(task.getCanceledNote());
+
         return taskDTO;
     }
 
     private Task convertToEntity(TaskDTO taskDTO) {
         Task task = new Task();
         task.setId(taskDTO.getId());
+        task.setApiId(taskDTO.getApiId());
         task.setProjectId(taskDTO.getProjectId());
         task.setExecutorId(taskDTO.getExecutorId());
         task.setName(taskDTO.getName());
@@ -162,18 +158,14 @@ public class TaskServiceImpl implements TaskService {
         task.setStartDate(taskDTO.getStartDate());
         task.setEndDate(taskDTO.getEndDate());
         task.setDueDate(taskDTO.getDueDate());
-        task.setCompletionDate(taskDTO.getCompletionDate());
-        task.setEstimatedTime(taskDTO.getEstimatedTime());
-        task.setSpentTime(taskDTO.getSpentTime());
-        task.setRemainingTime(taskDTO.getRemainingTime());
         task.setProgress(taskDTO.getProgress());
         task.setCreatedBy(taskDTO.getCreatedBy());
         task.setCreatedAt(taskDTO.getCreatedAt());
         task.setUpdatedAt(taskDTO.getUpdatedAt());
-        task.setDeletedAt(taskDTO.getDeletedAt());
-        task.setDeletedBy(taskDTO.getDeletedBy());
-        task.setDeletedReason(taskDTO.getDeletedReason());
-        task.setDeletedNote(taskDTO.getDeletedNote());
+        task.setCanceledAt(taskDTO.getCanceledAt());
+        task.setCanceledBy(taskDTO.getCanceledBy());
+        task.setCanceledReason(taskDTO.getCanceledReason());
+        task.setCanceledNote(taskDTO.getCanceledNote());
         return task;
     }
 }

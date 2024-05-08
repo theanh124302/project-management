@@ -13,6 +13,7 @@ public class TaskDTO {
     private Long id;
     private Long projectId;
     private Long executorId;
+    private Long apiId;
     private String name;
     private String description;
     private String status;
@@ -23,16 +24,12 @@ public class TaskDTO {
     private String startDate;
     private String endDate;
     private String dueDate;
-    private String completionDate;
-    private String estimatedTime;
-    private String spentTime;
-    private String remainingTime;
     private String progress;
     private String createdBy;
     private String createdAt;
     private String updatedAt;
-    private String deletedAt;
-    private String deletedBy;
-    private String deletedReason;
-    private String deletedNote;
+    private String canceledAt;
+    private String canceledBy;
+    private String canceledReason;
+    private String canceledNote;
 }

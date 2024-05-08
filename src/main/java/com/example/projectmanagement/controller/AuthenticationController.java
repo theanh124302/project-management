@@ -23,7 +23,6 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
     @PostMapping("/signup")
     public ResponseEntity<User> signUp(@RequestBody SignUpRequestDTO signUpRequestDTO){
-        System.out.println(signUpRequestDTO);
         return ResponseEntity.ok(authenticationService.signUp(signUpRequestDTO));
     }
 
