@@ -41,7 +41,6 @@ public class ProjectServiceImpl implements ProjectService {
         Optional<Project> existingProjectOptional = projectRepository.findById(projectDTO.getId());
         if (existingProjectOptional.isPresent()) {
             Project existingProject = existingProjectOptional.get();
-            // Cập nhật thông tin từ projectDTO vào existingProject
             existingProject.setName(projectDTO.getName());
             existingProject.setDescription(projectDTO.getDescription());
             existingProject.setLeaderId(projectDTO.getLeaderId());

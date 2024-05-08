@@ -19,7 +19,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDTO create(CommentDTO commentDTO) {
-        Comment comment = convertToEntity(commentDTO);
+        Comment comment = new Comment();
+        comment.setContent(commentDTO.getContent());
+        comment.setStatus(commentDTO.getStatus());
+        comment.setApiId(commentDTO.getApiId());
+        comment.setUserId(commentDTO.getUserId());
+        comment.setCreatedAt(commentDTO.getCreatedAt());
         return convertToDTO(commentRepository.save(comment));
     }
 
@@ -87,14 +92,14 @@ public class CommentServiceImpl implements CommentService {
         return commentDTO;
     }
 
-    private Comment convertToEntity(CommentDTO commentDTO) {
-        Comment comment = new Comment();
-        comment.setId(commentDTO.getId());
-        comment.setContent(commentDTO.getContent());
-        comment.setStatus(commentDTO.getStatus());
-        comment.setApiId(commentDTO.getApiId());
-        comment.setUserId(commentDTO.getUserId());
-        comment.setCreatedAt(commentDTO.getCreatedAt());
-        return comment;
-    }
+//    private Comment convertToEntity(CommentDTO commentDTO) {
+//        Comment comment = new Comment();
+//        comment.setId(commentDTO.getId());
+//        comment.setContent(commentDTO.getContent());
+//        comment.setStatus(commentDTO.getStatus());
+//        comment.setApiId(commentDTO.getApiId());
+//        comment.setUserId(commentDTO.getUserId());
+//        comment.setCreatedAt(commentDTO.getCreatedAt());
+//        return comment;
+//    }
 }

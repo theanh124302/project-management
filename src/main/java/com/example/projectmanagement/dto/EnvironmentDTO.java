@@ -1,6 +1,5 @@
-package com.example.projectmanagement.entity;
+package com.example.projectmanagement.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -8,11 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="enviroments")
-@Entity
-public class Environment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EnvironmentDTO {
     private Long id;
     private String name;
     private String description;

@@ -1,23 +1,33 @@
 package com.example.projectmanagement.dto;
 
 import com.example.projectmanagement.entity.Api;
+import com.example.projectmanagement.enums.LifeCycle;
+import com.example.projectmanagement.enums.Method;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiDTO {
+    private Long id;
     private Long projectId;
+    private Long folderId;
+    private Long environmentId;
     private String name;
     private String description;
-
-    public ApiDTO(Api api) {
-        this.projectId = api.getProjectId();
-        this.name = api.getName();
-        this.description = api.getDescription();
-    }
+    private String url;
+    private Method method;
+    private Long createdBy;
+    private LocalDateTime createdAt;
+    private String status;
+    private Long executorID;
+    private LifeCycle lifeCycle;
 }
