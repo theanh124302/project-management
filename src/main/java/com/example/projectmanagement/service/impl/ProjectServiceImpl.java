@@ -113,14 +113,10 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDTO> findUserId(Long userId, Pageable pageable) {
-        List<UserProject> userProjects = userProjectRepository.findByUserId(userId);
-        List<ProjectDTO> projectDTOList = new ArrayList<>();
-        for (UserProject userProject : userProjects) {
-            Optional<Project> projectOptional = projectRepository.findById(userProject.getProjectId());
-            projectDTOList.add(projectOptional.map(this::convertToDTO).orElse(null));
-        }
-        return projectDTOList;
+    public List<ProjectDTO> findByUserId(Long userId, Pageable pageable) {
+        return projectRepository.findByUserId(userId, pageable).getContent().stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 
     @Override
