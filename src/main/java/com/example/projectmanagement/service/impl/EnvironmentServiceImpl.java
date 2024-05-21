@@ -51,8 +51,8 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     }
 
     @Override
-    public EnvironmentDTO delete(EnvironmentDTO environmentDTO) {
-        Optional<Environment> existingEnvironmentOptional = environmentRepository.findById(environmentDTO.getId());
+    public EnvironmentDTO delete(Long id) {
+        Optional<Environment> existingEnvironmentOptional = environmentRepository.findById(id);
         if (existingEnvironmentOptional.isPresent()) {
             Environment existingEnvironment = existingEnvironmentOptional.get();
             environmentRepository.delete(existingEnvironment);

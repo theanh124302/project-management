@@ -167,11 +167,11 @@ public class ProjectController {
     }
 
     @GetMapping("/findByUserId")
-    public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> findProjectsByUserId(@RequestParam Long userId,
+    public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> findProjectsByUsername(@RequestParam String username,
                                                                                      @RequestParam(defaultValue = "0") int page,
                                                                                      @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        List<ProjectDTO> projects = projectService.findByUserId(userId, pageable);
+        List<ProjectDTO> projects = projectService.findByUsername(username, pageable);
         long totalItems = projectService.count();
         int totalPages = (int) Math.ceil((double) totalItems / size);
         return ResponseEntity.ok(ResponseTemplate.<List<ProjectDTO>>builder()
@@ -183,6 +183,25 @@ public class ProjectController {
                 .totalPages(totalPages)
                 .data(projects)
                 .build());
+    }
+
+    @PostMapping("/assignUser")
+    public ResponseEntity<ResponseTemplate<ProjectDTO>> assignUser(@RequestParam Long projectId,
+                                                                       @RequestParam Long userId,
+                                                                   @RequestParam String role) {
+        ProjectDTO project = projectService.assignUser(projectId, userId, role);
+        if (project != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("User assigned successfully")
+                    .data(project)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Project not found")
+                    .build());
+        }
     }
 }
 

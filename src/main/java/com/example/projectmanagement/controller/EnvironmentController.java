@@ -54,8 +54,8 @@ public class EnvironmentController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseTemplate<EnvironmentDTO>> deleteEnvironment(@RequestBody EnvironmentDTO environmentDTO) {
-        EnvironmentDTO deletedEnvironment = environmentService.delete(environmentDTO);
+    public ResponseEntity<ResponseTemplate<EnvironmentDTO>> deleteEnvironment(@RequestParam Long id) {
+        EnvironmentDTO deletedEnvironment = environmentService.delete(id);
         if (deletedEnvironment != null) {
             return ResponseEntity.ok(ResponseTemplate.<EnvironmentDTO>builder()
                     .status(HttpStatus.OK)

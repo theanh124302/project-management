@@ -3,8 +3,10 @@ package com.example.projectmanagement.service.impl;
 import com.example.projectmanagement.dto.ProjectDTO;
 import com.example.projectmanagement.entity.Project;
 import com.example.projectmanagement.entity.UserProject;
+import com.example.projectmanagement.enums.ProjectRole;
 import com.example.projectmanagement.repository.ProjectRepository;
 import com.example.projectmanagement.repository.UserProjectRepository;
+import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private UserProjectRepository userProjectRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public ProjectDTO create(ProjectDTO projectDTO) {
@@ -117,6 +121,31 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findByUserId(userId, pageable).getContent().stream()
                 .map(this::convertToDTO)
                 .toList();
+    }
+
+    @Override
+    public List<ProjectDTO> findByUsername(String username, Pageable pageable) {
+        Long userId = userRepository.findByUsername(username).orElseThrow().getId();
+        return projectRepository.findByUserId(userId, pageable).getContent().stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+
+    @Override
+    public ProjectDTO assignUser(Long projectId, Long userId, String role) {
+        Optional<Project> existingProjectOptional = projectRepository.findById(projectId);
+        if (existingProjectOptional.isPresent()) {
+            Project existingProject = existingProjectOptional.get();
+            UserProject userProject = new UserProject();
+            userProject.setProjectId(projectId);
+            userProject.setUserId(userId);
+            userProject.setRole(ProjectRole.valueOf(role));
+            userProjectRepository.save(userProject);
+            return convertToDTO(existingProject);
+        } else {
+            return null;
+        }
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 public interface EnvironmentService {
     EnvironmentDTO create(EnvironmentDTO environmentDTO);
     EnvironmentDTO update(EnvironmentDTO environmentDTO);
-    EnvironmentDTO delete(EnvironmentDTO environmentDTO);
+    EnvironmentDTO delete(Long id);
     EnvironmentDTO findById(Long id);
     List<EnvironmentDTO> findByProjectId(Long projectId, Pageable pageable);
     List<EnvironmentDTO> findByProjectIdAndCreatedBy(Long projectId, Long createdBy, Pageable pageable);
