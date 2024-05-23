@@ -166,7 +166,7 @@ public class ProjectController {
                 .build());
     }
 
-    @GetMapping("/findByUserId")
+    @GetMapping("/findByUsername")
     public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> findProjectsByUsername(@RequestParam String username,
                                                                                      @RequestParam(defaultValue = "0") int page,
                                                                                      @RequestParam(defaultValue = "10") int size) {
