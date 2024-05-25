@@ -2,6 +2,7 @@ package com.example.projectmanagement.controller;
 
 import com.example.projectmanagement.dto.ProjectDTO;
 import com.example.projectmanagement.entity.Project;
+import com.example.projectmanagement.enums.ProjectRole;
 import com.example.projectmanagement.service.ProjectService;
 import com.example.projectmanagement.template.ResponseTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class ProjectController {
     public ResponseEntity<ResponseTemplate<ProjectDTO>> createProject(@RequestBody ProjectDTO projectDTO) {
         ProjectDTO createdProject = projectService.create(projectDTO);
         if (createdProject != null) {
+            projectService.assignUser(createdProject.getId(), createdProject.getLeaderId(), "LEADER");
             return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
                     .status(HttpStatus.CREATED)
                     .message("Project created successfully")
@@ -39,35 +41,47 @@ public class ProjectController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<ResponseTemplate<ProjectDTO>> updateProject(@RequestBody ProjectDTO projectDTO) {
-        ProjectDTO updatedProject = projectService.update(projectDTO);
-        if (updatedProject != null) {
+    public ResponseEntity<ResponseTemplate<ProjectDTO>> updateProject(@RequestBody ProjectDTO projectDTO, @RequestParam Long userId) {
+        ProjectDTO project = projectService.findById(projectDTO.getId());
+        if (project == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Project not found")
+                    .build());
+        }else if (project.getLeaderId() != userId) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.FORBIDDEN)
+                    .message("You are not authorized to update this project")
+                    .build());
+        }else {
+            ProjectDTO updatedProject = projectService.update(projectDTO);
             return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
                     .status(HttpStatus.OK)
                     .message("Project updated successfully")
                     .data(updatedProject)
                     .build());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
-                    .status(HttpStatus.NOT_FOUND)
-                    .message("Project not found")
-                    .build());
         }
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseTemplate<ProjectDTO>> deleteProject(@RequestBody ProjectDTO projectDTO) {
-        ProjectDTO deletedProject = projectService.delete(projectDTO);
-        if (deletedProject != null) {
+    public ResponseEntity<ResponseTemplate<ProjectDTO>> deleteProject(@RequestParam Long id, @RequestParam Long userId) {
+        ProjectDTO project = projectService.findById(id);
+        if (project == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Project not found")
+                    .build());
+        }else if (project.getLeaderId() != userId) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.FORBIDDEN)
+                    .message("You are not authorized to delete this project")
+                    .build());
+        }else {
+            ProjectDTO deletedProject = projectService.delete(project);
             return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
                     .status(HttpStatus.OK)
                     .message("Project deleted successfully")
                     .data(deletedProject)
-                    .build());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
-                    .status(HttpStatus.NOT_FOUND)
-                    .message("Project not found")
                     .build());
         }
     }
