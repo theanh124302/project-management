@@ -2,6 +2,7 @@ package com.example.projectmanagement.service.impl;
 
 import com.example.projectmanagement.dto.TaskDTO;
 import com.example.projectmanagement.entity.Task;
+import com.example.projectmanagement.enums.TaskStatus;
 import com.example.projectmanagement.repository.TaskRepository;
 import com.example.projectmanagement.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +105,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable) {
-        return taskRepository.findByProjectIdAndStatus(projectId, status, pageable).getContent().stream()
+        return taskRepository.findByProjectIdAndStatus(projectId, TaskStatus.valueOf(status), pageable).getContent().stream()
                 .map(this::convertToDTO)
                 .toList();
     }

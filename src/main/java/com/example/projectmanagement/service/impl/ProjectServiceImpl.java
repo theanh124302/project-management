@@ -8,6 +8,7 @@ import com.example.projectmanagement.repository.ProjectRepository;
 import com.example.projectmanagement.repository.UserProjectRepository;
 import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.service.ProjectService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private UserProjectRepository userProjectRepository;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -132,14 +134,23 @@ public class ProjectServiceImpl implements ProjectService {
         Optional<Project> existingProjectOptional = projectRepository.findById(projectId);
         if (existingProjectOptional.isPresent()) {
             Project existingProject = existingProjectOptional.get();
-            UserProject userProject = new UserProject();
-            userProject.setProjectId(projectId);
-            userProject.setUserId(userId);
-            userProject.setRole(ProjectRole.valueOf(role));
-            userProjectRepository.save(userProject);
-            existingProject.setNumberOfMembers(existingProject.getNumberOfMembers() + 1);
-            projectRepository.save(existingProject);
-            return convertToDTO(existingProject);
+            UserProject userProject = userProjectRepository.findByUserIdAndProjectId(userId, projectId).orElse(null);
+            if (userProject != null) {
+                userProject.setProjectId(projectId);
+                userProject.setUserId(userId);
+                userProject.setRole(ProjectRole.valueOf(role));
+                userProjectRepository.save(userProject);
+                return convertToDTO(existingProject);
+            }else {
+                userProject = new UserProject();
+                userProject.setProjectId(projectId);
+                userProject.setUserId(userId);
+                userProject.setRole(ProjectRole.valueOf(role));
+                userProjectRepository.save(userProject);
+                existingProject.setNumberOfMembers(existingProject.getNumberOfMembers() + 1);
+                projectRepository.save(existingProject);
+                return convertToDTO(existingProject);
+            }
         } else {
             return null;
         }
@@ -152,17 +163,27 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO removeUser(Long projectId, Long userId) {
+    public ProjectDTO removeUser(Long projectId, Long userId, Long deleterId) {
         Optional<Project> existingProjectOptional = projectRepository.findById(projectId);
         if (existingProjectOptional.isPresent()) {
-            Project existingProject = existingProjectOptional.get();
-            userProjectRepository.deleteByUserIdAndProjectId(userId, projectId);
-            existingProject.setNumberOfMembers(existingProject.getNumberOfMembers() - 1);
-            projectRepository.save(existingProject);
-            return convertToDTO(existingProject);
+            if (existingProjectOptional.get().getLeaderId().equals(deleterId)&&!existingProjectOptional.get().getLeaderId().equals(userId)) {
+                Project existingProject = existingProjectOptional.get();
+                userProjectRepository.deleteById(userProjectRepository.findByUserIdAndProjectId(userId, projectId).orElseThrow().getId());
+                existingProject.setNumberOfMembers(existingProject.getNumberOfMembers() - 1);
+                projectRepository.save(existingProject);
+                return convertToDTO(existingProject);
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
+    }
+
+    @Override
+    public ProjectDTO removeUserByUserUsername(Long projectId, String username, Long deleterId) {
+        Long userId = userRepository.findByUsername(username).orElseThrow().getId();
+        return removeUser(projectId, userId, deleterId);
     }
 
     @Override

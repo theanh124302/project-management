@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 public class UserProjectDTO {
     private Long id;
-    private int userId;
-    private int projectId;
+    private Long userId;
+    private Long projectId;
     private ProjectRole role;
 }
