@@ -181,4 +181,72 @@ public class TaskController {
                 .data(tasks)
                 .build());
     }
+
+    @PostMapping("/assign")
+    public ResponseEntity<ResponseTemplate<TaskDTO>> assignTask(@RequestParam Long taskId, @RequestParam Long userId) {
+        TaskDTO assignedTask = taskService.assignTask(taskId, userId);
+        if (assignedTask != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Task assigned successfully")
+                    .data(assignedTask)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Task not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/assignByUsername")
+    public ResponseEntity<ResponseTemplate<TaskDTO>> assignTaskByUsername(@RequestParam Long taskId, @RequestParam String username) {
+        TaskDTO assignedTask = taskService.assignTaskByUsername(taskId, username);
+        if (assignedTask != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Task assigned successfully")
+                    .data(assignedTask)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Task not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/unassign")
+    public ResponseEntity<ResponseTemplate<TaskDTO>> unassignTask(@RequestParam Long taskId, @RequestParam Long userId) {
+        TaskDTO unassignedTask = taskService.unassignTask(taskId, userId);
+        if (unassignedTask != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Task unassigned successfully")
+                    .data(unassignedTask)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Task not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/unassignByUsername")
+    public ResponseEntity<ResponseTemplate<TaskDTO>> unassignTaskByUsername(@RequestParam Long taskId, @RequestParam String username) {
+        TaskDTO unassignedTask = taskService.unassignTaskByUsername(taskId, username);
+        if (unassignedTask != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Task unassigned successfully")
+                    .data(unassignedTask)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Task not found")
+                    .build());
+        }
+    }
 }

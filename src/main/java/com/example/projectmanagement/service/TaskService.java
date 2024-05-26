@@ -10,6 +10,10 @@ public interface TaskService {
     TaskDTO update(TaskDTO taskDTO);
     TaskDTO delete(TaskDTO taskDTO);
     TaskDTO findById(Long id);
+    TaskDTO assignTask(Long taskId, Long userId);
+    TaskDTO assignTaskByUsername(Long taskId, String username);
+    TaskDTO unassignTask(Long taskId, Long userId);
+    TaskDTO unassignTaskByUsername(Long taskId, String username);
     List<TaskDTO> getAllTasks(Pageable pageable);
     List<TaskDTO> findByName(String name, Pageable pageable);
     List<TaskDTO> findByProjectId(Long projectId, Pageable pageable);

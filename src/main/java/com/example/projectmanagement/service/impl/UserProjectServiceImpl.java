@@ -36,13 +36,6 @@ public class UserProjectServiceImpl implements UserProjectService {
     }
 
     @Override
-    public List<UserProjectDTO> findByProjectIdAndUserId(Long projectId, Long userId) {
-        return userProjectRepository.findByProjectIdAndUserId(projectId, userId).stream()
-                .map(this::convertToDTO)
-                .toList();
-    }
-
-    @Override
     public Long count() {
         return 0L;
     }
