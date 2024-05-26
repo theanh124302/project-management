@@ -27,4 +27,5 @@ public class ProjectDTO {
     private String tags;
     private String coverImage;
     private String sourceCode;
+    private Long numberOfMembers;
 }

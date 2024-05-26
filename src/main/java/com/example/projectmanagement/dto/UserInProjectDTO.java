@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserInProjectDTO {
     private Long id;
     private String name;
     private String phoneNumber;
@@ -18,14 +18,5 @@ public class UserDTO {
     private String email;
     private String username;
     private String avatar;
-
-    public UserDTO(User user){
-        this.id = user.getId();
-        this.name = user.getName();
-        this.phoneNumber = user.getPhoneNumber();
-        this.age = user.getAge();
-        this.email = user.getEmail();
-        this.username = user.getUsername();
-        this.avatar = user.getAvatar();
-    }
+    private String role;
 }

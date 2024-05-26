@@ -24,6 +24,7 @@ public class User {
     private String username;
     private String password;
     private Long age;
+    private String avatar;
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
 }

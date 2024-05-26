@@ -31,4 +31,5 @@ public class Project {
     private String tags;
     private String coverImage;
     private String sourceCode;
+    private Long numberOfMembers;
 }

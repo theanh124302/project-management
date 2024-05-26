@@ -1,7 +1,10 @@
 package com.example.projectmanagement.service.impl;
 
 import com.example.projectmanagement.dto.UserDTO;
+import com.example.projectmanagement.dto.UserInProjectDTO;
 import com.example.projectmanagement.entity.User;
+import com.example.projectmanagement.entity.UserProject;
+import com.example.projectmanagement.repository.UserProjectRepository;
 import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserProjectRepository userProjectRepository;
+
     @Override
     public UserDTO update(UserDTO userDTO) {
         User existingUser = userRepository.findById(userDTO.getId()).orElse(null);
@@ -27,6 +33,7 @@ public class UserServiceImpl implements UserService {
         existingUser.setAge(userDTO.getAge());
         existingUser.setName(userDTO.getName());
         existingUser.setPhoneNumber(userDTO.getPhoneNumber());
+        existingUser.setAvatar(userDTO.getAvatar());
         return convertToDTO(userRepository.save(existingUser));
     }
 
@@ -58,6 +65,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> findByName(String name, Pageable pageable) {
         return userRepository.findByName(name, pageable).getContent().stream().map(this::convertToDTO).toList();
+    }
+
+    @Override
+    public List<UserInProjectDTO> findByProjectId(Long projectId, Pageable pageable) {
+        List< UserProject > userProjects = userProjectRepository.findByProjectId(projectId);
+        return userProjects.stream().map(userProject -> {
+            User user = userRepository.findById(userProject.getUserId()).orElse(null);
+            if (user == null) {
+                return null;
+            }
+            else {
+                return new UserInProjectDTO(user.getId(), user.getName(), user.getPhoneNumber(), user.getAge(), user.getEmail(), user.getUsername(), user.getAvatar(), userProject.getRole().toString());
+            }
+        }).toList();
     }
 
     @Override
@@ -113,6 +134,7 @@ public class UserServiceImpl implements UserService {
         userDTO.setAge(user.getAge());
         userDTO.setName(user.getName());
         userDTO.setPhoneNumber(user.getPhoneNumber());
+        userDTO.setAvatar(user.getAvatar());
         return userDTO;
     }
 }

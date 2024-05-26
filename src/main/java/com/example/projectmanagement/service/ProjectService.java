@@ -14,9 +14,10 @@ public interface ProjectService {
     List<ProjectDTO> getAllProjects(Pageable pageable);
     List<ProjectDTO> findByName(String name, Pageable pageable);
     List<ProjectDTO> findByLeaderId(Long leaderId, Pageable pageable);
-    List<ProjectDTO> findByWorkspaceId(Long workspaceId, Pageable pageable);
     List<ProjectDTO> findByUserId(Long userId, Pageable pageable);
     List<ProjectDTO> findByUsername(String username, Pageable pageable);
     ProjectDTO assignUser(Long projectId, Long userId, String role);
+    ProjectDTO assignUserByUserUsername(Long projectId, String username, String role);
+    ProjectDTO removeUser(Long projectId, Long userId);
     Long count();
 }

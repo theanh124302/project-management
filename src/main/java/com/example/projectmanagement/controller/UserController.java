@@ -1,5 +1,6 @@
 package com.example.projectmanagement.controller;
 import com.example.projectmanagement.dto.UserDTO;
+import com.example.projectmanagement.dto.UserInProjectDTO;
 import com.example.projectmanagement.service.UserService;
 import com.example.projectmanagement.template.ResponseTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,5 +143,55 @@ public class UserController {
         }
     }
 
+    @GetMapping("/findByPhoneNumber/{phoneNumber}")
+    public ResponseEntity<ResponseTemplate<UserDTO>> getUsersByPhoneNumber(@PathVariable String phoneNumber) {
+        UserDTO user = userService.findByPhoneNumber(phoneNumber);
+        if (user != null) {
+            return ResponseEntity.ok(ResponseTemplate.<UserDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("User found successfully")
+                    .data(user)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<UserDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("User not found")
+                    .build());
+        }
+    }
 
+    @GetMapping("/findByEmailOrUsername/{email}/{username}")
+    public ResponseEntity<ResponseTemplate<UserDTO>> getUserByEmailOrUsername(@PathVariable String email, @PathVariable String username) {
+        UserDTO user = userService.findByEmailOrUsername(email, username);
+        if (user != null) {
+            return ResponseEntity.ok(ResponseTemplate.<UserDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("User found successfully")
+                    .data(user)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<UserDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("User not found")
+                    .build());
+        }
+    }
+
+    @GetMapping("/findByProjectId/{projectId}")
+    public ResponseEntity<ResponseTemplate<List<UserInProjectDTO>>> findUsersByProjectId(@PathVariable Long projectId, Pageable pageable) {
+        List<UserInProjectDTO> users = userService.findByProjectId(projectId, pageable);
+        int page = pageable.getPageNumber();
+        int size = pageable.getPageSize();
+        long totalItems = userService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        return ResponseEntity.ok(ResponseTemplate.<List<UserInProjectDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Users found successfully")
+                .page(page)
+                .size(size)
+                .totalItems(totalItems)
+                .totalPages(totalPages)
+                .data(users)
+                .build());
+    }
 }

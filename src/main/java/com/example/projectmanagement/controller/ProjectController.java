@@ -161,12 +161,12 @@ public class ProjectController {
                 .build());
     }
 
-    @GetMapping("/findByWorkspaceId")
-    public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> findProjectsByWorkspaceId(@RequestParam Long workspaceId,
+    @GetMapping("/findByUsername")
+    public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> findProjectsByUsername(@RequestParam String username,
                                                                                      @RequestParam(defaultValue = "0") int page,
                                                                                      @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        List<ProjectDTO> projects = projectService.findByWorkspaceId(workspaceId, pageable);
+        List<ProjectDTO> projects = projectService.findByUsername(username, pageable);
         long totalItems = projectService.count();
         int totalPages = (int) Math.ceil((double) totalItems / size);
         return ResponseEntity.ok(ResponseTemplate.<List<ProjectDTO>>builder()
@@ -180,12 +180,12 @@ public class ProjectController {
                 .build());
     }
 
-    @GetMapping("/findByUsername")
-    public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> findProjectsByUsername(@RequestParam String username,
+    @GetMapping("/findByUserId")
+    public ResponseEntity<ResponseTemplate<List<ProjectDTO>>> findProjectsByUserId(@RequestParam Long userId,
                                                                                      @RequestParam(defaultValue = "0") int page,
                                                                                      @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        List<ProjectDTO> projects = projectService.findByUsername(username, pageable);
+        List<ProjectDTO> projects = projectService.findByUserId(userId, pageable);
         long totalItems = projectService.count();
         int totalPages = (int) Math.ceil((double) totalItems / size);
         return ResponseEntity.ok(ResponseTemplate.<List<ProjectDTO>>builder()
@@ -208,6 +208,43 @@ public class ProjectController {
             return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
                     .status(HttpStatus.OK)
                     .message("User assigned successfully")
+                    .data(project)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Project not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/assignUserByUsername")
+    public ResponseEntity<ResponseTemplate<ProjectDTO>> assignUserByUsername(@RequestParam Long projectId,
+                                                                       @RequestParam String username,
+                                                                   @RequestParam String role) {
+        ProjectDTO project = projectService.assignUserByUserUsername(projectId, username, role);
+        if (project != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("User assigned successfully")
+                    .data(project)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Project not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/removeUser")
+    public ResponseEntity<ResponseTemplate<ProjectDTO>> removeUser(@RequestParam Long projectId,
+                                                                   @RequestParam Long userId) {
+        ProjectDTO project = projectService.removeUser(projectId, userId);
+        if (project != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("User removed successfully")
                     .data(project)
                     .build());
         } else {

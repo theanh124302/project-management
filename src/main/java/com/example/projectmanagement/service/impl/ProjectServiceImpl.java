@@ -43,6 +43,7 @@ public class ProjectServiceImpl implements ProjectService {
         project.setTags(projectDTO.getTags());
         project.setCoverImage(projectDTO.getCoverImage());
         project.setSourceCode(projectDTO.getSourceCode());
+        project.setNumberOfMembers(0L);
         return convertToDTO(projectRepository.save(project));
     }
 
@@ -64,6 +65,7 @@ public class ProjectServiceImpl implements ProjectService {
             existingProject.setTags(projectDTO.getTags());
             existingProject.setCoverImage(projectDTO.getCoverImage());
             existingProject.setSourceCode(projectDTO.getSourceCode());
+            existingProject.setNumberOfMembers(projectDTO.getNumberOfMembers());
             return convertToDTO(projectRepository.save(existingProject));
         } else {
             return null;
@@ -110,13 +112,6 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDTO> findByWorkspaceId(Long workspaceId, Pageable pageable) {
-        return projectRepository.findByWorkspaceId(workspaceId, pageable).getContent().stream()
-                .map(this::convertToDTO)
-                .toList();
-    }
-
-    @Override
     public List<ProjectDTO> findByUserId(Long userId, Pageable pageable) {
         return projectRepository.findByUserId(userId, pageable).getContent().stream()
                 .map(this::convertToDTO)
@@ -142,6 +137,28 @@ public class ProjectServiceImpl implements ProjectService {
             userProject.setUserId(userId);
             userProject.setRole(ProjectRole.valueOf(role));
             userProjectRepository.save(userProject);
+            existingProject.setNumberOfMembers(existingProject.getNumberOfMembers() + 1);
+            projectRepository.save(existingProject);
+            return convertToDTO(existingProject);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ProjectDTO assignUserByUserUsername(Long projectId, String username, String role) {
+        Long userId = userRepository.findByUsername(username).orElseThrow().getId();
+        return assignUser(projectId, userId, role);
+    }
+
+    @Override
+    public ProjectDTO removeUser(Long projectId, Long userId) {
+        Optional<Project> existingProjectOptional = projectRepository.findById(projectId);
+        if (existingProjectOptional.isPresent()) {
+            Project existingProject = existingProjectOptional.get();
+            userProjectRepository.deleteByUserIdAndProjectId(userId, projectId);
+            existingProject.setNumberOfMembers(existingProject.getNumberOfMembers() - 1);
+            projectRepository.save(existingProject);
             return convertToDTO(existingProject);
         } else {
             return null;
@@ -169,6 +186,7 @@ public class ProjectServiceImpl implements ProjectService {
         projectDTO.setTags(project.getTags());
         projectDTO.setCoverImage(project.getCoverImage());
         projectDTO.setSourceCode(project.getSourceCode());
+        projectDTO.setNumberOfMembers(project.getNumberOfMembers());
         return projectDTO;
 
     }
