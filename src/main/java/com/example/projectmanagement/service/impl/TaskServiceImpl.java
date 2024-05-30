@@ -5,6 +5,7 @@ import com.example.projectmanagement.entity.Task;
 import com.example.projectmanagement.entity.User;
 import com.example.projectmanagement.entity.UserTask;
 import com.example.projectmanagement.enums.TaskStatus;
+import com.example.projectmanagement.repository.ProjectRepository;
 import com.example.projectmanagement.repository.TaskRepository;
 import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.repository.UserTaskRepository;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -28,6 +28,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private UserTaskRepository userTaskRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Override
     public TaskDTO create(TaskDTO taskDTO) {
@@ -86,21 +88,23 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDTO assignTask(Long taskId, Long userId) {
+    public TaskDTO assignTask(Long taskId, Long userId, Long assignerId) {
         Optional<Task> existingTaskOptional = taskRepository.findById(taskId);
         Optional<User> existingUserOptional = userRepository.findById(userId);
         if (existingTaskOptional.isPresent() && existingUserOptional.isPresent()) {
-            System.out.println("taskId: " + taskId + ", userId: " + userId);
-            Optional<UserTask> userTask = userTaskRepository.findByUserIdAndTaskId(taskId, userId);
-            if (userTask.isEmpty()) {
-                UserTask newUserTask = new UserTask();
-                newUserTask.setUserId(userId);
-                newUserTask.setTaskId(taskId);
-                userTaskRepository.save(newUserTask);
-            } else {
-                userTask.get().setUserId(userId);
-                userTaskRepository.save(userTask.get());
-                userTaskRepository.save(userTask.get());
+            if(assignerId.equals(projectRepository.findById(existingTaskOptional.get().getProjectId()).orElseThrow().getLeaderId())) {
+                UserTask userTask = userTaskRepository.findByUserIdAndTaskId(userId, taskId).orElse(null);
+                if(userTask != null) {
+                    userTask.setId(userTask.getId());
+                    userTask.setUserId(userId);
+                    userTask.setTaskId(taskId);
+                    userTaskRepository.save(userTask);
+                } else {
+                    UserTask newUserTask = new UserTask();
+                    newUserTask.setUserId(userId);
+                    newUserTask.setTaskId(taskId);
+                    userTaskRepository.save(newUserTask);
+                }
             }
             return convertToDTO(existingTaskOptional.get());
         } else {
@@ -109,18 +113,25 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDTO assignTaskByUsername(Long taskId, String username) {
+    public TaskDTO assignTaskByUsername(Long taskId, String username, Long assignerId) {
         Optional<User> existingUserOptional = userRepository.findByUsername(username);
-        return existingUserOptional.map(user -> assignTask(taskId, user.getId())).orElse(null);
+        return assignTask(taskId, existingUserOptional.orElseThrow().getId(), assignerId);
     }
 
     @Override
-    public TaskDTO unassignTask(Long taskId, Long userId) {
+    public TaskDTO unassignTask(Long taskId, Long userId, Long unAssignerId) {
         Optional<Task> existingTaskOptional = taskRepository.findById(taskId);
         Optional<User> existingUserOptional = userRepository.findById(userId);
         if (existingTaskOptional.isPresent() && existingUserOptional.isPresent()) {
-            Optional<UserTask> userTask = userTaskRepository.findByUserIdAndTaskId(taskId, userId);
-            userTask.ifPresent(task -> userTaskRepository.deleteById(task.getId()));
+            if(unAssignerId.equals(projectRepository.findById(existingTaskOptional.get().getProjectId()).orElseThrow().getLeaderId())) {
+                UserTask userTask = userTaskRepository.findByUserIdAndTaskId(userId, taskId).orElse(null);
+                System.out.println("_________________________");
+                System.out.println(taskId);
+                System.out.println(userId);
+                System.out.println(userTask.getId());
+                System.out.println("_________________________");
+                userTaskRepository.deleteById(userTask.getId());
+            }
             return convertToDTO(existingTaskOptional.get());
         } else {
             return null;
@@ -128,9 +139,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDTO unassignTaskByUsername(Long taskId, String username) {
+    public TaskDTO unassignTaskByUsername(Long taskId, String username, Long unAssignerId) {
         Optional<User> existingUserOptional = userRepository.findByUsername(username);
-        return existingUserOptional.map(user -> unassignTask(taskId, user.getId())).orElse(null);
+        return unassignTask(taskId, existingUserOptional.orElseThrow().getId(), unAssignerId);
     }
 
     @Override

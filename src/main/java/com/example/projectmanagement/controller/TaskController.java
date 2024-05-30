@@ -183,8 +183,8 @@ public class TaskController {
     }
 
     @PostMapping("/assign")
-    public ResponseEntity<ResponseTemplate<TaskDTO>> assignTask(@RequestParam Long taskId, @RequestParam Long userId) {
-        TaskDTO assignedTask = taskService.assignTask(taskId, userId);
+    public ResponseEntity<ResponseTemplate<TaskDTO>> assignTask(@RequestParam Long taskId, @RequestParam Long userId, @RequestParam Long assignerId) {
+        TaskDTO assignedTask = taskService.assignTask(taskId, userId, assignerId);
         if (assignedTask != null) {
             return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
                     .status(HttpStatus.OK)
@@ -200,8 +200,8 @@ public class TaskController {
     }
 
     @PostMapping("/assignByUsername")
-    public ResponseEntity<ResponseTemplate<TaskDTO>> assignTaskByUsername(@RequestParam Long taskId, @RequestParam String username) {
-        TaskDTO assignedTask = taskService.assignTaskByUsername(taskId, username);
+    public ResponseEntity<ResponseTemplate<TaskDTO>> assignTaskByUsername(@RequestParam Long taskId, @RequestParam String username, @RequestParam Long assignerId) {
+        TaskDTO assignedTask = taskService.assignTaskByUsername(taskId, username, assignerId);
         if (assignedTask != null) {
             return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
                     .status(HttpStatus.OK)
@@ -217,8 +217,8 @@ public class TaskController {
     }
 
     @PostMapping("/unassign")
-    public ResponseEntity<ResponseTemplate<TaskDTO>> unassignTask(@RequestParam Long taskId, @RequestParam Long userId) {
-        TaskDTO unassignedTask = taskService.unassignTask(taskId, userId);
+    public ResponseEntity<ResponseTemplate<TaskDTO>> unassignTask(@RequestParam Long taskId, @RequestParam Long userId, @RequestParam Long unAssignerId) {
+        TaskDTO unassignedTask = taskService.unassignTask(taskId, userId, unAssignerId);
         if (unassignedTask != null) {
             return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
                     .status(HttpStatus.OK)
@@ -234,8 +234,8 @@ public class TaskController {
     }
 
     @PostMapping("/unassignByUsername")
-    public ResponseEntity<ResponseTemplate<TaskDTO>> unassignTaskByUsername(@RequestParam Long taskId, @RequestParam String username) {
-        TaskDTO unassignedTask = taskService.unassignTaskByUsername(taskId, username);
+    public ResponseEntity<ResponseTemplate<TaskDTO>> unassignTaskByUsername(@RequestParam Long taskId, @RequestParam String username, @RequestParam Long unAssignerId) {
+        TaskDTO unassignedTask = taskService.unassignTaskByUsername(taskId, username, unAssignerId);
         if (unassignedTask != null) {
             return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
                     .status(HttpStatus.OK)
