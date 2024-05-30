@@ -4,8 +4,10 @@ import com.example.projectmanagement.dto.UserDTO;
 import com.example.projectmanagement.dto.UserInProjectDTO;
 import com.example.projectmanagement.entity.User;
 import com.example.projectmanagement.entity.UserProject;
+import com.example.projectmanagement.entity.UserTask;
 import com.example.projectmanagement.repository.UserProjectRepository;
 import com.example.projectmanagement.repository.UserRepository;
+import com.example.projectmanagement.repository.UserTaskRepository;
 import com.example.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserProjectRepository userProjectRepository;
+
+    @Autowired
+    private UserTaskRepository userTaskRepository;
 
     @Override
     public UserDTO update(UserDTO userDTO) {
@@ -80,6 +85,21 @@ public class UserServiceImpl implements UserService {
             }
         }).toList();
     }
+
+    @Override
+    public List<UserDTO> findByTaskId(Long taskId, Pageable pageable) {
+        List<UserTask> userTasks = userTaskRepository.findByTaskId(taskId);
+        return userTasks.stream().map(userTask -> {
+            User user = userRepository.findById(userTask.getUserId()).orElse(null);
+            if (user == null) {
+                return null;
+            }
+            else {
+                return convertToDTO(user);
+            }
+        }).toList();
+    }
+
 
     @Override
     public UserDTO findByUsername(String username) {

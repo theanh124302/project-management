@@ -194,4 +194,24 @@ public class UserController {
                 .data(users)
                 .build());
     }
+
+    @GetMapping("/findByTaskId/{taskId}")
+    public ResponseEntity<ResponseTemplate<List<UserDTO>>> findUsersByTaskId(@PathVariable Long taskId, Pageable pageable) {
+        List<UserDTO> users = userService.findByTaskId(taskId, pageable);
+        int page = pageable.getPageNumber();
+        int size = pageable.getPageSize();
+        long totalItems = userService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        return ResponseEntity.ok(ResponseTemplate.<List<UserDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Users found successfully")
+                .page(page)
+                .size(size)
+                .totalItems(totalItems)
+                .totalPages(totalPages)
+                .data(users)
+                .build());
+    }
+
+
 }

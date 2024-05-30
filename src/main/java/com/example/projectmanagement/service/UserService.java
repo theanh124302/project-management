@@ -17,6 +17,7 @@ public interface UserService {
     List<UserDTO> getAllUsers(Pageable pageable);
     List<UserDTO> findByName(String name, Pageable pageable);
     List<UserInProjectDTO> findByProjectId(Long projectId, Pageable pageable);
+    List<UserDTO> findByTaskId(Long taskId, Pageable pageable);
     UserDTO findByUsername(String username);
     UserDTO findByEmail(String email);
     UserDTO findByPhoneNumber(String phoneNumber);
