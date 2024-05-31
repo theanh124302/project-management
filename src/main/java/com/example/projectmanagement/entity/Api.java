@@ -20,7 +20,6 @@ public class Api {
     private Long id;
     private Long projectId;
     private Long folderId;
-    private Long environmentId;
     private String name;
     private String description;
     private String url;

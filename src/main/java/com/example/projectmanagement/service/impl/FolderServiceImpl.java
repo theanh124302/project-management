@@ -21,11 +21,7 @@ public class FolderServiceImpl implements FolderService {
     public FolderDTO create(FolderDTO folderDTO) {
         Folder folder = new Folder();
         folder.setName(folderDTO.getName());
-        folder.setDescription(folderDTO.getDescription());
-        folder.setStatus(folderDTO.getStatus());
-        folder.setNotes(folderDTO.getNotes());
         folder.setProjectId(folderDTO.getProjectId());
-        folder.setParentId(folderDTO.getParentId());
         return convertToDTO(folderRepository.save(folder));
     }
 
@@ -35,11 +31,7 @@ public class FolderServiceImpl implements FolderService {
         if (existingFolderOptional.isPresent()) {
             Folder existingFolder = existingFolderOptional.get();
             existingFolder.setName(folderDTO.getName());
-            existingFolder.setDescription(folderDTO.getDescription());
-            existingFolder.setStatus(folderDTO.getStatus());
-            existingFolder.setNotes(folderDTO.getNotes());
             existingFolder.setProjectId(folderDTO.getProjectId());
-            existingFolder.setParentId(folderDTO.getParentId());
             return convertToDTO(folderRepository.save(existingFolder));
         } else {
             return null;
@@ -47,8 +39,8 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public FolderDTO delete(FolderDTO folderDTO) {
-        Optional<Folder> existingFolderOptional = folderRepository.findById(folderDTO.getId());
+    public FolderDTO delete(Long id) {
+        Optional<Folder> existingFolderOptional = folderRepository.findById(id);
         if (existingFolderOptional.isPresent()) {
             Folder existingFolder = existingFolderOptional.get();
             folderRepository.delete(existingFolder);
@@ -78,12 +70,12 @@ public class FolderServiceImpl implements FolderService {
                 .toList();
     }
 
-    @Override
-    public List<FolderDTO> findByParentId(Long parentId, Pageable pageable) {
-        return folderRepository.findByParentId(parentId, pageable).getContent().stream()
-                .map(this::convertToDTO)
-                .toList();
-    }
+//    @Override
+//    public List<FolderDTO> findByParentId(Long parentId, Pageable pageable) {
+//        return folderRepository.findByParentId(parentId, pageable).getContent().stream()
+//                .map(this::convertToDTO)
+//                .toList();
+//    }
 
     @Override
     public List<FolderDTO> findByProjectId(Long projectId, Pageable pageable) {
@@ -101,11 +93,7 @@ public class FolderServiceImpl implements FolderService {
         FolderDTO folderDTO = new FolderDTO();
         folderDTO.setId(folder.getId());
         folderDTO.setName(folder.getName());
-        folderDTO.setDescription(folder.getDescription());
-        folderDTO.setStatus(folder.getStatus());
-        folderDTO.setNotes(folder.getNotes());
         folderDTO.setProjectId(folder.getProjectId());
-        folderDTO.setParentId(folder.getParentId());
         return folderDTO;
     }
 }

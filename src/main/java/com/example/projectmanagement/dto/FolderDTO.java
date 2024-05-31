@@ -10,9 +10,5 @@ import lombok.*;
 public class FolderDTO {
     private Long id;
     private String name;
-    private String description;
-    private String status;
-    private String notes;
     private Long projectId;
-    private Long parentId;
 }

@@ -33,7 +33,6 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setDescription(apiDTO.getDescription());
             existingApi.setProjectId(apiDTO.getProjectId());
             existingApi.setFolderId(apiDTO.getFolderId());
-            existingApi.setEnvironmentId(apiDTO.getEnvironmentId());
             existingApi.setUrl(apiDTO.getUrl());
             existingApi.setMethod(apiDTO.getMethod());
             existingApi.setCreatedBy(apiDTO.getCreatedBy());
@@ -124,7 +123,6 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setId(api.getId());
         apiDTO.setProjectId(api.getProjectId());
         apiDTO.setFolderId(api.getFolderId());
-        apiDTO.setEnvironmentId(api.getEnvironmentId());
         apiDTO.setName(api.getName());
         apiDTO.setDescription(api.getDescription());
         apiDTO.setUrl(api.getUrl());
@@ -142,7 +140,6 @@ public class ApiServiceImpl implements ApiService {
         api.setId(apiDTO.getId());
         api.setProjectId(apiDTO.getProjectId());
         api.setFolderId(apiDTO.getFolderId());
-        api.setEnvironmentId(apiDTO.getEnvironmentId());
         api.setName(apiDTO.getName());
         api.setDescription(apiDTO.getDescription());
         api.setUrl(apiDTO.getUrl());

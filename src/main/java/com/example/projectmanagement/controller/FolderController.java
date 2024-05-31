@@ -54,8 +54,8 @@ public class FolderController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseTemplate<FolderDTO>> deleteFolder(@RequestBody FolderDTO folderDTO) {
-        FolderDTO deletedFolder = folderService.delete(folderDTO);
+    public ResponseEntity<ResponseTemplate<FolderDTO>> deleteFolder(@RequestParam Long id) {
+        FolderDTO deletedFolder = folderService.delete(id);
         if (deletedFolder != null) {
             return ResponseEntity.ok(ResponseTemplate.<FolderDTO>builder()
                     .status(HttpStatus.OK)
@@ -113,25 +113,6 @@ public class FolderController {
                                                                                @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<FolderDTO> folders = folderService.findByName(name, pageable);
-        long totalItems = folderService.count();
-        int totalPages = (int) Math.ceil((double) totalItems / size);
-        return ResponseEntity.ok(ResponseTemplate.<List<FolderDTO>>builder()
-                .status(HttpStatus.OK)
-                .message("Folders found successfully")
-                .page(page)
-                .size(size)
-                .totalItems(totalItems)
-                .totalPages(totalPages)
-                .data(folders)
-                .build());
-    }
-
-    @GetMapping("/findByParentId")
-    public ResponseEntity<ResponseTemplate<List<FolderDTO>>> findFoldersByParentId(@RequestParam Long parentId,
-                                                                                   @RequestParam(defaultValue = "0") int page,
-                                                                                   @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        List<FolderDTO> folders = folderService.findByParentId(parentId, pageable);
         long totalItems = folderService.count();
         int totalPages = (int) Math.ceil((double) totalItems / size);
         return ResponseEntity.ok(ResponseTemplate.<List<FolderDTO>>builder()

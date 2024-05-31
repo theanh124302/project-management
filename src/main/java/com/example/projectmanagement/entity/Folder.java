@@ -16,9 +16,9 @@ public class Folder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String description;
-    private String status;
-    private String notes;
     private Long projectId;
-    private Long parentId;
+//    private String description;
+//    private String status;
+//    private String notes;
+//    private Long parentId;
 }
