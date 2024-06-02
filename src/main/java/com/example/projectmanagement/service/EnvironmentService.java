@@ -11,7 +11,6 @@ public interface EnvironmentService {
     EnvironmentDTO delete(Long id);
     EnvironmentDTO findById(Long id);
     List<EnvironmentDTO> findByProjectId(Long projectId, Pageable pageable);
-    List<EnvironmentDTO> findByProjectIdAndCreatedBy(Long projectId, Long createdBy, Pageable pageable);
     List<EnvironmentDTO> findByName(String name, Pageable pageable);
     List<EnvironmentDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable);
     Long count();

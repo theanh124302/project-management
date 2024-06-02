@@ -26,8 +26,6 @@ public class Api {
     @Enumerated(EnumType.STRING)
     private Method method;
     private Long createdBy;
-    private LocalDateTime createdAt;
     private String status;
-    private Long executorID;
     private LifeCycle lifeCycle;
 }

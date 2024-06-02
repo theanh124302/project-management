@@ -43,26 +43,15 @@ public class TaskServiceImpl implements TaskService {
         if (existingTaskOptional.isPresent()) {
             Task existingTask = existingTaskOptional.get();
             existingTask.setProjectId(taskDTO.getProjectId());
-            existingTask.setExecutorId(taskDTO.getExecutorId());
             existingTask.setName(taskDTO.getName());
             existingTask.setDescription(taskDTO.getDescription());
             existingTask.setStatus(taskDTO.getStatus());
             existingTask.setPriority(taskDTO.getPriority());
             existingTask.setType(taskDTO.getType());
-            existingTask.setTags(taskDTO.getTags());
-            existingTask.setNotes(taskDTO.getNotes());
             existingTask.setStartDate(taskDTO.getStartDate());
             existingTask.setEndDate(taskDTO.getEndDate());
             existingTask.setDueDate(taskDTO.getDueDate());
-            existingTask.setProgress(taskDTO.getProgress());
             existingTask.setCreatedBy(taskDTO.getCreatedBy());
-            existingTask.setCreatedAt(taskDTO.getCreatedAt());
-            existingTask.setUpdatedAt(taskDTO.getUpdatedAt());
-            existingTask.setCanceledAt(taskDTO.getCanceledAt());
-            existingTask.setCanceledBy(taskDTO.getCanceledBy());
-            existingTask.setCanceledReason(taskDTO.getCanceledReason());
-            existingTask.setCanceledNote(taskDTO.getCanceledNote());
-
             return convertToDTO(taskRepository.save(existingTask));
         } else {
             return null;
@@ -166,13 +155,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDTO> findByExecutorId(Long executorId, Pageable pageable) {
-        return taskRepository.findByExecutorId(executorId, pageable).getContent().stream()
-                .map(this::convertToDTO)
-                .toList();
-    }
-
-    @Override
     public List<TaskDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable) {
         return taskRepository.findByProjectIdAndStatus(projectId, TaskStatus.valueOf(status), pageable).getContent().stream()
                 .map(this::convertToDTO)
@@ -189,25 +171,15 @@ public class TaskServiceImpl implements TaskService {
         taskDTO.setId(task.getId());
         taskDTO.setApiId(task.getApiId());
         taskDTO.setProjectId(task.getProjectId());
-        taskDTO.setExecutorId(task.getExecutorId());
         taskDTO.setName(task.getName());
         taskDTO.setDescription(task.getDescription());
         taskDTO.setStatus(task.getStatus());
         taskDTO.setPriority(task.getPriority());
         taskDTO.setType(task.getType());
-        taskDTO.setTags(task.getTags());
-        taskDTO.setNotes(task.getNotes());
         taskDTO.setStartDate(task.getStartDate());
         taskDTO.setEndDate(task.getEndDate());
         taskDTO.setDueDate(task.getDueDate());
-        taskDTO.setProgress(task.getProgress());
         taskDTO.setCreatedBy(task.getCreatedBy());
-        taskDTO.setCreatedAt(task.getCreatedAt());
-        taskDTO.setUpdatedAt(task.getUpdatedAt());
-        taskDTO.setCanceledAt(task.getCanceledAt());
-        taskDTO.setCanceledBy(task.getCanceledBy());
-        taskDTO.setCanceledReason(task.getCanceledReason());
-        taskDTO.setCanceledNote(task.getCanceledNote());
 
         return taskDTO;
     }
@@ -217,25 +189,15 @@ public class TaskServiceImpl implements TaskService {
         task.setId(taskDTO.getId());
         task.setApiId(taskDTO.getApiId());
         task.setProjectId(taskDTO.getProjectId());
-        task.setExecutorId(taskDTO.getExecutorId());
         task.setName(taskDTO.getName());
         task.setDescription(taskDTO.getDescription());
         task.setStatus(taskDTO.getStatus());
         task.setPriority(taskDTO.getPriority());
         task.setType(taskDTO.getType());
-        task.setTags(taskDTO.getTags());
-        task.setNotes(taskDTO.getNotes());
         task.setStartDate(taskDTO.getStartDate());
         task.setEndDate(taskDTO.getEndDate());
         task.setDueDate(taskDTO.getDueDate());
-        task.setProgress(taskDTO.getProgress());
         task.setCreatedBy(taskDTO.getCreatedBy());
-        task.setCreatedAt(taskDTO.getCreatedAt());
-        task.setUpdatedAt(taskDTO.getUpdatedAt());
-        task.setCanceledAt(taskDTO.getCanceledAt());
-        task.setCanceledBy(taskDTO.getCanceledBy());
-        task.setCanceledReason(taskDTO.getCanceledReason());
-        task.setCanceledNote(taskDTO.getCanceledNote());
         return task;
     }
 }

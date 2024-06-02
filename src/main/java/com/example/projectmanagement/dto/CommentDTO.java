@@ -15,6 +15,4 @@ public class CommentDTO {
     private String status;
     private Long apiId;
     private Long userId;
-    private Timestamp createdAt;
-
 }

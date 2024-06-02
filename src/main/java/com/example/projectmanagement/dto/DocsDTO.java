@@ -1,6 +1,8 @@
-package com.example.projectmanagement.entity;
+package com.example.projectmanagement.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Data
@@ -8,14 +10,11 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="params")
-@Entity
-public class Param {
+public class DocsDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String value;
     private String description;
+    private String url;
     private Long apiId;
 }

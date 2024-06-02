@@ -21,10 +21,8 @@ public class CommentServiceImpl implements CommentService {
     public CommentDTO create(CommentDTO commentDTO) {
         Comment comment = new Comment();
         comment.setContent(commentDTO.getContent());
-        comment.setStatus(commentDTO.getStatus());
         comment.setApiId(commentDTO.getApiId());
         comment.setUserId(commentDTO.getUserId());
-        comment.setCreatedAt(commentDTO.getCreatedAt());
         return convertToDTO(commentRepository.save(comment));
     }
 
@@ -34,8 +32,6 @@ public class CommentServiceImpl implements CommentService {
         if (existingCommentOptional.isPresent()) {
             Comment existingComment = existingCommentOptional.get();
             existingComment.setContent(commentDTO.getContent());
-            existingComment.setStatus(commentDTO.getStatus());
-            // Update other fields if needed
             return convertToDTO(commentRepository.save(existingComment));
         } else {
             return null; // Handle the case where the comment doesn't exist
@@ -85,10 +81,8 @@ public class CommentServiceImpl implements CommentService {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setId(comment.getId());
         commentDTO.setContent(comment.getContent());
-        commentDTO.setStatus(comment.getStatus());
         commentDTO.setApiId(comment.getApiId());
         commentDTO.setUserId(comment.getUserId());
-        commentDTO.setCreatedAt(comment.getCreatedAt());
         return commentDTO;
     }
 

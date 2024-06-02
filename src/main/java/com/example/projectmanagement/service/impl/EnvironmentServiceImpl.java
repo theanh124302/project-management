@@ -77,14 +77,6 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     }
 
     @Override
-    public List<EnvironmentDTO> findByProjectIdAndCreatedBy(Long projectId, Long createdBy, Pageable pageable) {
-        Page<Environment> environmentPage = environmentRepository.findByProjectIdAndCreatedBy(projectId, createdBy, pageable);
-        return environmentPage.getContent().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<EnvironmentDTO> findByName(String name, Pageable pageable) {
         Page<Environment> environmentPage = environmentRepository.findByName(name, pageable);
         return environmentPage.getContent().stream()

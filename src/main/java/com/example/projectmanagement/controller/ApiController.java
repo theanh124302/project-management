@@ -147,26 +147,6 @@ public class ApiController {
                 .build());
     }
 
-    @GetMapping("/findByExecutorIDAndProjectId")
-    public ResponseEntity<ResponseTemplate<List<ApiDTO>>> findApisByExecutorIDAndProjectId(@RequestParam Long executorID,
-                                                                                           @RequestParam Long projectId,
-                                                                                           @RequestParam(defaultValue = "0") int page,
-                                                                                           @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        List<ApiDTO> apis = apiService.findByExecutorIDAndProjectId(executorID, projectId, pageable);
-        long totalItems = apiService.count();
-        int totalPages = (int) Math.ceil((double) totalItems / size);
-        return ResponseEntity.ok(ResponseTemplate.<List<ApiDTO>>builder()
-                .status(HttpStatus.OK)
-                .message("Apis found successfully")
-                .page(page)
-                .size(size)
-                .totalItems(totalItems)
-                .totalPages(totalPages)
-                .data(apis)
-                .build());
-    }
-
     @GetMapping("/findByProjectIdAndStatus")
     public ResponseEntity<ResponseTemplate<List<ApiDTO>>> findApisByProjectIdAndStatus(@RequestParam Long projectId,
                                                                                        @RequestParam String status,
@@ -174,26 +154,6 @@ public class ApiController {
                                                                                        @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<ApiDTO> apis = apiService.findByProjectIdAndStatus(projectId, status, pageable);
-        long totalItems = apiService.count();
-        int totalPages = (int) Math.ceil((double) totalItems / size);
-        return ResponseEntity.ok(ResponseTemplate.<List<ApiDTO>>builder()
-                .status(HttpStatus.OK)
-                .message("Apis found successfully")
-                .page(page)
-                .size(size)
-                .totalItems(totalItems)
-                .totalPages(totalPages)
-                .data(apis)
-                .build());
-    }
-
-    @GetMapping("/findByProjectIdAndCreatedBy")
-    public ResponseEntity<ResponseTemplate<List<ApiDTO>>> findApisByProjectIdAndCreatedBy(@RequestParam Long projectId,
-                                                                                          @RequestParam Long createdBy,
-                                                                                          @RequestParam(defaultValue = "0") int page,
-                                                                                          @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        List<ApiDTO> apis = apiService.findByProjectIdAndCreatedBy(projectId, createdBy, pageable);
         long totalItems = apiService.count();
         int totalPages = (int) Math.ceil((double) totalItems / size);
         return ResponseEntity.ok(ResponseTemplate.<List<ApiDTO>>builder()

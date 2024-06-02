@@ -35,16 +35,11 @@ public class ProjectServiceImpl implements ProjectService {
         project.setName(projectDTO.getName());
         project.setDescription(projectDTO.getDescription());
         project.setLeaderId(projectDTO.getLeaderId());
-        project.setCreationDate(projectDTO.getCreationDate());
         project.setStatus(projectDTO.getStatus());
         project.setStartDate(projectDTO.getStartDate());
         project.setExpectedEndDate(projectDTO.getExpectedEndDate());
-        project.setNotes(projectDTO.getNotes());
         project.setVersion(projectDTO.getVersion());
-        project.setPlatform(projectDTO.getPlatform());
-        project.setTags(projectDTO.getTags());
         project.setCoverImage(projectDTO.getCoverImage());
-        project.setSourceCode(projectDTO.getSourceCode());
         project.setNumberOfMembers(0L);
         return convertToDTO(projectRepository.save(project));
     }
@@ -57,16 +52,11 @@ public class ProjectServiceImpl implements ProjectService {
             existingProject.setName(projectDTO.getName());
             existingProject.setDescription(projectDTO.getDescription());
             existingProject.setLeaderId(projectDTO.getLeaderId());
-            existingProject.setCreationDate(projectDTO.getCreationDate());
             existingProject.setStatus(projectDTO.getStatus());
             existingProject.setStartDate(projectDTO.getStartDate());
             existingProject.setExpectedEndDate(projectDTO.getExpectedEndDate());
-            existingProject.setNotes(projectDTO.getNotes());
             existingProject.setVersion(projectDTO.getVersion());
-            existingProject.setPlatform(projectDTO.getPlatform());
-            existingProject.setTags(projectDTO.getTags());
             existingProject.setCoverImage(projectDTO.getCoverImage());
-            existingProject.setSourceCode(projectDTO.getSourceCode());
             existingProject.setNumberOfMembers(projectDTO.getNumberOfMembers());
             return convertToDTO(projectRepository.save(existingProject));
         } else {
@@ -197,16 +187,11 @@ public class ProjectServiceImpl implements ProjectService {
         projectDTO.setName(project.getName());
         projectDTO.setDescription(project.getDescription());
         projectDTO.setLeaderId(project.getLeaderId());
-        projectDTO.setCreationDate(project.getCreationDate());
         projectDTO.setStatus(project.getStatus());
         projectDTO.setStartDate(project.getStartDate());
         projectDTO.setExpectedEndDate(project.getExpectedEndDate());
-        projectDTO.setNotes(project.getNotes());
         projectDTO.setVersion(project.getVersion());
-        projectDTO.setPlatform(project.getPlatform());
-        projectDTO.setTags(project.getTags());
         projectDTO.setCoverImage(project.getCoverImage());
-        projectDTO.setSourceCode(project.getSourceCode());
         projectDTO.setNumberOfMembers(project.getNumberOfMembers());
         return projectDTO;
 

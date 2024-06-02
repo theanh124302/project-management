@@ -12,7 +12,6 @@ public interface FolderService {
     FolderDTO findById(Long id);
     List<FolderDTO> getAllFolders(Pageable pageable);
     List<FolderDTO> findByName(String name, Pageable pageable);
-//    List<FolderDTO> findByParentId(Long parentId, Pageable pageable);
     List<FolderDTO> findByProjectId(Long projectId, Pageable pageable);
     Long count();
 }

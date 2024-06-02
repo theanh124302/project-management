@@ -17,8 +17,4 @@ public class Folder {
     private Long id;
     private String name;
     private Long projectId;
-//    private String description;
-//    private String status;
-//    private String notes;
-//    private Long parentId;
 }

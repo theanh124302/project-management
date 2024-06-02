@@ -9,6 +9,5 @@ public interface UserTaskService {
     UserTaskDTO update(UserTaskDTO userTaskDTO);
     UserTaskDTO delete(UserTaskDTO userTaskDTO);
     UserTaskDTO findById(Long id);
-    List<UserTaskDTO> findByTaskIdAndUserId(Long taskId, Long userId);
     Long count();
 }

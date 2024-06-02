@@ -3,21 +3,18 @@ package com.example.projectmanagement.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="comments")
+@Table(name ="docs")
 @Entity
-public class Comment {
+public class Docs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String content;
+    private String description;
+    private String url;
     private Long apiId;
-    private Long userId;
-    private Timestamp createdAt;
 }

@@ -12,6 +12,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("SELECT t FROM Task t WHERE lower(t.name) LIKE lower(concat('%', :name, '%'))")
     Page<Task> findByName(String name, Pageable pageable);
     Page<Task> findByProjectId(Long projectId, Pageable pageable);
-    Page<Task> findByExecutorId(Long executorId, Pageable pageable);
     Page<Task> findByProjectIdAndStatus(Long projectId, TaskStatus status, Pageable pageable);
 }

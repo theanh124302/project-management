@@ -25,8 +25,6 @@ public class ApiDTO {
     private String url;
     private Method method;
     private Long createdBy;
-    private LocalDateTime createdAt;
     private String status;
-    private Long executorID;
     private LifeCycle lifeCycle;
 }

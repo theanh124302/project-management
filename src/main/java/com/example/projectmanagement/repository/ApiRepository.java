@@ -14,7 +14,5 @@ public interface ApiRepository extends JpaRepository<Api, Long> {
     Page<Api> findByName(String name, Pageable pageable);
     Page<Api> findByProjectId(Long projectId, Pageable pageable);
     Page<Api> findByFolderId(Long folderId, Pageable pageable);
-    Page<Api> findByExecutorIDAndProjectId(Long executorID, Long projectId, Pageable pageable);
     Page<Api> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable);
-    Page<Api> findByProjectIdAndCreatedBy(Long projectId, Long createdBy, Pageable pageable);
 }

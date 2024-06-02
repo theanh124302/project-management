@@ -36,9 +36,7 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setUrl(apiDTO.getUrl());
             existingApi.setMethod(apiDTO.getMethod());
             existingApi.setCreatedBy(apiDTO.getCreatedBy());
-            existingApi.setCreatedAt(apiDTO.getCreatedAt());
             existingApi.setStatus(apiDTO.getStatus());
-            existingApi.setExecutorID(apiDTO.getExecutorID());
             existingApi.setLifeCycle(apiDTO.getLifeCycle());
             return convertToDTO(apiRepository.save(existingApi));
         } else {
@@ -93,22 +91,8 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
-    public List<ApiDTO> findByExecutorIDAndProjectId(Long executorID, Long projectId, Pageable pageable) {
-        return apiRepository.findByExecutorIDAndProjectId(executorID, projectId, pageable).getContent().stream()
-                .map(this::convertToDTO)
-                .toList();
-    }
-
-    @Override
     public List<ApiDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable) {
         return apiRepository.findByProjectIdAndStatus(projectId, status, pageable).getContent().stream()
-                .map(this::convertToDTO)
-                .toList();
-    }
-
-    @Override
-    public List<ApiDTO> findByProjectIdAndCreatedBy(Long projectId, Long createdBy, Pageable pageable) {
-        return apiRepository.findByProjectIdAndCreatedBy(projectId, createdBy, pageable).getContent().stream()
                 .map(this::convertToDTO)
                 .toList();
     }
@@ -128,9 +112,7 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setUrl(api.getUrl());
         apiDTO.setMethod(api.getMethod());
         apiDTO.setCreatedBy(api.getCreatedBy());
-        apiDTO.setCreatedAt(api.getCreatedAt());
         apiDTO.setStatus(api.getStatus());
-        apiDTO.setExecutorID(api.getExecutorID());
         apiDTO.setLifeCycle(api.getLifeCycle());
         return apiDTO;
     }
@@ -145,9 +127,7 @@ public class ApiServiceImpl implements ApiService {
         api.setUrl(apiDTO.getUrl());
         api.setMethod(apiDTO.getMethod());
         api.setCreatedBy(apiDTO.getCreatedBy());
-        api.setCreatedAt(apiDTO.getCreatedAt());
         api.setStatus(apiDTO.getStatus());
-        api.setExecutorID(apiDTO.getExecutorID());
         api.setLifeCycle(apiDTO.getLifeCycle());
         return api;
     }

@@ -17,7 +17,6 @@ public interface TaskService {
     List<TaskDTO> getAllTasks(Pageable pageable);
     List<TaskDTO> findByName(String name, Pageable pageable);
     List<TaskDTO> findByProjectId(Long projectId, Pageable pageable);
-    List<TaskDTO> findByExecutorId(Long executorId, Pageable pageable);
     List<TaskDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable);
     Long count();
 }
