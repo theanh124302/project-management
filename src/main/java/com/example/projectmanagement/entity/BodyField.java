@@ -8,11 +8,15 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="bodies")
+@Table(name ="body_fields")
 @Entity
-public class Body {
+public class BodyField {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long apiId;
+    private Long bodyId;
+    private String name;
+    private String type;
+    private Long fatherId;
+    private Long depth;
 }
