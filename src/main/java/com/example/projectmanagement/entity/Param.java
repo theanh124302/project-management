@@ -15,7 +15,7 @@ public class Param {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String paramKey;
-    private String value;
+    private String type;
     private String description;
     private Long apiId;
 }

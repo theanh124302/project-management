@@ -30,7 +30,7 @@ public class ParamServiceImpl implements ParamService {
         if (existingParamOptional.isPresent()) {
             Param existingParam = existingParamOptional.get();
             existingParam.setParamKey(paramDTO.getParamKey());
-            existingParam.setValue(paramDTO.getValue());
+            existingParam.setType(paramDTO.getType());
             existingParam.setDescription(paramDTO.getDescription());
             existingParam.setApiId(paramDTO.getApiId());
             return convertToDTO(paramRepository.save(existingParam));
@@ -73,7 +73,7 @@ public class ParamServiceImpl implements ParamService {
         ParamDTO paramDTO = new ParamDTO();
         paramDTO.setId(param.getId());
         paramDTO.setParamKey(param.getParamKey());
-        paramDTO.setValue(param.getValue());
+        paramDTO.setType(param.getType());
         paramDTO.setDescription(param.getDescription());
         paramDTO.setApiId(param.getApiId());
         return paramDTO;
@@ -83,7 +83,7 @@ public class ParamServiceImpl implements ParamService {
         Param param = new Param();
         param.setId(paramDTO.getId());
         param.setParamKey(paramDTO.getParamKey());
-        param.setValue(paramDTO.getValue());
+        param.setType(paramDTO.getType());
         param.setDescription(paramDTO.getDescription());
         param.setApiId(paramDTO.getApiId());
         return param;

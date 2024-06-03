@@ -10,12 +10,13 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-public class ParamDTO {
+public class ResponseFieldDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String paramKey;
+    private Long responseId;
+    private String name;
     private String type;
-    private String description;
-    private Long apiId;
+    private Long fatherId;
+    private Long depth;
 }
