@@ -37,6 +37,8 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setMethod(apiDTO.getMethod());
             existingApi.setCreatedBy(apiDTO.getCreatedBy());
             existingApi.setStatus(apiDTO.getStatus());
+            existingApi.setBodyJson(apiDTO.getBodyJson());
+            existingApi.setToken(apiDTO.getToken());
             existingApi.setLifeCycle(apiDTO.getLifeCycle());
             return convertToDTO(apiRepository.save(existingApi));
         } else {
@@ -113,6 +115,8 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setMethod(api.getMethod());
         apiDTO.setCreatedBy(api.getCreatedBy());
         apiDTO.setStatus(api.getStatus());
+        apiDTO.setBodyJson(api.getBodyJson());
+        apiDTO.setToken(api.getToken());
         apiDTO.setLifeCycle(api.getLifeCycle());
         return apiDTO;
     }
@@ -128,6 +132,8 @@ public class ApiServiceImpl implements ApiService {
         api.setMethod(apiDTO.getMethod());
         api.setCreatedBy(apiDTO.getCreatedBy());
         api.setStatus(apiDTO.getStatus());
+        api.setBodyJson(apiDTO.getBodyJson());
+        api.setToken(apiDTO.getToken());
         api.setLifeCycle(apiDTO.getLifeCycle());
         return api;
     }

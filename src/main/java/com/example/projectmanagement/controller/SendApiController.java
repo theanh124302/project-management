@@ -1,0 +1,54 @@
+package com.example.projectmanagement.controller;
+
+import com.example.projectmanagement.dto.RequestDTO;
+import com.example.projectmanagement.enums.Method;
+import com.example.projectmanagement.service.SendApiService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RequestMapping("/api/v1/send")
+@RequiredArgsConstructor
+@RestController
+public class SendApiController {
+
+    @Autowired
+    private SendApiService apiService;
+
+    @PostMapping("")
+    public ResponseEntity<String> createProject(@RequestBody String jsonBody) {
+
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGVhbmgiLCJpYXQiOjE3MTc0ODc0MjgsImV4cCI6MTcxNzQ4NzUxNH0.Ai-C6Fa0-koWtaTfXT-j2LhK9dMLJSmcdRcKhwCXfcg";
+
+        String url = "http://localhost:8080/api/v1/project/create";
+
+        return apiService.sendRequest(url, jsonBody, token, Method.POST);
+    }
+
+    @GetMapping("/sendApi")
+    public ResponseEntity<String> sendApi(@RequestParam Long apiId) {
+        return apiService.sendRequest(apiId);
+    }
+
+    @PostMapping("/getResponse")
+    public ResponseEntity<String> getResponse(@RequestBody RequestDTO requestDTO) {
+        return apiService.sendRequest(requestDTO.getUrl(), requestDTO.getBodyJson(), requestDTO.getToken(), requestDTO.getMethod());
+    }
+
+    @GetMapping()
+    public ResponseEntity<String> getExampleResponse() {
+        // Tạo nội dung phản hồi
+        String responseBody = "Hello, this is an example response!";
+
+        // Thiết lập mã trạng thái HTTP
+        HttpStatus httpStatus = HttpStatus.OK;
+
+        // Tạo một ResponseEntity với nội dung và mã trạng thái
+        ResponseEntity<String> responseEntity = ResponseEntity.status(httpStatus).body(responseBody);
+
+        // Trả về phản hồi
+        return responseEntity;
+    }
+}

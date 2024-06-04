@@ -1,5 +1,8 @@
 package com.example.projectmanagement.service.impl;
+import com.example.projectmanagement.dto.ApiDTO;
 import com.example.projectmanagement.enums.Method;
+import com.example.projectmanagement.repository.ApiRepository;
+import com.example.projectmanagement.service.ApiService;
 import com.example.projectmanagement.service.SendApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -11,6 +14,9 @@ public class SendApiServiceImpl implements SendApiService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private ApiService apiService;
 
     @Override
     public ResponseEntity<String> sendRequest(String url, String jsonBody, String token, Method method) {
@@ -29,5 +35,12 @@ public class SendApiServiceImpl implements SendApiService {
             return restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class);
         }
         return null;
+    }
+
+    @Override
+    public ResponseEntity<String> sendRequest(Long apiId) {
+        ApiDTO apiDTO = apiService.findById(apiId);
+        // Gửi yêu cầu đến API
+        return sendRequest(apiDTO.getUrl(), apiDTO.getBodyJson(), apiDTO.getToken(), apiDTO.getMethod());
     }
 }

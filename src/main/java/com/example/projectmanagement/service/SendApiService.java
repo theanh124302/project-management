@@ -5,4 +5,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface SendApiService {
     ResponseEntity<String> sendRequest(String url, String jsonBody, String token, Method method);
+    ResponseEntity<String> sendRequest(Long apiId);
 }

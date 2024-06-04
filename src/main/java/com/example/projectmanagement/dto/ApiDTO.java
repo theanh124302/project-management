@@ -26,5 +26,7 @@ public class ApiDTO {
     private Method method;
     private Long createdBy;
     private String status;
+    private String bodyJson;
+    private String token;
     private LifeCycle lifeCycle;
 }

@@ -61,7 +61,7 @@ public class ParamServiceImpl implements ParamService {
     public List<ParamDTO> findByApiId(Long apiId, Pageable pageable) {
         return paramRepository.findByApiId(apiId, pageable).getContent().stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
