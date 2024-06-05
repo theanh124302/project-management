@@ -53,8 +53,8 @@ public class ParamController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseTemplate<ParamDTO>> deleteParam(@RequestParam Long id, @RequestParam Long deletedBy) {
-        ParamDTO deletedParam = paramService.delete(id, deletedBy);
+    public ResponseEntity<ResponseTemplate<ParamDTO>> deleteParam(@RequestParam Long id) {
+        ParamDTO deletedParam = paramService.delete(id);
         if (deletedParam != null) {
             return ResponseEntity.ok(ResponseTemplate.<ParamDTO>builder()
                     .status(HttpStatus.OK)

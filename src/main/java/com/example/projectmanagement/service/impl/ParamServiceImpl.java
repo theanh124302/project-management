@@ -41,7 +41,7 @@ public class ParamServiceImpl implements ParamService {
     }
 
     @Override
-    public ParamDTO delete(Long id, Long deletedBy) {
+    public ParamDTO delete(Long id) {
         Optional<Param> existingParamOptional = paramRepository.findById(id);
         if (existingParamOptional.isPresent()) {
             Param existingParam = existingParamOptional.get();

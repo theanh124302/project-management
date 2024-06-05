@@ -39,7 +39,7 @@ public class BodyServiceImpl implements BodyService {
     }
 
     @Override
-    public BodyDTO delete(Long id, Long deletedBy) {
+    public BodyDTO delete(Long id) {
         Optional<Body> existingBodyOptional = bodyRepository.findById(id);
         if (existingBodyOptional.isPresent()) {
             Body existingBody = existingBodyOptional.get();

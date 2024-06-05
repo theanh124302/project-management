@@ -54,8 +54,8 @@ public class BodyController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<ResponseTemplate<BodyDTO>> deleteBody(@RequestBody Long id, @RequestBody Long deletedBy) {
-        BodyDTO deletedBody = bodyService.delete(id, deletedBy);
+    public ResponseEntity<ResponseTemplate<BodyDTO>> deleteBody(@RequestBody Long id) {
+        BodyDTO deletedBody = bodyService.delete(id);
         if (deletedBody != null) {
             return ResponseEntity.ok(ResponseTemplate.<BodyDTO>builder()
                     .status(HttpStatus.OK)
@@ -88,7 +88,8 @@ public class BodyController {
     }
 
     @GetMapping("/findByApiId")
-    public ResponseEntity<ResponseTemplate<List<BodyDTO>>> findByApiId(@RequestParam Long apiId, @RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<ResponseTemplate<List<BodyDTO>>> findByApiId(@RequestParam Long apiId, @RequestParam(defaultValue = "0") int page,
+                                                                       @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(ResponseTemplate.<List<BodyDTO>>builder()
                 .status(HttpStatus.OK)
                 .message("Body found successfully")

@@ -8,7 +8,7 @@ import java.util.List;
 public interface ParamService {
     ParamDTO create(ParamDTO paramDTO);
     ParamDTO update(ParamDTO paramDTO);
-    ParamDTO delete(Long id, Long deletedBy);
+    ParamDTO delete(Long id);
     ParamDTO findById(Long id);
     List<ParamDTO> findByApiId(Long apiId, Pageable pageable);
     Long count();
