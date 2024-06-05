@@ -33,6 +33,7 @@ public class ParamServiceImpl implements ParamService {
             existingParam.setType(paramDTO.getType());
             existingParam.setDescription(paramDTO.getDescription());
             existingParam.setApiId(paramDTO.getApiId());
+            existingParam.setSample(paramDTO.getSample());
             return convertToDTO(paramRepository.save(existingParam));
         } else {
             return null;
@@ -76,6 +77,7 @@ public class ParamServiceImpl implements ParamService {
         paramDTO.setType(param.getType());
         paramDTO.setDescription(param.getDescription());
         paramDTO.setApiId(param.getApiId());
+        paramDTO.setSample(param.getSample());
         return paramDTO;
     }
 
@@ -86,6 +88,7 @@ public class ParamServiceImpl implements ParamService {
         param.setType(paramDTO.getType());
         param.setDescription(paramDTO.getDescription());
         param.setApiId(paramDTO.getApiId());
+        param.setSample(paramDTO.getSample());
         return param;
     }
 }

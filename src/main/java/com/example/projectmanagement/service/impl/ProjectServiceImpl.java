@@ -171,6 +171,19 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public ProjectDTO leaveProject(Long projectId, Long userId) {
+        Optional<Project> existingProjectOptional = projectRepository.findById(projectId);
+        if (existingProjectOptional.isPresent()) {
+            Project existingProject = existingProjectOptional.get();
+            userProjectRepository.deleteById(userProjectRepository.findByUserIdAndProjectId(userId, projectId).orElseThrow().getId());
+            existingProject.setNumberOfMembers(existingProject.getNumberOfMembers() - 1);
+            projectRepository.save(existingProject);
+            return convertToDTO(existingProject);
+        }
+        return null;
+    }
+
+    @Override
     public ProjectDTO removeUserByUserUsername(Long projectId, String username, Long deleterId) {
         Long userId = userRepository.findByUsername(username).orElseThrow().getId();
         return removeUser(projectId, userId, deleterId);

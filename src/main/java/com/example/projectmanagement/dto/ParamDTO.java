@@ -18,4 +18,5 @@ public class ParamDTO {
     private String type;
     private String description;
     private Long apiId;
+    private String sample;
 }

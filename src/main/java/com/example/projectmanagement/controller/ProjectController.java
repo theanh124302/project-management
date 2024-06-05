@@ -255,6 +255,23 @@ public class ProjectController {
         }
     }
 
+    @PostMapping("/leaveProject")
+    public ResponseEntity<ResponseTemplate<ProjectDTO>> leaveProject(@RequestParam Long projectId, @RequestParam Long userId) {
+        ProjectDTO project = projectService.leaveProject(projectId, userId);
+        if (project != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("User removed successfully")
+                    .data(project)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Project not found")
+                    .build());
+        }
+    }
+
     @PostMapping("/removeUserByUsername")
     public ResponseEntity<ResponseTemplate<ProjectDTO>> removeUserByUsername(@RequestParam Long projectId,
                                                                    @RequestParam String username, @RequestParam Long deleterId) {

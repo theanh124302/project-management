@@ -32,23 +32,4 @@ public class SendApiController {
         return apiService.sendRequest(apiId);
     }
 
-    @PostMapping("/getResponse")
-    public ResponseEntity<String> getResponse(@RequestBody RequestDTO requestDTO) {
-        return apiService.sendRequest(requestDTO.getUrl(), requestDTO.getBodyJson(), requestDTO.getToken(), requestDTO.getMethod());
-    }
-
-    @GetMapping()
-    public ResponseEntity<String> getExampleResponse() {
-        // Tạo nội dung phản hồi
-        String responseBody = "Hello, this is an example response!";
-
-        // Thiết lập mã trạng thái HTTP
-        HttpStatus httpStatus = HttpStatus.OK;
-
-        // Tạo một ResponseEntity với nội dung và mã trạng thái
-        ResponseEntity<String> responseEntity = ResponseEntity.status(httpStatus).body(responseBody);
-
-        // Trả về phản hồi
-        return responseEntity;
-    }
 }

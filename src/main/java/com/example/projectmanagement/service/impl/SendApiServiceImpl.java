@@ -40,6 +40,7 @@ public class SendApiServiceImpl implements SendApiService {
     @Override
     public ResponseEntity<String> sendRequest(Long apiId) {
         ApiDTO apiDTO = apiService.findById(apiId);
+        System.out.println(apiDTO);
         // Gửi yêu cầu đến API
         return sendRequest(apiDTO.getUrl(), apiDTO.getBodyJson(), apiDTO.getToken(), apiDTO.getMethod());
     }

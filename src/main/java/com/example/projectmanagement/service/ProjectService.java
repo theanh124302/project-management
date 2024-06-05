@@ -19,6 +19,7 @@ public interface ProjectService {
     ProjectDTO assignUser(Long projectId, Long userId, String role);
     ProjectDTO assignUserByUserUsername(Long projectId, String username, String role);
     ProjectDTO removeUser(Long projectId, Long userId, Long deleterId);
+    ProjectDTO leaveProject(Long projectId, Long userId);
     ProjectDTO removeUserByUserUsername(Long projectId, String username, Long deleterId);
     Long count();
 }

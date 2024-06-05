@@ -1,10 +1,10 @@
 package com.example.projectmanagement.enums;
 
 public enum LifeCycle {
-    Define,
-    Design,
-    Develop,
-    Test,
-    Deploy,
-    Maintain
+    DEFINE,
+    DESIGN,
+    DEVELOP,
+    TEST,
+    DEPLOY,
+    MAINTAIN
 }
