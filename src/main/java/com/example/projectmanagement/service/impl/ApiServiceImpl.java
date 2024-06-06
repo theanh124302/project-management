@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ApiServiceImpl implements ApiService {
@@ -75,6 +74,35 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setBodyJson(body);
             existingApi.setToken(token);
             existingApi.setParameters(parameters);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateUseCaseDiagramAndSequenceDiagramAndActivityDiagramAndClassDiagram(Long id, String useCaseDiagram, String sequenceDiagram, String activityDiagram, String classDiagram) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setUseCaseDiagram(useCaseDiagram);
+            existingApi.setSequenceDiagram(sequenceDiagram);
+            existingApi.setActivityDiagram(activityDiagram);
+            existingApi.setClassDiagram(classDiagram);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateTechnicalRequirementsAndBusinessProcessAndUserRequirements(Long id, String technicalRequirements, String businessProcess, String userRequirements) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setTechnicalRequirements(technicalRequirements);
+            existingApi.setBusinessProcess(businessProcess);
+            existingApi.setUserRequirements(userRequirements);
             return convertToDTO(apiRepository.save(existingApi));
         } else {
             return null;
