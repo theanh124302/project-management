@@ -53,8 +53,8 @@ public class BodyController {
         }
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<ResponseTemplate<BodyDTO>> deleteBody(@RequestBody Long id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseTemplate<BodyDTO>> deleteBody(@RequestParam Long id) {
         BodyDTO deletedBody = bodyService.delete(id);
         if (deletedBody != null) {
             return ResponseEntity.ok(ResponseTemplate.<BodyDTO>builder()

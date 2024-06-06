@@ -27,6 +27,7 @@ public class Api {
     private Method method;
     private Long createdBy;
     private String status;
+    private String parameters;
     private String bodyJson;
     private String token;
     private String userRequirements;

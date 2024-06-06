@@ -53,6 +53,45 @@ public class ApiController {
         }
     }
 
+    @PostMapping("/updateUrlAndMethod")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateUrlAndMethod(@RequestParam Long id,
+                                                                       @RequestParam String url,
+                                                                       @RequestParam String method) {
+        ApiDTO updatedApi = apiService.updateUrlAndMethod(id, url, method);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/updateParametersAndBodyAndToken")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateParametersAndBodyAndToken(@RequestParam Long id,
+                                                                                     @RequestParam String parameters,
+                                                                                     @RequestParam String body,
+                                                                                     @RequestParam String token) {
+        ApiDTO updatedApi = apiService.updateParametersAndBodyAndToken(id, parameters, body, token);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseTemplate<ApiDTO>> deleteApi(@RequestBody ApiDTO apiDTO) {
         ApiDTO deletedApi = apiService.delete(apiDTO);

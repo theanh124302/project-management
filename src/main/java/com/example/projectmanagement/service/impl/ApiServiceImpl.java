@@ -2,6 +2,7 @@ package com.example.projectmanagement.service.impl;
 
 import com.example.projectmanagement.dto.ApiDTO;
 import com.example.projectmanagement.entity.Api;
+import com.example.projectmanagement.enums.Method;
 import com.example.projectmanagement.repository.ApiRepository;
 import com.example.projectmanagement.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ public class ApiServiceImpl implements ApiService {
         Optional<Api> existingApiOptional = apiRepository.findById(apiDTO.getId());
         if (existingApiOptional.isPresent()) {
             Api existingApi = existingApiOptional.get();
-            // Update fields from apiDTO to existingApi
             existingApi.setName(apiDTO.getName());
             existingApi.setDescription(apiDTO.getDescription());
             existingApi.setProjectId(apiDTO.getProjectId());
@@ -47,6 +47,32 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setUseCaseDiagram(apiDTO.getUseCaseDiagram());
             existingApi.setUserRequirements(apiDTO.getUserRequirements());
             existingApi.setLifeCycle(apiDTO.getLifeCycle());
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateUrlAndMethod(Long id, String url, String method) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setUrl(url);
+            existingApi.setMethod(Method.valueOf(method));
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateParametersAndBodyAndToken(Long id, String parameters, String body, String token) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setBodyJson(body);
+            existingApi.setToken(token);
             return convertToDTO(apiRepository.save(existingApi));
         } else {
             return null;

@@ -8,6 +8,8 @@ import java.util.List;
 public interface ApiService {
     ApiDTO create(ApiDTO apiDTO);
     ApiDTO update(ApiDTO apiDTO);
+    ApiDTO updateUrlAndMethod(Long id, String url, String method);
+    ApiDTO updateParametersAndBodyAndToken(Long id, String parameters, String body, String token);
     ApiDTO delete(ApiDTO apiDTO);
     ApiDTO findById(Long id);
     List<ApiDTO> findByProjectId(Long projectId, Pageable pageable);
