@@ -46,6 +46,7 @@ public class TaskServiceImpl implements TaskService {
             existingTask.setName(taskDTO.getName());
             existingTask.setDescription(taskDTO.getDescription());
             existingTask.setStatus(taskDTO.getStatus());
+            existingTask.setLifeCycle(taskDTO.getLifeCycle());
             existingTask.setPriority(taskDTO.getPriority());
             existingTask.setType(taskDTO.getType());
             existingTask.setStartDate(taskDTO.getStartDate());
@@ -162,6 +163,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<TaskDTO> findByApiIdAndLifeCycle(Long apiId, String lifeCycle, Pageable pageable) {
+        return taskRepository.findByApiIdAndLifeCycle(apiId, lifeCycle, pageable).getContent().stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+    @Override
     public Long count() {
         return taskRepository.count();
     }
@@ -174,6 +182,7 @@ public class TaskServiceImpl implements TaskService {
         taskDTO.setName(task.getName());
         taskDTO.setDescription(task.getDescription());
         taskDTO.setStatus(task.getStatus());
+        taskDTO.setLifeCycle(task.getLifeCycle());
         taskDTO.setPriority(task.getPriority());
         taskDTO.setType(task.getType());
         taskDTO.setStartDate(task.getStartDate());
@@ -192,6 +201,7 @@ public class TaskServiceImpl implements TaskService {
         task.setName(taskDTO.getName());
         task.setDescription(taskDTO.getDescription());
         task.setStatus(taskDTO.getStatus());
+        task.setLifeCycle(taskDTO.getLifeCycle());
         task.setPriority(taskDTO.getPriority());
         task.setType(taskDTO.getType());
         task.setStartDate(taskDTO.getStartDate());

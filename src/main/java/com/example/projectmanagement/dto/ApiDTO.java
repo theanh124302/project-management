@@ -28,5 +28,12 @@ public class ApiDTO {
     private String status;
     private String bodyJson;
     private String token;
+    private String userRequirements;
+    private String technicalRequirements;
+    private String businessProcess;
+    private String useCaseDiagram;
+    private String sequenceDiagram;
+    private String activityDiagram;
+    private String classDiagram;
     private LifeCycle lifeCycle;
 }

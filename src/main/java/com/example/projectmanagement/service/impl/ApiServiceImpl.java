@@ -39,6 +39,13 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setStatus(apiDTO.getStatus());
             existingApi.setBodyJson(apiDTO.getBodyJson());
             existingApi.setToken(apiDTO.getToken());
+            existingApi.setActivityDiagram(apiDTO.getActivityDiagram());
+            existingApi.setBusinessProcess(apiDTO.getBusinessProcess());
+            existingApi.setClassDiagram(apiDTO.getClassDiagram());
+            existingApi.setSequenceDiagram(apiDTO.getSequenceDiagram());
+            existingApi.setTechnicalRequirements(apiDTO.getTechnicalRequirements());
+            existingApi.setUseCaseDiagram(apiDTO.getUseCaseDiagram());
+            existingApi.setUserRequirements(apiDTO.getUserRequirements());
             existingApi.setLifeCycle(apiDTO.getLifeCycle());
             return convertToDTO(apiRepository.save(existingApi));
         } else {
@@ -117,6 +124,13 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setStatus(api.getStatus());
         apiDTO.setBodyJson(api.getBodyJson());
         apiDTO.setToken(api.getToken());
+        apiDTO.setActivityDiagram(api.getActivityDiagram());
+        apiDTO.setBusinessProcess(api.getBusinessProcess());
+        apiDTO.setClassDiagram(api.getClassDiagram());
+        apiDTO.setSequenceDiagram(api.getSequenceDiagram());
+        apiDTO.setTechnicalRequirements(api.getTechnicalRequirements());
+        apiDTO.setUseCaseDiagram(api.getUseCaseDiagram());
+        apiDTO.setUserRequirements(api.getUserRequirements());
         apiDTO.setLifeCycle(api.getLifeCycle());
         return apiDTO;
     }
@@ -134,6 +148,13 @@ public class ApiServiceImpl implements ApiService {
         api.setStatus(apiDTO.getStatus());
         api.setBodyJson(apiDTO.getBodyJson());
         api.setToken(apiDTO.getToken());
+        api.setActivityDiagram(apiDTO.getActivityDiagram());
+        api.setBusinessProcess(apiDTO.getBusinessProcess());
+        api.setClassDiagram(apiDTO.getClassDiagram());
+        api.setSequenceDiagram(apiDTO.getSequenceDiagram());
+        api.setTechnicalRequirements(apiDTO.getTechnicalRequirements());
+        api.setUseCaseDiagram(apiDTO.getUseCaseDiagram());
+        api.setUserRequirements(apiDTO.getUserRequirements());
         api.setLifeCycle(apiDTO.getLifeCycle());
         return api;
     }

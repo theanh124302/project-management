@@ -1,5 +1,6 @@
 package com.example.projectmanagement.entity;
 
+import com.example.projectmanagement.enums.LifeCycle;
 import com.example.projectmanagement.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,6 +21,7 @@ public class Task {
     private String name;
     private String description;
     private TaskStatus status;
+    private LifeCycle lifeCycle;
     private String priority;
     private String type;
     private String startDate;
