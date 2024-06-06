@@ -29,6 +29,7 @@ public class SendApiController {
 
     @GetMapping("/sendApi")
     public ResponseEntity<String> sendApi(@RequestParam Long apiId) {
+        System.out.println("apiId: " + apiId);
         return apiService.sendRequest(apiId);
     }
 

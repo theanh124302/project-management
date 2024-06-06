@@ -8,15 +8,13 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="headers")
+@Table(name ="design_responses")
 @Entity
-public class Header {
+public class DesignResponse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String headerKey;
-    private String type;
     private String description;
+    private String value;
     private Long apiId;
-    private String sample;
 }

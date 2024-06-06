@@ -4,6 +4,9 @@ public enum ProjectRole {
     LEADER,
     BE,
     FE,
-    PM,
-    BA
+    BA,
+    QA,
+    TESTER,
+    DEVOPS,
+    TL
 }

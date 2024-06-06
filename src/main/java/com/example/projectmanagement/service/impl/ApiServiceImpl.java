@@ -37,6 +37,7 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setMethod(apiDTO.getMethod());
             existingApi.setCreatedBy(apiDTO.getCreatedBy());
             existingApi.setStatus(apiDTO.getStatus());
+            existingApi.setParameters(apiDTO.getParameters());
             existingApi.setBodyJson(apiDTO.getBodyJson());
             existingApi.setToken(apiDTO.getToken());
             existingApi.setActivityDiagram(apiDTO.getActivityDiagram());
@@ -67,12 +68,13 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
-    public ApiDTO updateParametersAndBodyAndToken(Long id, String parameters, String body, String token) {
+    public ApiDTO updateParametersAndBodyAndTokenAndHeader(Long id, String parameters, String body, String token, String header) {
         Optional<Api> existingApiOptional = apiRepository.findById(id);
         if (existingApiOptional.isPresent()) {
             Api existingApi = existingApiOptional.get();
             existingApi.setBodyJson(body);
             existingApi.setToken(token);
+            existingApi.setParameters(parameters);
             return convertToDTO(apiRepository.save(existingApi));
         } else {
             return null;
@@ -148,6 +150,7 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setMethod(api.getMethod());
         apiDTO.setCreatedBy(api.getCreatedBy());
         apiDTO.setStatus(api.getStatus());
+        apiDTO.setParameters(api.getParameters());
         apiDTO.setBodyJson(api.getBodyJson());
         apiDTO.setToken(api.getToken());
         apiDTO.setActivityDiagram(api.getActivityDiagram());
@@ -172,6 +175,7 @@ public class ApiServiceImpl implements ApiService {
         api.setMethod(apiDTO.getMethod());
         api.setCreatedBy(apiDTO.getCreatedBy());
         api.setStatus(apiDTO.getStatus());
+        api.setParameters(apiDTO.getParameters());
         api.setBodyJson(apiDTO.getBodyJson());
         api.setToken(apiDTO.getToken());
         api.setActivityDiagram(apiDTO.getActivityDiagram());

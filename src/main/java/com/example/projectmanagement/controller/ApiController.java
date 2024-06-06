@@ -72,12 +72,13 @@ public class ApiController {
         }
     }
 
-    @PostMapping("/updateParametersAndBodyAndToken")
+    @PostMapping("/updateParametersAndBodyAndTokenAndHeader")
     public ResponseEntity<ResponseTemplate<ApiDTO>> updateParametersAndBodyAndToken(@RequestParam Long id,
-                                                                                     @RequestParam String parameters,
-                                                                                     @RequestParam String body,
-                                                                                     @RequestParam String token) {
-        ApiDTO updatedApi = apiService.updateParametersAndBodyAndToken(id, parameters, body, token);
+                                                                                    @RequestParam(required = false) String parameters,
+                                                                                    @RequestParam(required = false) String body,
+                                                                                    @RequestParam(required = false) String token,
+                                                                                    @RequestParam(required = false) String header) {
+        ApiDTO updatedApi = apiService.updateParametersAndBodyAndTokenAndHeader(id, parameters, body, token, header);
         if (updatedApi != null) {
             return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
                     .status(HttpStatus.OK)

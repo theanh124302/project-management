@@ -1,6 +1,8 @@
-package com.example.projectmanagement.entity;
+package com.example.projectmanagement.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Data
@@ -8,15 +10,11 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="headers")
-@Entity
-public class Header {
+public class DesignResponseDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String headerKey;
-    private String type;
     private String description;
+    private String value;
     private Long apiId;
-    private String sample;
 }
