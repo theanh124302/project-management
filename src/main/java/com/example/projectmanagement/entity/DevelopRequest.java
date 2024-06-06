@@ -17,4 +17,5 @@ public class DevelopRequest {
     private String description;
     private Long userId;
     private Long taskId;
+    private String mergeRequestUrl;
 }
