@@ -14,6 +14,10 @@ public interface TaskService {
     TaskDTO assignTaskByUsername(Long taskId, String username, Long assignerId);
     TaskDTO unassignTask(Long taskId, Long userId, Long unAssignerId);
     TaskDTO unassignTaskByUsername(Long taskId, String username, Long unAssignerId);
+    TaskDTO addReviewer(Long taskId, Long userId, Long adderId);
+    TaskDTO addReviewerByUsername(Long taskId, String username, Long adderId);
+    TaskDTO removeReviewer(Long taskId, Long removerId);
+    TaskDTO removeReviewerByUsername(Long taskId, String username);
     List<TaskDTO> getAllTasks(Pageable pageable);
     List<TaskDTO> findByName(String name, Pageable pageable);
     List<TaskDTO> findByProjectId(Long projectId, Pageable pageable);

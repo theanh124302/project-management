@@ -43,6 +43,8 @@ public class TaskServiceImpl implements TaskService {
         if (existingTaskOptional.isPresent()) {
             Task existingTask = existingTaskOptional.get();
             existingTask.setProjectId(taskDTO.getProjectId());
+            existingTask.setApiId(taskDTO.getApiId());
+            existingTask.setReviewerId(taskDTO.getReviewerId());
             existingTask.setName(taskDTO.getName());
             existingTask.setDescription(taskDTO.getDescription());
             existingTask.setStatus(taskDTO.getStatus());
@@ -135,6 +137,39 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public TaskDTO addReviewer(Long taskId, Long userId, Long adderId) {
+        Optional<Task> existingTaskOptional = taskRepository.findById(taskId);
+        Optional<User> existingUserOptional = userRepository.findById(userId);
+        if (existingTaskOptional.isPresent() && existingUserOptional.isPresent() && adderId.equals(projectRepository.findById(existingTaskOptional.get().getProjectId()).orElseThrow().getLeaderId())) {
+                existingTaskOptional.get().setReviewerId(userId);
+                return convertToDTO(taskRepository.save(existingTaskOptional.get()));
+            }
+        return null;
+    }
+
+    @Override
+    public TaskDTO addReviewerByUsername(Long taskId, String username, Long adderId) {
+        Optional<User> existingUserOptional = userRepository.findByUsername(username);
+        return addReviewer(taskId, existingUserOptional.orElseThrow().getId(), adderId);
+    }
+
+    @Override
+    public TaskDTO removeReviewer(Long taskId, Long removerId) {
+        Optional<Task> existingTaskOptional = taskRepository.findById(taskId);
+        if (existingTaskOptional.isPresent()) {
+            existingTaskOptional.get().setReviewerId(null);
+            return convertToDTO(taskRepository.save(existingTaskOptional.get()));
+        }
+        return null;
+    }
+
+    @Override
+    public TaskDTO removeReviewerByUsername(Long taskId, String username) {
+        Optional<User> existingUserOptional = userRepository.findByUsername(username);
+        return removeReviewer(taskId, existingUserOptional.orElseThrow().getId());
+    }
+
+    @Override
     public List<TaskDTO> getAllTasks(Pageable pageable) {
         return taskRepository.findAll(pageable).getContent().stream()
                 .map(this::convertToDTO)
@@ -179,6 +214,7 @@ public class TaskServiceImpl implements TaskService {
         taskDTO.setId(task.getId());
         taskDTO.setApiId(task.getApiId());
         taskDTO.setProjectId(task.getProjectId());
+        taskDTO.setReviewerId(task.getReviewerId());
         taskDTO.setName(task.getName());
         taskDTO.setDescription(task.getDescription());
         taskDTO.setStatus(task.getStatus());
@@ -198,6 +234,7 @@ public class TaskServiceImpl implements TaskService {
         task.setId(taskDTO.getId());
         task.setApiId(taskDTO.getApiId());
         task.setProjectId(taskDTO.getProjectId());
+        task.setReviewerId(taskDTO.getReviewerId());
         task.setName(taskDTO.getName());
         task.setDescription(taskDTO.getDescription());
         task.setStatus(taskDTO.getStatus());

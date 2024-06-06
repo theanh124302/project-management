@@ -230,4 +230,74 @@ public class TaskController {
                     .build());
         }
     }
+
+    @PostMapping("/addReviewer")
+    public ResponseEntity<ResponseTemplate<TaskDTO>> addReviewer(@RequestParam Long taskId, @RequestParam Long userId, @RequestParam Long adderId) {
+        TaskDTO task = taskService.addReviewer(taskId, userId, adderId);
+        if (task != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Reviewer added successfully")
+                    .data(task)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Task not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/addReviewerByUsername")
+    public ResponseEntity<ResponseTemplate<TaskDTO>> addReviewerByUsername(@RequestParam Long taskId, @RequestParam String username, @RequestParam Long adderId) {
+        TaskDTO task = taskService.addReviewerByUsername(taskId, username, adderId);
+        if (task != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Reviewer added successfully")
+                    .data(task)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Task not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/removeReviewer")
+    public ResponseEntity<ResponseTemplate<TaskDTO>> removeReviewer(@RequestParam Long taskId, @RequestParam Long removerId) {
+        TaskDTO task = taskService.removeReviewer(taskId, removerId);
+        if (task != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Reviewer removed successfully")
+                    .data(task)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Task not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/removeReviewerByUsername")
+    public ResponseEntity<ResponseTemplate<TaskDTO>> removeReviewerByUsername(@RequestParam Long taskId, @RequestParam String username) {
+        TaskDTO task = taskService.removeReviewerByUsername(taskId, username);
+        if (task != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Reviewer removed successfully")
+                    .data(task)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TaskDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Task not found")
+                    .build());
+        }
+    }
+
+
 }
