@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public class CommentDTO {
     private Long id;
     private String content;
-    private String status;
-    private Long apiId;
+    private Long taskId;
     private Long userId;
+    private Timestamp createdAt;
 }

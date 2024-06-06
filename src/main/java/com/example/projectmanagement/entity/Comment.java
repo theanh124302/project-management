@@ -17,7 +17,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    private Long apiId;
+    private Long taskId;
     private Long userId;
     private Timestamp createdAt;
 }

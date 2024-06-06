@@ -8,9 +8,9 @@ import java.util.List;
 public interface CommentService {
     CommentDTO create(CommentDTO commentDTO);
     CommentDTO update(CommentDTO commentDTO);
-    CommentDTO delete(CommentDTO commentDTO);
+    CommentDTO delete(Long id);
     CommentDTO findById(Long id);
-    List<CommentDTO> findByApiId(Long apiId, Pageable pageable);
+    List<CommentDTO> findByTaskId(Long taskId, Pageable pageable);
     List<CommentDTO> findByUserId(Long userId, Pageable pageable);
     Long count();
 }

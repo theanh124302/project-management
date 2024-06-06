@@ -54,8 +54,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseTemplate<CommentDTO>> deleteComment(@RequestBody CommentDTO commentDTO) {
-        CommentDTO deletedComment = commentService.delete(commentDTO);
+    public ResponseEntity<ResponseTemplate<CommentDTO>> deleteComment(@RequestParam Long id) {
+        CommentDTO deletedComment = commentService.delete(id);
         if (deletedComment != null) {
             return ResponseEntity.ok(ResponseTemplate.<CommentDTO>builder()
                     .status(HttpStatus.OK)
@@ -70,12 +70,12 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/findByApiId")
-    public ResponseEntity<ResponseTemplate<List<CommentDTO>>> findCommentsByApiId(@RequestParam Long apiId,
+    @GetMapping("/findByTaskId")
+    public ResponseEntity<ResponseTemplate<List<CommentDTO>>> findCommentsByApiId(@RequestParam Long taskId,
                                                                                   @RequestParam(defaultValue = "0") int page,
                                                                                   @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        List<CommentDTO> comments = commentService.findByApiId(apiId, pageable);
+        List<CommentDTO> comments = commentService.findByTaskId(taskId, pageable);
         long totalItems = commentService.count();
         int totalPages = (int) Math.ceil((double) totalItems / size);
         return ResponseEntity.ok(ResponseTemplate.<List<CommentDTO>>builder()

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,10 +22,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDTO create(CommentDTO commentDTO) {
-        Comment comment = new Comment();
-        comment.setContent(commentDTO.getContent());
-        comment.setApiId(commentDTO.getApiId());
-        comment.setUserId(commentDTO.getUserId());
+        Comment comment = convertToEntity(commentDTO);
+        comment.setCreatedAt(Timestamp.from(Instant.now()));
         return convertToDTO(commentRepository.save(comment));
     }
 
@@ -39,8 +40,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDTO delete(CommentDTO commentDTO) {
-        Optional<Comment> existingCommentOptional = commentRepository.findById(commentDTO.getId());
+    public CommentDTO delete(Long id) {
+        Optional<Comment> existingCommentOptional = commentRepository.findById(id);
         if (existingCommentOptional.isPresent()) {
             Comment existingComment = existingCommentOptional.get();
             commentRepository.delete(existingComment);
@@ -57,8 +58,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDTO> findByApiId(Long apiId, Pageable pageable) {
-        Page<Comment> commentPage = commentRepository.findByApiId(apiId, pageable);
+    public List<CommentDTO> findByTaskId(Long taskId, Pageable pageable) {
+        Page<Comment> commentPage = commentRepository.findByTaskId(taskId, pageable);
         return commentPage.getContent().stream()
                 .map(this::convertToDTO)
                 .toList();
@@ -81,19 +82,19 @@ public class CommentServiceImpl implements CommentService {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setId(comment.getId());
         commentDTO.setContent(comment.getContent());
-        commentDTO.setApiId(comment.getApiId());
+        commentDTO.setTaskId(comment.getTaskId());
         commentDTO.setUserId(comment.getUserId());
+        commentDTO.setCreatedAt(comment.getCreatedAt());
         return commentDTO;
     }
 
-//    private Comment convertToEntity(CommentDTO commentDTO) {
-//        Comment comment = new Comment();
-//        comment.setId(commentDTO.getId());
-//        comment.setContent(commentDTO.getContent());
-//        comment.setStatus(commentDTO.getStatus());
-//        comment.setApiId(commentDTO.getApiId());
-//        comment.setUserId(commentDTO.getUserId());
-//        comment.setCreatedAt(commentDTO.getCreatedAt());
-//        return comment;
-//    }
+    private Comment convertToEntity(CommentDTO commentDTO) {
+        Comment comment = new Comment();
+        comment.setId(commentDTO.getId());
+        comment.setContent(commentDTO.getContent());
+        comment.setTaskId(commentDTO.getTaskId());
+        comment.setUserId(commentDTO.getUserId());
+        comment.setCreatedAt(commentDTO.getCreatedAt());
+        return comment;
+    }
 }
