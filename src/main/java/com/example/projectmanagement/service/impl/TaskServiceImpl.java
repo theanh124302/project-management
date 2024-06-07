@@ -15,8 +15,11 @@ import com.example.projectmanagement.repository.UserTaskRepository;
 import com.example.projectmanagement.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +37,9 @@ public class TaskServiceImpl implements TaskService {
     private UserTaskRepository userTaskRepository;
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    JavaMailSender javaMailSender;
 
     @Override
     public TaskDTO create(TaskDTO taskDTO) {
@@ -89,6 +95,28 @@ public class TaskServiceImpl implements TaskService {
         Optional<Task> existingTaskOptional = taskRepository.findById(taskId);
         Optional<User> existingUserOptional = userRepository.findById(userId);
         if (existingTaskOptional.isPresent() && existingUserOptional.isPresent()) {
+            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+            simpleMailMessage.setFrom("hoangtheanhc2lp@gmail.com");
+            simpleMailMessage.setTo(existingUserOptional.get().getEmail());
+            simpleMailMessage.setSubject("Task Assignment");
+            String taskName = existingTaskOptional.get().getName();
+            String projectName = projectRepository.findById(existingTaskOptional.get().getProjectId()).orElseThrow().getName();
+            String assignerName = userRepository.findById(assignerId).orElseThrow().getUsername();
+            LocalDateTime dueDate = existingTaskOptional.get().getDueDate().toLocalDateTime();
+            String emailText = String.format(
+                    "Dear Team Member,\n\n" +
+                            "You have been assigned a new task. Please find the details below:\n\n" +
+                            "Task: %s\n" +
+                            "Project: %s\n" +
+                            "Assigned by: %s\n" +
+                            "Due date: %s\n\n" +
+                            "Please make sure to complete the task by the due date.\n\n" +
+                            "Best regards,\n" +
+                            "Project Management Team",
+                    taskName, projectName, assignerName, dueDate
+            );
+            simpleMailMessage.setText(emailText);
+            javaMailSender.send(simpleMailMessage);
             if(assignerId.equals(projectRepository.findById(existingTaskOptional.get().getProjectId()).orElseThrow().getLeaderId())) {
                 UserTask userTask = userTaskRepository.findByUserIdAndTaskId(userId, taskId).orElse(null);
                 if(userTask != null) {
