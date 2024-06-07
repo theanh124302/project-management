@@ -4,6 +4,7 @@ import com.example.projectmanagement.dto.TaskDTO;
 import com.example.projectmanagement.entity.Task;
 import com.example.projectmanagement.entity.User;
 import com.example.projectmanagement.entity.UserTask;
+import com.example.projectmanagement.enums.LifeCycle;
 import com.example.projectmanagement.enums.TaskStatus;
 import com.example.projectmanagement.repository.ProjectRepository;
 import com.example.projectmanagement.repository.TaskRepository;
@@ -200,7 +201,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> findByApiIdAndLifeCycle(Long apiId, String lifeCycle, Pageable pageable) {
-        return taskRepository.findByApiIdAndLifeCycle(apiId, lifeCycle, pageable).getContent().stream()
+        return taskRepository.findByApiIdAndLifeCycle(apiId, LifeCycle.valueOf(lifeCycle), pageable).getContent().stream()
                 .map(this::convertToDTO)
                 .toList();
     }
