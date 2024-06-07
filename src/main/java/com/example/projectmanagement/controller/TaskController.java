@@ -1,5 +1,7 @@
 package com.example.projectmanagement.controller;
 
+import com.example.projectmanagement.dto.BarChartDTO;
+import com.example.projectmanagement.dto.ChartDTO;
 import com.example.projectmanagement.dto.TaskDTO;
 import com.example.projectmanagement.service.TaskService;
 import com.example.projectmanagement.template.ResponseTemplate;
@@ -127,7 +129,7 @@ public class TaskController {
     @GetMapping("/findByProjectId")
     public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByProjectId(@RequestParam Long projectId,
                                                                                 @RequestParam(defaultValue = "0") int page,
-                                                                                @RequestParam(defaultValue = "10") int size) {
+                                                                                @RequestParam(defaultValue = "30") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<TaskDTO> tasks = taskService.findByProjectId(projectId, pageable);
         long totalItems = taskService.count();
@@ -147,7 +149,7 @@ public class TaskController {
     public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByProjectIdAndStatus(@RequestParam Long projectId,
                                                                                          @RequestParam String status,
                                                                                          @RequestParam(defaultValue = "0") int page,
-                                                                                         @RequestParam(defaultValue = "10") int size) {
+                                                                                         @RequestParam(defaultValue = "30") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<TaskDTO> tasks = taskService.findByProjectIdAndStatus(projectId, status, pageable);
         long totalItems = taskService.count();
@@ -299,5 +301,65 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/countByProjectIdAndStatus")
+    public ResponseEntity<ResponseTemplate<Long>> countTasksByProjectIdAndStatus(@RequestParam Long projectId, @RequestParam String status) {
+        Long count = taskService.countByProjectIdAndStatus(projectId, status);
+        return ResponseEntity.ok(ResponseTemplate.<Long>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks counted successfully")
+                .data(count)
+                .build());
+    }
+
+    @GetMapping("/countByProjectId")
+    public ResponseEntity<ResponseTemplate<Long>> countTasksByProjectId(@RequestParam Long projectId) {
+        Long count = taskService.countByProjectId(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<Long>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks counted successfully")
+                .data(count)
+                .build());
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<ResponseTemplate<Long>> countTasks() {
+        Long count = taskService.count();
+        return ResponseEntity.ok(ResponseTemplate.<Long>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks counted successfully")
+                .data(count)
+                .build());
+    }
+
+    @GetMapping("/countByProjectIdGroupByStatus")
+    public ResponseEntity<ResponseTemplate<List<ChartDTO>>> countTasksByProjectIdGroupByStatus(@RequestParam Long projectId) {
+        List<ChartDTO> chart = taskService.countByProjectIdGroupByStatus(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<List<ChartDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks counted successfully")
+                .data(chart)
+                .build());
+    }
+
+
+    @GetMapping("/countDueDateByDay")
+    public ResponseEntity<ResponseTemplate<List<BarChartDTO>>> countDueDateByDay(@RequestParam Long projectId) {
+        List<BarChartDTO> chart = taskService.countDueDateByDay(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<List<BarChartDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks counted successfully")
+                .data(chart)
+                .build());
+    }
+
+    @GetMapping("/countDueDateByMonth")
+    public ResponseEntity<ResponseTemplate<List<BarChartDTO>>> countDueDateByMonth(@RequestParam Long projectId) {
+        List<BarChartDTO> chart = taskService.countDueDateByMonth(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<List<BarChartDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks counted successfully")
+                .data(chart)
+                .build());
+    }
 
 }

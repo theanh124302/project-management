@@ -1,6 +1,8 @@
 package com.example.projectmanagement.service.impl;
 
+import com.example.projectmanagement.dto.BarChartDTO;
 import com.example.projectmanagement.dto.TaskDTO;
+import com.example.projectmanagement.dto.ChartDTO;
 import com.example.projectmanagement.entity.Task;
 import com.example.projectmanagement.entity.User;
 import com.example.projectmanagement.entity.UserTask;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -209,6 +212,47 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Long count() {
         return taskRepository.count();
+    }
+
+    @Override
+    public Long countByProjectIdAndStatus(Long projectId, String status) {
+        return taskRepository.countByProjectIdAndStatus(projectId, TaskStatus.valueOf(status));
+    }
+
+    @Override
+    public Long countByProjectId(Long projectId) {
+        return taskRepository.countByProjectId(projectId);
+    }
+
+    @Override
+    public List<ChartDTO> countByProjectIdGroupByStatus(Long projectId) {
+        List<ChartDTO> chartDTOList = new ArrayList<>();
+        Long countTask = taskRepository.countByProjectId(projectId);
+        for (TaskStatus taskStatus : TaskStatus.values()) {
+            Long count = taskRepository.countByProjectIdAndStatus(projectId, taskStatus);
+            chartDTOList.add(new ChartDTO(taskStatus.toString(), count, (double) count/countTask));
+        }
+        return chartDTOList;
+    }
+
+    @Override
+    public List<BarChartDTO> countDueDateByDay(Long projectId) {
+        List<BarChartDTO> chartDTOList = new ArrayList<>();
+        for (int i = 1; i <= 31; i++) {
+            Long count = taskRepository.countByProjectIdAndDueDate(projectId, i);
+            chartDTOList.add(new BarChartDTO(i, count));
+        }
+        return chartDTOList;
+    }
+
+    @Override
+    public List<BarChartDTO> countDueDateByMonth(Long projectId) {
+        List<BarChartDTO> chartDTOList = new ArrayList<>();
+        for (int i = 1; i <= 12; i++) {
+            Long count = taskRepository.countByProjectIdAndDueMonth(projectId, i);
+            chartDTOList.add(new BarChartDTO(i, count));
+        }
+        return chartDTOList;
     }
 
     private TaskDTO convertToDTO(Task task) {

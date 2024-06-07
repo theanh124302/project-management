@@ -1,5 +1,7 @@
 package com.example.projectmanagement.service;
 
+import com.example.projectmanagement.dto.BarChartDTO;
+import com.example.projectmanagement.dto.ChartDTO;
 import com.example.projectmanagement.dto.TaskDTO;
 import org.springframework.data.domain.Pageable;
 
@@ -23,5 +25,10 @@ public interface TaskService {
     List<TaskDTO> findByProjectId(Long projectId, Pageable pageable);
     List<TaskDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable);
     List<TaskDTO> findByApiIdAndLifeCycle(Long apiId, String lifeCycle, Pageable pageable);
+    Long countByProjectIdAndStatus(Long projectId, String status);
+    Long countByProjectId(Long projectId);
+    List<ChartDTO> countByProjectIdGroupByStatus(Long projectId);
+    List<BarChartDTO> countDueDateByDay(Long projectId);
+    List<BarChartDTO> countDueDateByMonth(Long projectId);
     Long count();
 }

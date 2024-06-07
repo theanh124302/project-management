@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,8 +25,8 @@ public class TaskDTO {
     private LifeCycle lifeCycle;
     private String priority;
     private String type;
-    private String startDate;
-    private String endDate;
-    private String dueDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
+    private Timestamp dueDate;
     private String createdBy;
 }

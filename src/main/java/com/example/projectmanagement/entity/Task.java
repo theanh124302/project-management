@@ -5,6 +5,8 @@ import com.example.projectmanagement.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,8 +28,8 @@ public class Task {
     private LifeCycle lifeCycle;
     private String priority;
     private String type;
-    private String startDate;
-    private String endDate;
-    private String dueDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
+    private Timestamp dueDate;
     private String createdBy;
 }
