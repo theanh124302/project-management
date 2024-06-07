@@ -44,6 +44,7 @@ public class TaskServiceImpl implements TaskService {
             Task existingTask = existingTaskOptional.get();
             existingTask.setProjectId(taskDTO.getProjectId());
             existingTask.setApiId(taskDTO.getApiId());
+            existingTask.setIssueId(taskDTO.getIssueId());
             existingTask.setReviewerId(taskDTO.getReviewerId());
             existingTask.setName(taskDTO.getName());
             existingTask.setDescription(taskDTO.getDescription());
@@ -213,6 +214,7 @@ public class TaskServiceImpl implements TaskService {
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setId(task.getId());
         taskDTO.setApiId(task.getApiId());
+        taskDTO.setIssueId(task.getIssueId());
         taskDTO.setProjectId(task.getProjectId());
         taskDTO.setReviewerId(task.getReviewerId());
         taskDTO.setName(task.getName());
@@ -233,6 +235,7 @@ public class TaskServiceImpl implements TaskService {
         Task task = new Task();
         task.setId(taskDTO.getId());
         task.setApiId(taskDTO.getApiId());
+        task.setIssueId(taskDTO.getIssueId());
         task.setProjectId(taskDTO.getProjectId());
         task.setReviewerId(taskDTO.getReviewerId());
         task.setName(taskDTO.getName());

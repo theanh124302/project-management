@@ -5,6 +5,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +18,11 @@ public class IssueDTO {
     private Long id;
     private Long projectId;
     private String description;
+    private String content;
+    private String url;
     private String status;
     private String priority;
-    private String type;
     private String createdBy;
+    private Timestamp createdAt;
+    private Timestamp solvedAt;
 }

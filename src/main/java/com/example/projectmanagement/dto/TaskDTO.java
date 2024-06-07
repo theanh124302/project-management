@@ -15,6 +15,7 @@ public class TaskDTO {
     private Long id;
     private Long projectId;
     private Long apiId;
+    private Long issueId;
     private Long reviewerId;
     private String name;
     private String description;

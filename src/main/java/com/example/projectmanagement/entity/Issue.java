@@ -3,6 +3,8 @@ package com.example.projectmanagement.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +18,11 @@ public class Issue {
     private Long id;
     private Long projectId;
     private String description;
+    private String content;
+    private String url;
     private String status;
     private String priority;
-    private String type;
     private String createdBy;
+    private Timestamp createdAt;
+    private Timestamp solvedAt;
 }
