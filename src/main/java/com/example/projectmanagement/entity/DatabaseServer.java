@@ -16,6 +16,8 @@ public class DatabaseServer {
     private Long id;
     private Long projectId;
     private String description;
+    private String name;
+    private String type;
     private String url;
     private String username;
     private String password;
