@@ -10,6 +10,7 @@ import com.example.projectmanagement.repository.ProjectRepository;
 import com.example.projectmanagement.repository.TaskRepository;
 import com.example.projectmanagement.repository.UserRepository;
 import com.example.projectmanagement.service.DefineRequestService;
+import com.example.projectmanagement.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +42,9 @@ public class DefineRequestServiceImpl implements DefineRequestService {
     @Autowired
     JavaMailSender javaMailSender;
 
+    @Autowired
+    EmailService emailService;
+
     @Override
     public DefineRequestDTO create(DefineRequestDTO defineRequestDTO) {
         DefineRequest defineRequest = convertToEntity(defineRequestDTO);
@@ -69,7 +73,7 @@ public class DefineRequestServiceImpl implements DefineRequestService {
             );
             simpleMailMessage.setText(emailText);
 
-            javaMailSender.send(simpleMailMessage);
+            emailService.sendEmail(simpleMailMessage);
         }
         return convertToDTO(defineRequestRepository.save(defineRequest));
     }

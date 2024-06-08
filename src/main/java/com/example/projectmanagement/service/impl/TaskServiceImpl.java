@@ -10,6 +10,7 @@ import com.example.projectmanagement.entity.UserTask;
 import com.example.projectmanagement.enums.LifeCycle;
 import com.example.projectmanagement.enums.TaskStatus;
 import com.example.projectmanagement.repository.*;
+import com.example.projectmanagement.service.EmailService;
 import com.example.projectmanagement.service.EventService;
 import com.example.projectmanagement.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     JavaMailSender javaMailSender;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public TaskDTO create(TaskDTO taskDTO) {
@@ -128,7 +132,7 @@ public class TaskServiceImpl implements TaskService {
                     taskName, projectName, assignerName, dueDate
             );
             simpleMailMessage.setText(emailText);
-            javaMailSender.send(simpleMailMessage);
+            emailService.sendEmail(simpleMailMessage);
             if(assignerId.equals(projectRepository.findById(existingTaskOptional.get().getProjectId()).orElseThrow().getLeaderId())) {
                 UserTask userTask = userTaskRepository.findByUserIdAndTaskId(userId, taskId).orElse(null);
                 if(userTask != null) {
