@@ -16,6 +16,7 @@ public class EventDTO {
     private String name;
     private String description;
     private Long taskId;
+    private Long projectId;
     private String status;
     private String priority;
     private Timestamp startDate;

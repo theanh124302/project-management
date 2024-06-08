@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name ="scheduler")
+@Table(name ="event")
 @Entity
 public class Event {
     @Id
@@ -19,6 +19,7 @@ public class Event {
     private String name;
     private String description;
     private Long taskId;
+    private Long projectId;
     private String status;
     private String priority;
     private Timestamp startDate;
