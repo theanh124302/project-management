@@ -290,6 +290,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<BarChartDTO> countDueDateByDayAndUserId(Long userId) {
+        List<BarChartDTO> chartDTOList = new ArrayList<>();
+        for (int i = 1; i <= 31; i++) {
+            Long count = taskRepository.countByUserIdAndDueDate(userId, i);
+            chartDTOList.add(new BarChartDTO(i, count));
+        }
+        return chartDTOList;
+    }
+
+    @Override
     public List<BarChartDTO> countDueDateByMonth(Long projectId) {
         List<BarChartDTO> chartDTOList = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {

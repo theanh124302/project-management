@@ -29,6 +29,7 @@ public interface TaskService {
     Long countByProjectId(Long projectId);
     List<ChartDTO> countByProjectIdGroupByStatus(Long projectId);
     List<BarChartDTO> countDueDateByDay(Long projectId);
+    List<BarChartDTO> countDueDateByDayAndUserId(Long userId);
     List<BarChartDTO> countDueDateByMonth(Long projectId);
     Long count();
 }

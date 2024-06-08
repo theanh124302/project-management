@@ -24,6 +24,15 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "SELECT COUNT(*) FROM tasks WHERE project_id = :projectId AND DAY(due_date) = :day AND YEAR(due_date) = YEAR(CURDATE()) AND MONTH(due_date) = MONTH(CURDATE())", nativeQuery = true)
     Long countByProjectIdAndDueDate(@Param("projectId") Long projectId, @Param("day") int day);
 
+    @Query(value = "SELECT COUNT(*) FROM tasks t " +
+            "JOIN user_task ut ON t.id = ut.task_id " +
+            "WHERE ut.user_id = :userId " +
+            "AND DAY(t.due_date) = :day " +
+            "AND YEAR(t.due_date) = YEAR(CURDATE()) " +
+            "AND MONTH(t.due_date) = MONTH(CURDATE())",
+            nativeQuery = true)
+    Long countByUserIdAndDueDate(@Param("userId") Long userId, @Param("day") int day);
+
     @Query(value = "SELECT COUNT(*) FROM tasks WHERE project_id = :projectId AND MONTH(due_date) = :month AND YEAR(due_date) = YEAR(CURDATE())", nativeQuery = true)
     Long countByProjectIdAndDueMonth(@Param("projectId") Long projectId, @Param("month") int month);
 

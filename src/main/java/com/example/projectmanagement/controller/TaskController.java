@@ -352,6 +352,16 @@ public class TaskController {
                 .build());
     }
 
+    @GetMapping("/countDueDateByDayAndUserId")
+    public ResponseEntity<ResponseTemplate<List<BarChartDTO>>> countDueDateByDayAndUserId(@RequestParam Long userId) {
+        List<BarChartDTO> chart = taskService.countDueDateByDayAndUserId(userId);
+        return ResponseEntity.ok(ResponseTemplate.<List<BarChartDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks counted successfully")
+                .data(chart)
+                .build());
+    }
+
     @GetMapping("/countDueDateByMonth")
     public ResponseEntity<ResponseTemplate<List<BarChartDTO>>> countDueDateByMonth(@RequestParam Long projectId) {
         List<BarChartDTO> chart = taskService.countDueDateByMonth(projectId);
