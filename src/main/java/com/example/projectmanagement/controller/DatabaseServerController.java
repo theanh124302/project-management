@@ -88,7 +88,8 @@ public class DatabaseServerController {
     }
 
     @GetMapping("/findAllByProjectId")
-    public ResponseEntity<ResponseTemplate<List<DatabaseServerDTO>>> findAllDatabaseServersByProjectId(@RequestParam Long projectId, @RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<ResponseTemplate<List<DatabaseServerDTO>>> findAllDatabaseServersByProjectId(@RequestParam Long projectId, @RequestParam(defaultValue = "0") int page,
+                                                                                                       @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<DatabaseServerDTO> foundDatabaseServers = databaseServerService.findAllByProjectId(projectId, pageable);
         if (foundDatabaseServers != null) {
