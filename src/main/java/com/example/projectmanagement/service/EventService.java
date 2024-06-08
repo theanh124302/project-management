@@ -10,6 +10,7 @@ public interface EventService {
     EventDTO update(EventDTO eventDTO);
     EventDTO findById(Long id);
     EventDTO delete(Long id);
+    EventDTO findByTaskId(Long taskId);
     List<EventDTO> findAllByProjectId(Long projectId, Pageable pageable);
     Long count();
 }

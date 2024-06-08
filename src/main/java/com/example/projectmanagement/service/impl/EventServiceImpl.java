@@ -50,6 +50,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public EventDTO findByTaskId(Long taskId) {
+        Optional<Event> existingEventOptional = eventRepository.findByTaskId(taskId);
+        return existingEventOptional.map(this::convertToDTO).orElse(null);
+    }
+
+    @Override
     public EventDTO delete(Long id) {
         Optional<Event> existingEventOptional = eventRepository.findById(id);
         if (existingEventOptional.isPresent()) {

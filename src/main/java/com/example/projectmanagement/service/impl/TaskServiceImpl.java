@@ -3,15 +3,14 @@ package com.example.projectmanagement.service.impl;
 import com.example.projectmanagement.dto.BarChartDTO;
 import com.example.projectmanagement.dto.TaskDTO;
 import com.example.projectmanagement.dto.ChartDTO;
+import com.example.projectmanagement.dto.EventDTO;
 import com.example.projectmanagement.entity.Task;
 import com.example.projectmanagement.entity.User;
 import com.example.projectmanagement.entity.UserTask;
 import com.example.projectmanagement.enums.LifeCycle;
 import com.example.projectmanagement.enums.TaskStatus;
-import com.example.projectmanagement.repository.ProjectRepository;
-import com.example.projectmanagement.repository.TaskRepository;
-import com.example.projectmanagement.repository.UserRepository;
-import com.example.projectmanagement.repository.UserTaskRepository;
+import com.example.projectmanagement.repository.*;
+import com.example.projectmanagement.service.EventService;
 import com.example.projectmanagement.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -35,16 +34,25 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private UserTaskRepository userTaskRepository;
+
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private EventService eventService;
+
+    @Autowired
+    private EventRepository eventRepository;
 
     @Autowired
     JavaMailSender javaMailSender;
 
     @Override
     public TaskDTO create(TaskDTO taskDTO) {
-        Task task = convertToEntity(taskDTO);
-        return convertToDTO(taskRepository.save(task));
+        Task task = taskRepository.save(convertToEntity(taskDTO));
+        taskDTO.setId(task.getId());
+        eventService.create(convertToEvent(taskDTO));
+        return convertToDTO(task);
     }
 
     @Override
@@ -66,6 +74,9 @@ public class TaskServiceImpl implements TaskService {
             existingTask.setEndDate(taskDTO.getEndDate());
             existingTask.setDueDate(taskDTO.getDueDate());
             existingTask.setCreatedBy(taskDTO.getCreatedBy());
+            EventDTO eventDTO = convertToEvent(taskDTO);
+            eventDTO.setId(eventService.findByTaskId(taskDTO.getId()).getId());
+            eventService.update(eventDTO);
             return convertToDTO(taskRepository.save(existingTask));
         } else {
             return null;
@@ -77,6 +88,7 @@ public class TaskServiceImpl implements TaskService {
         Optional<Task> existingTaskOptional = taskRepository.findById(taskDTO.getId());
         if (existingTaskOptional.isPresent()) {
             Task existingTask = existingTaskOptional.get();
+            eventRepository.deleteByTaskId(taskDTO.getId());
             taskRepository.delete(existingTask);
             return convertToDTO(existingTask);
         } else {
@@ -322,5 +334,18 @@ public class TaskServiceImpl implements TaskService {
         task.setDueDate(taskDTO.getDueDate());
         task.setCreatedBy(taskDTO.getCreatedBy());
         return task;
+    }
+
+    private EventDTO convertToEvent(TaskDTO taskDTO) {
+        EventDTO eventDTO = new EventDTO();
+        eventDTO.setProjectId(taskDTO.getProjectId());
+        eventDTO.setTaskId(taskDTO.getId());
+        eventDTO.setName(taskDTO.getName());
+        eventDTO.setDescription(taskDTO.getDescription());
+        eventDTO.setPriority(taskDTO.getPriority());
+        eventDTO.setStartDate(taskDTO.getStartDate());
+        eventDTO.setEndDate(taskDTO.getDueDate());
+        eventDTO.setStatus(String.valueOf(taskDTO.getStatus()));
+        return eventDTO;
     }
 }
