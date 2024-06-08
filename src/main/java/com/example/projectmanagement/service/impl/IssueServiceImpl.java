@@ -39,7 +39,7 @@ public class IssueServiceImpl implements IssueService {
             existingIssue.setContent(issueDTO.getContent());
             existingIssue.setPriority(issueDTO.getPriority());
             existingIssue.setStatus(issueDTO.getStatus());
-            if(issueDTO.getStatus().equals("solvedAt")){
+            if(issueDTO.getStatus().equals("SOLVED")){
                 existingIssue.setSolvedAt(Timestamp.from(Instant.now()));
             }
             return convertToDTO(issueRepository.save(existingIssue));
@@ -87,6 +87,7 @@ public class IssueServiceImpl implements IssueService {
         issueDTO.setPriority(issue.getPriority());
         issueDTO.setStatus(issue.getStatus());
         issueDTO.setCreatedAt(issue.getCreatedAt());
+        issueDTO.setSolvedAt(issue.getSolvedAt());
         return issueDTO;
     }
 
@@ -101,6 +102,7 @@ public class IssueServiceImpl implements IssueService {
         issue.setPriority(issueDTO.getPriority());
         issue.setStatus(issueDTO.getStatus());
         issue.setCreatedAt(issueDTO.getCreatedAt());
+        issue.setSolvedAt(issueDTO.getSolvedAt());
         return issue;
     }
 
