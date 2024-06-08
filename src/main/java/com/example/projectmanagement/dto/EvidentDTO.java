@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-public class evidentDTO {
+public class EvidentDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

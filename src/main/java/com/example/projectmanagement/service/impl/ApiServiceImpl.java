@@ -46,6 +46,7 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setTechnicalRequirements(apiDTO.getTechnicalRequirements());
             existingApi.setUseCaseDiagram(apiDTO.getUseCaseDiagram());
             existingApi.setUserRequirements(apiDTO.getUserRequirements());
+            existingApi.setInstallationGuide(apiDTO.getInstallationGuide());
             existingApi.setLifeCycle(apiDTO.getLifeCycle());
             return convertToDTO(apiRepository.save(existingApi));
         } else {
@@ -103,6 +104,18 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setTechnicalRequirements(technicalRequirements);
             existingApi.setBusinessProcess(businessProcess);
             existingApi.setUserRequirements(userRequirements);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateInstallationGuide(Long id, String installationGuide) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setInstallationGuide(installationGuide);
             return convertToDTO(apiRepository.save(existingApi));
         } else {
             return null;
@@ -188,6 +201,7 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setTechnicalRequirements(api.getTechnicalRequirements());
         apiDTO.setUseCaseDiagram(api.getUseCaseDiagram());
         apiDTO.setUserRequirements(api.getUserRequirements());
+        apiDTO.setInstallationGuide(api.getInstallationGuide());
         apiDTO.setLifeCycle(api.getLifeCycle());
         return apiDTO;
     }
@@ -213,6 +227,7 @@ public class ApiServiceImpl implements ApiService {
         api.setTechnicalRequirements(apiDTO.getTechnicalRequirements());
         api.setUseCaseDiagram(apiDTO.getUseCaseDiagram());
         api.setUserRequirements(apiDTO.getUserRequirements());
+        api.setInstallationGuide(apiDTO.getInstallationGuide());
         api.setLifeCycle(apiDTO.getLifeCycle());
         return api;
     }

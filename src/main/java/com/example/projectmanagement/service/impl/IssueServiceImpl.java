@@ -33,6 +33,7 @@ public class IssueServiceImpl implements IssueService {
         if (existingIssueOptional.isPresent()) {
             Issue existingIssue = existingIssueOptional.get();
             existingIssue.setProjectId(issueDTO.getProjectId());
+            existingIssue.setApiId(issueDTO.getApiId());
             existingIssue.setUrl(issueDTO.getUrl());
             existingIssue.setDescription(issueDTO.getDescription());
             existingIssue.setContent(issueDTO.getContent());
@@ -79,6 +80,7 @@ public class IssueServiceImpl implements IssueService {
         IssueDTO issueDTO = new IssueDTO();
         issueDTO.setId(issue.getId());
         issueDTO.setProjectId(issue.getProjectId());
+        issueDTO.setApiId(issue.getApiId());
         issueDTO.setUrl(issue.getUrl());
         issueDTO.setDescription(issue.getDescription());
         issueDTO.setContent(issue.getContent());
@@ -92,6 +94,7 @@ public class IssueServiceImpl implements IssueService {
         Issue issue = new Issue();
         issue.setId(issueDTO.getId());
         issue.setProjectId(issueDTO.getProjectId());
+        issue.setApiId(issueDTO.getApiId());
         issue.setUrl(issueDTO.getUrl());
         issue.setDescription(issueDTO.getDescription());
         issue.setContent(issueDTO.getContent());

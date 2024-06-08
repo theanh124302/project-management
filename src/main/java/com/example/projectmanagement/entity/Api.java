@@ -37,5 +37,6 @@ public class Api {
     private String sequenceDiagram;
     private String activityDiagram;
     private String classDiagram;
+    private String installationGuide;
     private LifeCycle lifeCycle;
 }

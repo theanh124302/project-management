@@ -12,6 +12,7 @@ public interface ApiService {
     ApiDTO updateParametersAndBodyAndTokenAndHeader(Long id, String parameters, String body, String token, String header);
     ApiDTO updateUseCaseDiagramAndSequenceDiagramAndActivityDiagramAndClassDiagram(Long id, String useCaseDiagram, String sequenceDiagram, String activityDiagram, String classDiagram);
     ApiDTO updateTechnicalRequirementsAndBusinessProcessAndUserRequirements(Long id, String technicalRequirements, String businessProcess, String userRequirements);
+    ApiDTO updateInstallationGuide(Long id, String installationGuide);
     ApiDTO delete(ApiDTO apiDTO);
     ApiDTO findById(Long id);
     List<ApiDTO> findByProjectId(Long projectId, Pageable pageable);

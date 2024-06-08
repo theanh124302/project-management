@@ -134,6 +134,24 @@ public class ApiController {
         }
     }
 
+    @PostMapping("/updateInstallationGuide")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateInstallationGuide(@RequestParam Long id,
+                                                                            @RequestParam(required = false) String installationGuide) {
+        ApiDTO updatedApi = apiService.updateInstallationGuide(id, installationGuide);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseTemplate<ApiDTO>> deleteApi(@RequestBody ApiDTO apiDTO) {
         ApiDTO deletedApi = apiService.delete(apiDTO);
