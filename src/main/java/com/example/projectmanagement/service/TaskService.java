@@ -24,7 +24,11 @@ public interface TaskService {
     List<TaskDTO> findByName(String name, Pageable pageable);
     List<TaskDTO> findByProjectId(Long projectId, Pageable pageable);
     List<TaskDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable);
-    List<TaskDTO> findByApiIdAndLifeCycle(Long apiId, String lifeCycle, Pageable pageable);
+    List<TaskDTO> findByProjectIdAndName(Long projectId, String name, Pageable pageable);
+    List<TaskDTO> findByUserIdAndProjectId(Long userId, Long projectId, Pageable pageable);
+    List<TaskDTO> findByUserIdAndProjectIdAndName(Long userId, Long projectId, String name, Pageable pageable);
+    List<TaskDTO> findByUserIdAndProjectIdAndNameAndStatus(Long userId, Long projectId, String name, String status, Pageable pageable);
+    List<TaskDTO> findByProjectIdAndNameAndStatus(Long projectId, String name, String status, Pageable pageable);
     Long countByProjectIdAndStatus(Long projectId, String status);
     Long countByProjectId(Long projectId);
     List<ChartDTO> countByProjectIdGroupByStatus(Long projectId);

@@ -247,8 +247,36 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDTO> findByApiIdAndLifeCycle(Long apiId, String lifeCycle, Pageable pageable) {
-        return taskRepository.findByApiIdAndLifeCycle(apiId, LifeCycle.valueOf(lifeCycle), pageable).getContent().stream()
+    public List<TaskDTO> findByProjectIdAndName(Long projectId, String name, Pageable pageable) {
+        return taskRepository.findByProjectIdAndName(projectId, name, pageable).getContent().stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+    @Override
+    public List<TaskDTO> findByUserIdAndProjectId(Long userId, Long projectId, Pageable pageable) {
+        return taskRepository.findByUserIdAndProjectId(userId, projectId, pageable).getContent().stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+    @Override
+    public List<TaskDTO> findByUserIdAndProjectIdAndName(Long userId, Long projectId, String name, Pageable pageable) {
+        return taskRepository.findByUserIdAndProjectIdAndName(userId, projectId, name, pageable).getContent().stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+    @Override
+    public List<TaskDTO> findByUserIdAndProjectIdAndNameAndStatus(Long userId, Long projectId, String name, String status, Pageable pageable) {
+        return taskRepository.findByUserIdAndProjectIdAndNameAndStatus(userId, projectId, name, TaskStatus.valueOf(status), pageable).getContent().stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+    @Override
+    public List<TaskDTO> findByProjectIdAndNameAndStatus(Long projectId, String name, String status, Pageable pageable) {
+        return taskRepository.findByProjectIdAndNameAndStatus(projectId, name, TaskStatus.valueOf(status), pageable).getContent().stream()
                 .map(this::convertToDTO)
                 .toList();
     }

@@ -165,6 +165,110 @@ public class TaskController {
                 .build());
     }
 
+    @GetMapping("/findByProjectIdAndName")
+    public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByProjectIdAndName(@RequestParam Long projectId,
+                                                                                       @RequestParam String name,
+                                                                                       @RequestParam(defaultValue = "0") int page,
+                                                                                       @RequestParam(defaultValue = "30") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<TaskDTO> tasks = taskService.findByProjectIdAndName(projectId, name, pageable);
+        long totalItems = taskService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        return ResponseEntity.ok(ResponseTemplate.<List<TaskDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks found successfully")
+                .page(page)
+                .size(size)
+                .totalItems(totalItems)
+                .totalPages(totalPages)
+                .data(tasks)
+                .build());
+    }
+
+    @GetMapping("/findByUserIdAndProjectId")
+    public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByUserIdAndProjectId(@RequestParam Long userId,
+                                                                                         @RequestParam Long projectId,
+                                                                                         @RequestParam(defaultValue = "0") int page,
+                                                                                         @RequestParam(defaultValue = "30") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<TaskDTO> tasks = taskService.findByUserIdAndProjectId(userId, projectId, pageable);
+        long totalItems = taskService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        return ResponseEntity.ok(ResponseTemplate.<List<TaskDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks found successfully")
+                .page(page)
+                .size(size)
+                .totalItems(totalItems)
+                .totalPages(totalPages)
+                .data(tasks)
+                .build());
+    }
+
+    @GetMapping("/findByUserIdAndProjectIdAndName")
+    public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByUserIdAndProjectIdAndName(@RequestParam Long userId,
+                                                                                                 @RequestParam Long projectId,
+                                                                                                 @RequestParam String name,
+                                                                                                 @RequestParam(defaultValue = "0") int page,
+                                                                                                 @RequestParam(defaultValue = "30") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<TaskDTO> tasks = taskService.findByUserIdAndProjectIdAndName(userId, projectId, name, pageable);
+        long totalItems = taskService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        return ResponseEntity.ok(ResponseTemplate.<List<TaskDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks found successfully")
+                .page(page)
+                .size(size)
+                .totalItems(totalItems)
+                .totalPages(totalPages)
+                .data(tasks)
+                .build());
+    }
+
+    @GetMapping("/findByUserIdAndProjectIdAndNameAndStatus")
+    public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByUserIdAndProjectIdAndNameAndStatus(@RequestParam Long userId,
+                                                                                                         @RequestParam Long projectId,
+                                                                                                         @RequestParam String name,
+                                                                                                         @RequestParam String status,
+                                                                                                         @RequestParam(defaultValue = "0") int page,
+                                                                                                         @RequestParam(defaultValue = "30") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<TaskDTO> tasks = taskService.findByUserIdAndProjectIdAndNameAndStatus(userId, projectId, name, status, pageable);
+        long totalItems = taskService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        return ResponseEntity.ok(ResponseTemplate.<List<TaskDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks found successfully")
+                .page(page)
+                .size(size)
+                .totalItems(totalItems)
+                .totalPages(totalPages)
+                .data(tasks)
+                .build());
+    }
+
+    @GetMapping("/findByProjectIdAndNameAndStatus")
+    public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByProjectIdAndNameAndStatus(@RequestParam Long projectId,
+                                                                                                 @RequestParam String name,
+                                                                                                 @RequestParam String status,
+                                                                                                 @RequestParam(defaultValue = "0") int page,
+                                                                                                 @RequestParam(defaultValue = "30") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<TaskDTO> tasks = taskService.findByProjectIdAndNameAndStatus(projectId, name, status, pageable);
+        long totalItems = taskService.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        return ResponseEntity.ok(ResponseTemplate.<List<TaskDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks found successfully")
+                .page(page)
+                .size(size)
+                .totalItems(totalItems)
+                .totalPages(totalPages)
+                .data(tasks)
+                .build());
+    }
+
     @PostMapping("/assign")
     public ResponseEntity<ResponseTemplate<TaskDTO>> assignTask(@RequestParam Long taskId, @RequestParam Long userId, @RequestParam Long assignerId) {
         TaskDTO assignedTask = taskService.assignTask(taskId, userId, assignerId);
