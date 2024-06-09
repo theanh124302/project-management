@@ -1,8 +1,6 @@
-package com.example.projectmanagement.dto;
+package com.example.projectmanagement.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -12,7 +10,9 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 @Builder
-public class DefineRequestDTO {
+@Table(name ="task_request")
+@Entity
+public class TaskRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
