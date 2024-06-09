@@ -150,6 +150,7 @@ public class TaskRequestServiceImpl implements TaskRequestService {
         taskRequestDTO.setTaskId(taskRequest.getTaskId());
         taskRequestDTO.setDescription(taskRequest.getDescription());
         taskRequestDTO.setContent(taskRequest.getContent());
+        taskRequestDTO.setCreatedAt(taskRequest.getCreatedAt());
         return taskRequestDTO;
     }
 
@@ -162,6 +163,7 @@ public class TaskRequestServiceImpl implements TaskRequestService {
         taskRequest.setTaskId(taskRequestDTO.getTaskId());
         taskRequest.setDescription(taskRequestDTO.getDescription());
         taskRequest.setContent(taskRequestDTO.getContent());
+        taskRequest.setCreatedAt(taskRequestDTO.getCreatedAt());
         return taskRequest;
     }
 }
