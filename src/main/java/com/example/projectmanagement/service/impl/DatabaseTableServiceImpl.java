@@ -21,6 +21,7 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
     @Override
     public DatabaseTableDTO create(DatabaseTableDTO databaseTableDTO) {
         DatabaseTable databaseTable = convertToEntity(databaseTableDTO);
+        databaseTable.setUuid(java.util.UUID.randomUUID().toString());
         return convertToDTO(databaseTableRepository.save(databaseTable));
     }
 
@@ -54,6 +55,12 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
     @Override
     public DatabaseTableDTO findById(Long id) {
         Optional<DatabaseTable> databaseTableOptional = databaseTableRepository.findById(id);
+        return databaseTableOptional.map(this::convertToDTO).orElse(null);
+    }
+
+    @Override
+    public DatabaseTableDTO findByUuid(String uuid) {
+        Optional<DatabaseTable> databaseTableOptional = databaseTableRepository.findByUuid(uuid);
         return databaseTableOptional.map(this::convertToDTO).orElse(null);
     }
 

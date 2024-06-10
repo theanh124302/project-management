@@ -10,5 +10,6 @@ public interface DatabaseTableService {
     DatabaseTableDTO update(DatabaseTableDTO databaseTableDTO);
     DatabaseTableDTO delete(Long id);
     DatabaseTableDTO findById(Long id);
+    DatabaseTableDTO findByUuid(String uuid);
     List<DatabaseTableDTO> findAllByDatabaseServerId(Long databaseServerId, Pageable pageable);
 }

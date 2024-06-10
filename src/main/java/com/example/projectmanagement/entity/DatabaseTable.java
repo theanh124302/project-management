@@ -3,6 +3,8 @@ package com.example.projectmanagement.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,4 +19,5 @@ public class DatabaseTable {
     private String name;
     private String description;
     private Long databaseServerId;
+    private String uuid;
 }
