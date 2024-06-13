@@ -5,19 +5,24 @@ import com.example.projectmanagement.repository.FileRepository;
 import com.example.projectmanagement.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class FileServiceImpl implements FileService {
 
-//    @Value("${file.upload-dir}")
-//    private String uploadDir;
+    @Value("${image.upload.dir}")
+    private String uploadDir;
 
     @Value("${file.path}")
     private String filePath;
@@ -27,7 +32,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void saveFile(MultipartFile file) {
-        String directory = System.getProperty("user.dir") + "\\" + filePath;
+        String directory = uploadDir;
         System.out.println("Directory: " + directory);
         try {
             file.transferTo(new File(directory + "\\" + file.getOriginalFilename()));
@@ -37,33 +42,16 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public FileDTO getFile(Long id) {
-        FileEntity fileEntity = fileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found with id " + id));
-
-        return mapToFileDTO(fileEntity);
+    public Resource getFileData(String fileName) {
+        String directory = uploadDir + "\\" + fileName;
+        Path path = Paths.get(directory);
+        System.out.println("Path: " + path);
+        System.out.println("Path to URI: " + path.toUri());
+        try {
+            return new UrlResource(path.toUri());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public List<FileDTO> getAllFiles() {
-        return fileRepository.findAll().stream()
-                .map(this::mapToFileDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public byte[] getFileData(Long id) {
-        FileEntity fileEntity = fileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found with id " + id));
-        return fileEntity.getData();
-    }
-
-    private FileDTO mapToFileDTO(FileEntity fileEntity) {
-        FileDTO fileDTO = new FileDTO();
-        fileDTO.setId(fileEntity.getId());
-        fileDTO.setName(fileEntity.getName());
-        fileDTO.setType(fileEntity.getType());
-        fileDTO.setUrl("/api/files/" + fileEntity.getId());
-        return fileDTO;
-    }
 }
