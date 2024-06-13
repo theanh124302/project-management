@@ -73,6 +73,7 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
         DatabaseTableDTO databaseTableDTO = new DatabaseTableDTO();
         databaseTableDTO.setId(databaseTable.getId());
         databaseTableDTO.setDatabaseServerId(databaseTable.getDatabaseServerId());
+        databaseTableDTO.setUuid(databaseTable.getUuid());
         databaseTableDTO.setName(databaseTable.getName());
         databaseTableDTO.setDescription(databaseTable.getDescription());
         return databaseTableDTO;

@@ -69,6 +69,7 @@ public class RelatedDatabaseTableServiceImpl implements RelatedDatabaseTableServ
         relatedDatabaseTableDTO.setId(relatedDatabaseTable.getId());
         relatedDatabaseTableDTO.setApiId(relatedDatabaseTable.getApiId());
         relatedDatabaseTableDTO.setDatabaseTableUuid((relatedDatabaseTable.getDatabaseTableUuid()));
+        relatedDatabaseTableDTO.setDatabaseTableId(relatedDatabaseTable.getDatabaseTableId());
         relatedDatabaseTableDTO.setDatabaseTableName(relatedDatabaseTable.getDatabaseTableName());
         relatedDatabaseTableDTO.setDescription(relatedDatabaseTable.getDescription());
         return relatedDatabaseTableDTO;
