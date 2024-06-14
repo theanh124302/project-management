@@ -17,5 +17,6 @@ public class ProjectFileDTO {
     private String description;
     private String type;
     private String uuid;
+    private String localPath;
     private String url;
 }

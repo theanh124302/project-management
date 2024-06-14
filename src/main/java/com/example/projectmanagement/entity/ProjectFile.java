@@ -19,5 +19,6 @@ public class ProjectFile {
     private String description;
     private String type;
     private String uuid;
+    private String localPath;
     private String url;
 }

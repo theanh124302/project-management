@@ -30,40 +30,16 @@ public class ProjectFileServiceImpl implements ProjectFileService {
     @Autowired
     private ProjectFileRepository projectFileRepository;
 
-//    @Override
-//    public ProjectFileDTO create(ProjectFileDTO projectFileDTO, MultipartFile file) {
-//        projectFileDTO.setName(file.getOriginalFilename());
-//        projectFileDTO.setUuid(java.util.UUID.randomUUID().toString());
-//        projectFileDTO.setType(file.getContentType());
-//        projectFileDTO.setUrl(uploadDir + "\\" + projectFileDTO.getUuid() + projectFileDTO.getName());
-//        saveFile(file, projectFileDTO.getUrl());
-//        ProjectFile projectFile = convertToEntity(projectFileDTO);
-//        return convertToDTO(projectFileRepository.save(projectFile));
-//    }
-
     @Override
     public ProjectFileDTO create(ProjectFileDTO projectFileDTO, MultipartFile file) {
         projectFileDTO.setName(file.getOriginalFilename());
         projectFileDTO.setUuid(java.util.UUID.randomUUID().toString());
         projectFileDTO.setType(file.getContentType());
-        projectFileDTO.setUrl(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file\\" + projectFileDTO.getUuid() + projectFileDTO.getName());
-        saveFile(file, projectFileDTO.getUrl());
+        projectFileDTO.setLocalPath(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file\\" + projectFileDTO.getUuid() + projectFileDTO.getName());
+        projectFileDTO.setUrl("http://localhost:8080/file/" + projectFileDTO.getUuid() + projectFileDTO.getName());
+        saveFile(file, projectFileDTO.getLocalPath());
         ProjectFile projectFile = convertToEntity(projectFileDTO);
         return convertToDTO(projectFileRepository.save(projectFile));
-    }
-
-    @Override
-    public ProjectFileDTO update(ProjectFileDTO projectFileDTO) {
-        Optional<ProjectFile> existingProjectFileOptional = projectFileRepository.findById(projectFileDTO.getId());
-        if (existingProjectFileOptional.isPresent()) {
-            ProjectFile existingProjectFile = existingProjectFileOptional.get();
-            existingProjectFile.setDescription(projectFileDTO.getDescription());
-            existingProjectFile.setProjectId(projectFileDTO.getProjectId());
-            existingProjectFile.setUrl(projectFileDTO.getUrl());
-            return convertToDTO(projectFileRepository.save(existingProjectFile));
-        } else {
-            return null;
-        }
     }
 
     @Override
@@ -84,11 +60,6 @@ public class ProjectFileServiceImpl implements ProjectFileService {
         return existingProjectFileOptional.map(this::convertToDTO).orElse(null);
     }
 
-    @Override
-    public Resource findResourceById(Long id) {
-        Optional<ProjectFile> existingProjectFileOptional = projectFileRepository.findById(id);
-        return existingProjectFileOptional.map(projectFile -> getFileData(projectFile.getUrl())).orElse(null);
-    }
 
     @Override
     public List<ProjectFileDTO> findByProjectId(Long projectId, Pageable pageable) {
@@ -97,12 +68,6 @@ public class ProjectFileServiceImpl implements ProjectFileService {
                 .toList();
     }
 
-    @Override
-    public List<Resource> findResourcesByProjectId(Long projectId, Pageable pageable) {
-        return projectFileRepository.findByProjectId(projectId, pageable).getContent().stream()
-                .map(projectFile -> getFileData(projectFile.getUrl()))
-                .toList();
-    }
 
     @Override
     public Long count() {
@@ -137,17 +102,6 @@ public class ProjectFileServiceImpl implements ProjectFileService {
         try {
             file.transferTo(new File(directory));
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Resource getFileData(String directory) {
-        Path path = Paths.get(directory);
-        System.out.println("Path: " + path);
-        System.out.println("Path to URI: " + path.toUri());
-        try {
-            return new UrlResource(path.toUri());
-        } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }

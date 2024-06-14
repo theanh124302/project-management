@@ -10,11 +10,8 @@ import java.util.List;
 
 public interface ProjectFileService {
     ProjectFileDTO create(ProjectFileDTO projectFileDTO, MultipartFile file);
-    ProjectFileDTO update(ProjectFileDTO projectFileDTO);
     ProjectFileDTO delete(Long id);
     ProjectFileDTO findById(Long id);
-    Resource findResourceById(Long id);
     List<ProjectFileDTO> findByProjectId(Long projectId, Pageable pageable);
-    List<Resource> findResourcesByProjectId(Long projectId, Pageable pageable);
     Long count();
 }

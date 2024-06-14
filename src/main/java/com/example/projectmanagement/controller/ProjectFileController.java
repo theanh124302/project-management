@@ -42,23 +42,6 @@ public class ProjectFileController {
         }
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<ResponseTemplate<ProjectFileDTO>> updateProjectFile(@RequestBody ProjectFileDTO projectFileDTO) {
-        ProjectFileDTO updatedProjectFile = projectFileService.update(projectFileDTO);
-        if (updatedProjectFile != null) {
-            return ResponseEntity.ok(ResponseTemplate.<ProjectFileDTO>builder()
-                    .status(HttpStatus.OK)
-                    .message("Project file updated successfully")
-                    .data(updatedProjectFile)
-                    .build());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ProjectFileDTO>builder()
-                    .status(HttpStatus.NOT_FOUND)
-                    .message("Project file not found")
-                    .build());
-        }
-    }
-
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseTemplate<ProjectFileDTO>> deleteProjectFile(@RequestParam Long id) {
         ProjectFileDTO deletedProjectFile = projectFileService.delete(id);
