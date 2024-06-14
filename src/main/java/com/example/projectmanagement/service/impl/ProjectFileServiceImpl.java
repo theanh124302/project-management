@@ -30,12 +30,23 @@ public class ProjectFileServiceImpl implements ProjectFileService {
     @Autowired
     private ProjectFileRepository projectFileRepository;
 
+//    @Override
+//    public ProjectFileDTO create(ProjectFileDTO projectFileDTO, MultipartFile file) {
+//        projectFileDTO.setName(file.getOriginalFilename());
+//        projectFileDTO.setUuid(java.util.UUID.randomUUID().toString());
+//        projectFileDTO.setType(file.getContentType());
+//        projectFileDTO.setUrl(uploadDir + "\\" + projectFileDTO.getUuid() + projectFileDTO.getName());
+//        saveFile(file, projectFileDTO.getUrl());
+//        ProjectFile projectFile = convertToEntity(projectFileDTO);
+//        return convertToDTO(projectFileRepository.save(projectFile));
+//    }
+
     @Override
     public ProjectFileDTO create(ProjectFileDTO projectFileDTO, MultipartFile file) {
         projectFileDTO.setName(file.getOriginalFilename());
         projectFileDTO.setUuid(java.util.UUID.randomUUID().toString());
         projectFileDTO.setType(file.getContentType());
-        projectFileDTO.setUrl(uploadDir + "\\" + projectFileDTO.getUuid() + projectFileDTO.getName());
+        projectFileDTO.setUrl(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file\\" + projectFileDTO.getUuid() + projectFileDTO.getName());
         saveFile(file, projectFileDTO.getUrl());
         ProjectFile projectFile = convertToEntity(projectFileDTO);
         return convertToDTO(projectFileRepository.save(projectFile));
