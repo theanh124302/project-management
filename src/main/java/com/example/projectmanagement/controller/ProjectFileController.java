@@ -23,9 +23,9 @@ public class ProjectFileController {
     private ProjectFileService projectFileService;
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseTemplate<ProjectFileDTO>> createProjectFile(@RequestParam MultipartFile file, @RequestParam String projectId) {
+    public ResponseEntity<ResponseTemplate<ProjectFileDTO>> createProjectFile(@RequestParam MultipartFile file, @RequestParam String projectId, @RequestParam String description) {
         ProjectFileDTO inputProjectFileDTO = new ProjectFileDTO();
-
+        inputProjectFileDTO.setDescription(description);
         inputProjectFileDTO.setProjectId(Long.parseLong(projectId));
         ProjectFileDTO createdProjectFile = projectFileService.create(inputProjectFileDTO, file);
         if (createdProjectFile != null) {
