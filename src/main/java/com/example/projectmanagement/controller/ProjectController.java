@@ -289,5 +289,15 @@ public class ProjectController {
                     .build());
         }
     }
+
+    @GetMapping("/checkValidUser")
+    public ResponseEntity<ResponseTemplate<Boolean>> checkValidUser(@RequestParam Long projectId, @RequestParam Long userId) {
+        boolean isValid = projectService.checkValidUser(projectId, userId);
+        return ResponseEntity.ok(ResponseTemplate.<Boolean>builder()
+                .status(HttpStatus.OK)
+                .message("User is valid")
+                .data(isValid)
+                .build());
+    }
 }
 

@@ -190,6 +190,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Boolean checkValidUser(Long projectId, Long userId) {
+        return userProjectRepository.findByUserIdAndProjectId(userId, projectId).isPresent();
+    }
+
+    @Override
     public Long count() {
         return projectRepository.count();
     }
