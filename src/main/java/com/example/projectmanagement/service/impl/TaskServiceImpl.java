@@ -13,6 +13,7 @@ import com.example.projectmanagement.repository.*;
 import com.example.projectmanagement.service.EmailService;
 import com.example.projectmanagement.service.EventService;
 import com.example.projectmanagement.service.TaskService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
@@ -87,6 +88,7 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
+    @Transactional
     @Override
     public TaskDTO delete(TaskDTO taskDTO) {
         Optional<Task> existingTaskOptional = taskRepository.findById(taskDTO.getId());
