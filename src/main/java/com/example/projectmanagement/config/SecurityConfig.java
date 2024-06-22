@@ -30,27 +30,27 @@ public class SecurityConfig {
     private final AuthUserService authUserService;
     private final CorsFilter corsFilter;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**" )
-                        .permitAll()
-                        .requestMatchers("/file/**").permitAll()
-                        .requestMatchers("/test/**").permitAll()
-                        .anyRequest().authenticated())
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider()).addFilterBefore(
-                        jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class).addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
-
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http.csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(request -> request.requestMatchers("/**" )
-//                        .permitAll()).addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
+//                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**" )
+//                        .permitAll()
+//                        .requestMatchers("/file/**").permitAll()
+//                        .requestMatchers("/test/**").permitAll()
+//                        .anyRequest().authenticated())
+//                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+//                .authenticationProvider(authenticationProvider()).addFilterBefore(
+//                        jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class).addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
 //        return http.build();
 //    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request -> request.requestMatchers("/**" )
+                        .permitAll()).addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
 
 
     @Bean
