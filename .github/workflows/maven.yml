@@ -25,7 +25,7 @@ jobs:
       - name: Build image
         run: docker build -t hoangtheanh2002hhbg/projectmanagement .
       - name: Publish image
-        run: docker push hoangtheanh2002hhbg/projectmanagement
+        run: docker push hoangtheanh2002hhbg/projectmanagement:latest
 
   deploy:
     needs: build
