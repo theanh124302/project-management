@@ -18,12 +18,14 @@ jobs:
           java-version: '22'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: mvn clean install
+#      - name: Build with Maven
+#        run: mvn clean install
       - name: Login dockerhub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Infor dockerhub
+        run: docker infor
       - name: Build image
-        run: docker build -t hoangtheanh2002hhbg/projectmanagement:private .
+        run: docker build -t hoangtheanh2002hhbg/projectmanagement .
       - name: Publish image
         run: docker push hoangtheanh2002hhbg/projectmanagement:private
 
