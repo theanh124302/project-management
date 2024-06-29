@@ -22,5 +22,6 @@ public interface ProjectService {
     ProjectDTO leaveProject(Long projectId, Long userId);
     ProjectDTO removeUserByUserUsername(Long projectId, String username, Long deleterId);
     Boolean checkValidUser(Long projectId, Long userId);
+    Boolean checkEditable(Long projectId, Long apiId, Long userId, String lifeCycle);
     Long count();
 }

@@ -299,5 +299,16 @@ public class ProjectController {
                 .data(isValid)
                 .build());
     }
+
+    @GetMapping("/checkEditable")
+    public ResponseEntity<ResponseTemplate<Boolean>> checkEditable(@RequestParam Long projectId, @RequestParam Long userId, @RequestParam Long apiId, @RequestParam String lifeCycle) {
+        System.out.println("projectId: " + projectId + " userId: " + userId + " apiId: " + apiId + " lifeCycle: " + lifeCycle);
+        boolean isEditable = projectService.checkEditable(projectId, userId, apiId, lifeCycle);
+        return ResponseEntity.ok(ResponseTemplate.<Boolean>builder()
+                .status(HttpStatus.OK)
+                .message("Edit permission checked successfully")
+                .data(isEditable)
+                .build());
+    }
 }
 

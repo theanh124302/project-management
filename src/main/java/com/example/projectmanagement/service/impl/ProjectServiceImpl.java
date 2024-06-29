@@ -1,15 +1,19 @@
 package com.example.projectmanagement.service.impl;
 
 import com.example.projectmanagement.dto.ProjectDTO;
+import com.example.projectmanagement.dto.TaskDTO;
+import com.example.projectmanagement.dto.UserDTO;
 import com.example.projectmanagement.entity.Project;
+import com.example.projectmanagement.entity.Task;
 import com.example.projectmanagement.entity.UserProject;
+import com.example.projectmanagement.entity.UserTask;
+import com.example.projectmanagement.enums.LifeCycle;
 import com.example.projectmanagement.enums.ProjectRole;
-import com.example.projectmanagement.repository.ProjectRepository;
-import com.example.projectmanagement.repository.UserProjectRepository;
-import com.example.projectmanagement.repository.UserRepository;
+import com.example.projectmanagement.repository.*;
 import com.example.projectmanagement.service.ProjectService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +32,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @Autowired
+    private UserTaskRepository userTaskRepository;
 
     @Override
     public ProjectDTO create(ProjectDTO projectDTO) {
@@ -192,6 +202,27 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Boolean checkValidUser(Long projectId, Long userId) {
         return userProjectRepository.findByUserIdAndProjectId(userId, projectId).isPresent();
+    }
+
+    @Override
+    public Boolean checkEditable(Long projectId, Long userId, Long apiId, String lifeCycle) {
+        if(userId.equals(projectRepository.findById(projectId).orElseThrow().getLeaderId())){
+            System.out.println(userId + " " + projectRepository.findById(projectId).orElseThrow().getLeaderId());
+            return true;
+        }
+        LifeCycle lifeCycle1 = LifeCycle.valueOf(lifeCycle);
+        List<Task> tasks = taskRepository.findByApiIdAndLifeCycle(apiId,lifeCycle1);
+        for (Task task : tasks) {
+            if(task.getStatus().toString().equals("IN_PROGRESS")){
+                List<UserTask> userTaskList = userTaskRepository.findByTaskId(task.getId()).stream().toList();
+                for (UserTask userTask : userTaskList) {
+                    if (userTask.getUserId().equals(userId)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override
