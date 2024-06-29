@@ -23,7 +23,7 @@ jobs:
       - name: Login dockerhub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Infor dockerhub
-        run: docker infor
+        run: docker info
       - name: Build image
         run: docker build -t hoangtheanh2002hhbg/projectmanagement .
       - name: Publish image
