@@ -22,8 +22,10 @@ jobs:
 #        run: mvn clean install
       - name: Login dockerhub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: Infor dockerhub
+      - name: Info dockerhub
         run: docker info
+      - name: User dockerhub
+        run: docker whoami
       - name: Build image
         run: docker build -t hoangtheanh2002hhbg/projectmanagement .
       - name: Publish image
