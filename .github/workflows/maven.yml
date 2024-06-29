@@ -18,26 +18,13 @@ jobs:
           java-version: '22'
           distribution: 'temurin'
           cache: maven
-#      - name: Build with Maven
-#        run: mvn clean install
+      - name: Build with Maven
+        run: mvn clean install
       - name: Login dockerhub
-        run: docker login -u hoangtheanh2002hhbg@gmail.com -p theanh.124_302
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Info dockerhub
         run: docker info
       - name: Build image
         run: docker build -t hoangtheanh2002hhbg/projectmanagement:private .
       - name: Publish image
         run: docker push hoangtheanh2002hhbg/projectmanagement:private
-
-  deploy:
-    needs: build
-    runs-on: theanh124
-    steps:
-      - name: Pull image
-        run: sudo docker pull hoangtheanh2002hhbg/projectmanagement
-      - name: Remove old container
-        run: sudo docker rm -f projectmanagement-container
-      - name: Run image
-        run: sudo docker run -d -p 80:8080 --name projectmanagement-container -t hoangtheanh2002hhbg/projectmanagement
-      - name: Logs
-        run: sudo docker logs projectmanagement-container
