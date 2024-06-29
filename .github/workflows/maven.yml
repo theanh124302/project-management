@@ -24,8 +24,6 @@ jobs:
         run: docker login -u hoangtheanh2002hhbg@gmail.com -p theanh.124_302
       - name: Info dockerhub
         run: docker info
-      - name: User dockerhub
-        run: docker whoami
       - name: Build image
         run: docker build -t hoangtheanh2002hhbg/projectmanagement .
       - name: Publish image
