@@ -21,7 +21,7 @@ jobs:
 #      - name: Build with Maven
 #        run: mvn clean install
       - name: Login dockerhub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u hoangtheanh2002hhbg@gmail.com -p theanh.124_302
       - name: Info dockerhub
         run: docker info
       - name: User dockerhub
