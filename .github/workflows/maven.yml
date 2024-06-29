@@ -25,7 +25,7 @@ jobs:
       - name: Info dockerhub
         run: docker info
       - name: Build image
-        run: docker build -t hoangtheanh2002hhbg/projectmanagement .
+        run: docker build -t hoangtheanh2002hhbg/projectmanagement:private .
       - name: Publish image
         run: docker push hoangtheanh2002hhbg/projectmanagement:private
 
