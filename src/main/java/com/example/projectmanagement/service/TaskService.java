@@ -23,6 +23,7 @@ public interface TaskService {
     List<TaskDTO> getAllTasks(Pageable pageable);
     List<TaskDTO> findByName(String name, Pageable pageable);
     List<TaskDTO> findByProjectId(Long projectId, Pageable pageable);
+    List<TaskDTO> findByUserId(Long userId);
     List<TaskDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable);
     List<TaskDTO> findByProjectIdAndName(Long projectId, String name, Pageable pageable);
     List<TaskDTO> findByUserIdAndProjectId(Long userId, Long projectId, Pageable pageable);

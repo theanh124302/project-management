@@ -145,6 +145,16 @@ public class TaskController {
                 .build());
     }
 
+    @GetMapping("/findByUserId")
+    public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByUserId(@RequestParam Long userId) {
+        List<TaskDTO> tasks = taskService.findByUserId(userId);
+        return ResponseEntity.ok(ResponseTemplate.<List<TaskDTO>>builder()
+                .status(HttpStatus.OK)
+                .message("Tasks found successfully")
+                .data(tasks)
+                .build());
+    }
+
     @GetMapping("/findByProjectIdAndStatus")
     public ResponseEntity<ResponseTemplate<List<TaskDTO>>> findTasksByProjectIdAndStatus(@RequestParam Long projectId,
                                                                                          @RequestParam String status,

@@ -242,6 +242,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<TaskDTO> findByUserId(Long userId) {
+        return userTaskRepository.findByUserId(userId).stream()
+                .map(userTask -> convertToDTO(taskRepository.findById(userTask.getTaskId()).orElseThrow()))
+                .toList();
+    }
+
+    @Override
     public List<TaskDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable) {
         return taskRepository.findByProjectIdAndStatus(projectId, TaskStatus.valueOf(status), pageable).getContent().stream()
                 .map(this::convertToDTO)
