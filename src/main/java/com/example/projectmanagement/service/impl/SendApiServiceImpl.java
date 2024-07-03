@@ -19,12 +19,14 @@ public class SendApiServiceImpl implements SendApiService {
     private ApiService apiService;
 
     @Override
-    public ResponseEntity<String> sendRequest(String url, String jsonBody, String token, Method method) {
+    public ResponseEntity<String> sendRequest(String url, String jsonBody, String token, Method method, String parameters) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity<>(jsonBody, headers);
-
+        if (parameters != null && !parameters.isEmpty()) {
+            url = url + ("?" + parameters);
+        }
         if (method == Method.GET) {
             return restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
         }else if (method == Method.POST) {
@@ -41,6 +43,6 @@ public class SendApiServiceImpl implements SendApiService {
     public ResponseEntity<String> sendRequest(Long apiId) {
         ApiDTO apiDTO = apiService.findById(apiId);
         System.out.println(apiDTO);
-        return sendRequest(apiDTO.getUrl(), apiDTO.getBodyJson(), apiDTO.getToken(), apiDTO.getMethod());
+        return sendRequest(apiDTO.getUrl(), apiDTO.getBodyJson(), apiDTO.getToken(), apiDTO.getMethod(), apiDTO.getParameters());
     }
 }

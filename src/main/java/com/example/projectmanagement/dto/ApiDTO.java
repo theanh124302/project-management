@@ -28,6 +28,7 @@ public class ApiDTO {
     private String status;
     private String parameters;
     private String bodyJson;
+    private String headers;
     private String token;
     private String userRequirements;
     private String technicalRequirements;
