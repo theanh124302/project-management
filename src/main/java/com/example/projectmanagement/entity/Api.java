@@ -30,6 +30,7 @@ public class Api {
     private String parameters;
     private String bodyJson;
     private String headers;
+    private Long environmentId;
     private String token;
     private String userRequirements;
     private String technicalRequirements;

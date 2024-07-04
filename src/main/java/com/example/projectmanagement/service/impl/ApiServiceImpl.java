@@ -34,6 +34,7 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setFolderId(apiDTO.getFolderId());
             existingApi.setUrl(apiDTO.getUrl());
             existingApi.setMethod(apiDTO.getMethod());
+            existingApi.setEnvironmentId(apiDTO.getEnvironmentId());
             existingApi.setCreatedBy(apiDTO.getCreatedBy());
             existingApi.setStatus(apiDTO.getStatus());
             existingApi.setParameters(apiDTO.getParameters());
@@ -123,6 +124,18 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
+    public ApiDTO updateEnvironmentId(Long id, Long environmentId) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setEnvironmentId(environmentId);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public ApiDTO delete(ApiDTO apiDTO) {
         Optional<Api> existingApiOptional = apiRepository.findById(apiDTO.getId());
         if (existingApiOptional.isPresent()) {
@@ -194,6 +207,7 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setParameters(api.getParameters());
         apiDTO.setBodyJson(api.getBodyJson());
         apiDTO.setToken(api.getToken());
+        apiDTO.setEnvironmentId(api.getEnvironmentId());
         apiDTO.setActivityDiagram(api.getActivityDiagram());
         apiDTO.setBusinessProcess(api.getBusinessProcess());
         apiDTO.setClassDiagram(api.getClassDiagram());
@@ -219,6 +233,7 @@ public class ApiServiceImpl implements ApiService {
         api.setStatus(apiDTO.getStatus());
         api.setParameters(apiDTO.getParameters());
         api.setBodyJson(apiDTO.getBodyJson());
+        api.setEnvironmentId(apiDTO.getEnvironmentId());
         api.setToken(apiDTO.getToken());
         api.setActivityDiagram(apiDTO.getActivityDiagram());
         api.setBusinessProcess(apiDTO.getBusinessProcess());

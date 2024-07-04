@@ -26,6 +26,7 @@ public class ApiDTO {
     private Method method;
     private Long createdBy;
     private String status;
+    private Long environmentId;
     private String parameters;
     private String bodyJson;
     private String headers;
