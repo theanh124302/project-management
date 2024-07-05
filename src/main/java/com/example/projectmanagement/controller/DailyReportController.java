@@ -91,7 +91,7 @@ public class DailyReportController {
     @GetMapping("/findAllByProjectId")
     public ResponseEntity<ResponseTemplate<List<DailyReportDTO>>> findAllDailyReportsByProjectId(@RequestParam Long projectId,
                                                                                                  @RequestParam(defaultValue = "0") int page,
-                                                                                                 @RequestParam(defaultValue = "10") int size) {
+                                                                                                 @RequestParam(defaultValue = "30") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<DailyReportDTO> dailyReports = dailyReportService.findAllByProjectId(projectId, pageable);
         if (dailyReports != null) {
@@ -99,11 +99,15 @@ public class DailyReportController {
                     .status(HttpStatus.OK)
                     .message("Daily reports found")
                     .data(dailyReports)
+                    .page(page)
+                    .totalPages((dailyReportService.countByProjectId(projectId).intValue() / size) + 1)
                     .build());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<List<DailyReportDTO>>builder()
                     .status(HttpStatus.NOT_FOUND)
                     .message("Daily reports not found")
+                    .page(page)
+                    .totalPages((dailyReportService.countByProjectId(projectId).intValue() / size) + 1)
                     .build());
         }
     }
@@ -111,7 +115,7 @@ public class DailyReportController {
     @GetMapping("/findAllByProjectIdAndName")
     public ResponseEntity<ResponseTemplate<List<DailyReportDTO>>> findAllDailyReportsByProjectIdAndName(@RequestParam Long projectId, @RequestParam String name,
                                                                                                         @RequestParam(defaultValue = "0") int page,
-                                                                                                        @RequestParam(defaultValue = "10") int size) {
+                                                                                                        @RequestParam(defaultValue = "100") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<DailyReportDTO> dailyReports = dailyReportService.findAllByProjectIdAndName(projectId, name, pageable);
         if (dailyReports != null) {

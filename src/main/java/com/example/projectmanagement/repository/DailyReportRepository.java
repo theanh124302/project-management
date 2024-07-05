@@ -13,4 +13,6 @@ public interface DailyReportRepository extends JpaRepository<DailyReport, Long> 
 
     @Query("SELECT d FROM DailyReport d WHERE lower(d.name) LIKE lower(concat('%', :name, '%')) And d.projectId = :projectId" )
     Page<DailyReport> findAllByProjectIdAndName(Long projectId, String name, Pageable pageable);
+
+    Long countByProjectId(Long projectId);
 }

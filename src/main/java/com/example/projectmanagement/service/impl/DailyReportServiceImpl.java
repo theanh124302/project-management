@@ -57,6 +57,11 @@ public class DailyReportServiceImpl implements DailyReportService {
     }
 
     @Override
+    public Long countByProjectId(Long projectId) {
+        return dailyReportRepository.countByProjectId(projectId);
+    }
+
+    @Override
     public DailyReportDTO findById(Long id) {
         Optional<DailyReport> dailyReportOptional = dailyReportRepository.findById(id);
         return dailyReportOptional.map(this::convertToDTO).orElse(null);

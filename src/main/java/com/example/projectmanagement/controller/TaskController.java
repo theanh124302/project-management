@@ -132,15 +132,12 @@ public class TaskController {
                                                                                 @RequestParam(defaultValue = "30") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<TaskDTO> tasks = taskService.findByProjectId(projectId, pageable);
-        long totalItems = taskService.count();
-        int totalPages = (int) Math.ceil((double) totalItems / size);
         return ResponseEntity.ok(ResponseTemplate.<List<TaskDTO>>builder()
                 .status(HttpStatus.OK)
                 .message("Tasks found successfully")
                 .page(page)
                 .size(size)
-                .totalItems(totalItems)
-                .totalPages(totalPages)
+                .totalPages(taskService.countByProjectId(projectId).intValue() / size + 1)
                 .data(tasks)
                 .build());
     }

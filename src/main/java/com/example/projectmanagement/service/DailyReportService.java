@@ -10,6 +10,7 @@ public interface DailyReportService {
     DailyReportDTO update(DailyReportDTO dailyReportDTO);
     DailyReportDTO findById(Long id);
     DailyReportDTO delete(Long id);
+    Long countByProjectId(Long projectId);
     List<DailyReportDTO> findAllByProjectId(Long projectId, Pageable pageable);
     List<DailyReportDTO> findAllByProjectIdAndName(Long projectId, String name, Pageable pageable);
 }
