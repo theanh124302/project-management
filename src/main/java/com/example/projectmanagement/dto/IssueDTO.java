@@ -17,9 +17,10 @@ public class IssueDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long projectId;
-    private String apiId;
+    private Long apiId;
     private String description;
     private String content;
+    private String name;
     private String url;
     private String status;
     private String priority;

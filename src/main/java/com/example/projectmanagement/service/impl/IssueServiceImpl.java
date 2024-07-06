@@ -35,6 +35,7 @@ public class IssueServiceImpl implements IssueService {
             existingIssue.setProjectId(issueDTO.getProjectId());
             existingIssue.setApiId(issueDTO.getApiId());
             existingIssue.setUrl(issueDTO.getUrl());
+            existingIssue.setName(issueDTO.getName());
             existingIssue.setDescription(issueDTO.getDescription());
             existingIssue.setContent(issueDTO.getContent());
             existingIssue.setPriority(issueDTO.getPriority());
@@ -67,6 +68,16 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
+    public Long countByProjectId(Long projectId) {
+        return issueRepository.countByProjectId(projectId);
+    }
+
+    @Override
+    public Page<IssueDTO> findByNameAndProjectId(String name, Long projectId, Pageable pageable) {
+        return issueRepository.findAllByProjectIdAndName(projectId, name, pageable).map(this::convertToDTO);
+    }
+
+    @Override
     public Page<IssueDTO> findByProjectId(Long projectId, Pageable pageable) {
         return issueRepository.findByProjectId(projectId, pageable).map(this::convertToDTO);
     }
@@ -83,6 +94,7 @@ public class IssueServiceImpl implements IssueService {
         issueDTO.setApiId(issue.getApiId());
         issueDTO.setUrl(issue.getUrl());
         issueDTO.setDescription(issue.getDescription());
+        issueDTO.setName(issue.getName());
         issueDTO.setContent(issue.getContent());
         issueDTO.setPriority(issue.getPriority());
         issueDTO.setStatus(issue.getStatus());
@@ -97,6 +109,7 @@ public class IssueServiceImpl implements IssueService {
         issue.setProjectId(issueDTO.getProjectId());
         issue.setApiId(issueDTO.getApiId());
         issue.setUrl(issueDTO.getUrl());
+        issue.setName(issueDTO.getName());
         issue.setDescription(issueDTO.getDescription());
         issue.setContent(issueDTO.getContent());
         issue.setPriority(issueDTO.getPriority());

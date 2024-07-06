@@ -17,8 +17,9 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long projectId;
-    private String apiId;
+    private Long apiId;
     private String description;
+    private String name;
     private String content;
     private String url;
     private String status;

@@ -70,7 +70,7 @@ public class EventController {
     }
 
     @GetMapping("/findByProjectId")
-    public ResponseEntity<ResponseTemplate<List<EventDTO>>> findAllByProjectId(@RequestParam Long projectId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<ResponseTemplate<List<EventDTO>>> findAllByProjectId(@RequestParam Long projectId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "1000") int size) {
         List<EventDTO> events = eventService.findAllByProjectId(projectId, PageRequest.of(page, size));
         return ResponseEntity.ok(ResponseTemplate.<List<EventDTO>>builder()
                 .status(HttpStatus.OK)

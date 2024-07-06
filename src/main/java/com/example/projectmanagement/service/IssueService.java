@@ -9,6 +9,8 @@ public interface IssueService {
     IssueDTO update(IssueDTO issueDTO);
     IssueDTO delete(Long id);
     IssueDTO findById(Long id);
+    Long countByProjectId(Long projectId);
+    Page<IssueDTO> findByNameAndProjectId(String name, Long projectId, Pageable pageable);
     Page<IssueDTO> findByProjectId(Long projectId, Pageable pageable);
     Long count();
 }

@@ -1,5 +1,6 @@
 package com.example.projectmanagement.entity;
 
+import com.example.projectmanagement.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +21,7 @@ public class Event {
     private String description;
     private Long taskId;
     private Long projectId;
-    private String status;
+    private TaskStatus status;
     private String priority;
     private Timestamp startDate;
     private Timestamp endDate;

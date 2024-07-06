@@ -1,5 +1,6 @@
 package com.example.projectmanagement.dto;
 
+import com.example.projectmanagement.enums.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class EventDTO {
     private String description;
     private Long taskId;
     private Long projectId;
-    private String status;
+    private TaskStatus status;
     private String priority;
     private Timestamp startDate;
     private Timestamp endDate;

@@ -396,7 +396,7 @@ public class TaskServiceImpl implements TaskService {
         eventDTO.setPriority(taskDTO.getPriority());
         eventDTO.setStartDate(taskDTO.getStartDate());
         eventDTO.setEndDate(taskDTO.getDueDate());
-        eventDTO.setStatus(String.valueOf(taskDTO.getStatus()));
+        eventDTO.setStatus(taskDTO.getStatus());
         return eventDTO;
     }
 }

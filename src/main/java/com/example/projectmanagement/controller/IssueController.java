@@ -86,6 +86,24 @@ public class IssueController {
         }
     }
 
+    @GetMapping("/findByNameAndProjectId")
+    public ResponseEntity<ResponseTemplate<List<IssueDTO>>> findIssueByNameAndProjectId(@RequestParam String name, @RequestParam Long projectId, @RequestParam(defaultValue = "0") int page,
+                                                                                       @RequestParam(defaultValue = "10") int size) {
+        List<IssueDTO> issues = issueService.findByNameAndProjectId(name, projectId, PageRequest.of(page, size)).getContent();
+        if (!issues.isEmpty()) {
+            return ResponseEntity.ok(ResponseTemplate.<List<IssueDTO>>builder()
+                    .status(HttpStatus.OK)
+                    .message("Issues found successfully")
+                    .data(issues)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<List<IssueDTO>>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Issues not found")
+                    .build());
+        }
+    }
+
     @GetMapping("/findByProjectId")
     public ResponseEntity<ResponseTemplate<List<IssueDTO>>> findIssueByProjectId(@RequestParam Long projectId, @RequestParam(defaultValue = "0") int page,
                                                                                  @RequestParam(defaultValue = "10") int size) {
@@ -94,6 +112,7 @@ public class IssueController {
             return ResponseEntity.ok(ResponseTemplate.<List<IssueDTO>>builder()
                     .status(HttpStatus.OK)
                     .message("Issues found successfully")
+                    .totalPages((issueService.countByProjectId(projectId).intValue() / size) + 1)
                     .data(issues)
                     .build());
         } else {
