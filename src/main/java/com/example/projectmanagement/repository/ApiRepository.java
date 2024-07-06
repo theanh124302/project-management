@@ -15,4 +15,5 @@ public interface ApiRepository extends JpaRepository<Api, Long> {
     Page<Api> findByProjectId(Long projectId, Pageable pageable);
     Page<Api> findByFolderId(Long folderId, Pageable pageable);
     Page<Api> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable);
+    Long countByProjectId(Long projectId);
 }

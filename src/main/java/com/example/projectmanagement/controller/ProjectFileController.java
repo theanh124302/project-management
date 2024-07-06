@@ -104,4 +104,14 @@ public class ProjectFileController {
                 .build());
     }
 
+    @GetMapping("/countByProjectId")
+    public ResponseEntity<ResponseTemplate<Long>> countByProjectId(@RequestParam Long projectId) {
+        Long count = projectFileService.countByProjectId(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<Long>builder()
+                .status(HttpStatus.OK)
+                .message("Project files count by project id")
+                .data(count)
+                .build());
+    }
+
 }

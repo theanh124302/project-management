@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectFileRepository extends JpaRepository<ProjectFile, Long> {
     Page<ProjectFile> findByProjectId(Long projectId, Pageable pageable);
+    Long countByProjectId(Long projectId);
 }

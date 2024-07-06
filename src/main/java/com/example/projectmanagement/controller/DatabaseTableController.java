@@ -100,4 +100,14 @@ public class DatabaseTableController {
                 .build());
     }
 
+    @GetMapping("/countByProjectId")
+    public ResponseEntity<ResponseTemplate<Long>> countByProjectId(@RequestParam Long projectId) {
+        Long count = databaseTableService.countByProjectId(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<Long>builder()
+                .status(HttpStatus.OK)
+                .message("Database tables count")
+                .data(count)
+                .build());
+    }
+
 }

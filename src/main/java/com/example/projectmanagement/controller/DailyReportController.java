@@ -132,4 +132,14 @@ public class DailyReportController {
         }
     }
 
+    @GetMapping("/countByProjectId")
+    public ResponseEntity<ResponseTemplate> countDailyReportsByProjectId(@RequestParam Long projectId) {
+        Long count = dailyReportService.countByProjectId(projectId);
+        return ResponseEntity.ok(ResponseTemplate.builder()
+                .status(HttpStatus.OK)
+                .message("Daily reports count")
+                .data(count)
+                .build());
+    }
+
 }

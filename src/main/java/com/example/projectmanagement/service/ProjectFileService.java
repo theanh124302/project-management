@@ -13,5 +13,6 @@ public interface ProjectFileService {
     ProjectFileDTO delete(Long id);
     ProjectFileDTO findById(Long id);
     List<ProjectFileDTO> findByProjectId(Long projectId, Pageable pageable);
+    Long countByProjectId(Long projectId);
     Long count();
 }

@@ -103,6 +103,16 @@ public class EnvironmentController {
         }
     }
 
+    @GetMapping("/countByProjectId")
+    public ResponseEntity<ResponseTemplate<Long>> countByProjectId(@RequestParam Long projectId) {
+        Long count = environmentService.countByProjectId(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<Long>builder()
+                .status(HttpStatus.OK)
+                .message("Environment count found successfully")
+                .data(count)
+                .build());
+    }
+
 
 }
 

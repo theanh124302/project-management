@@ -12,9 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface IssueRepository extends JpaRepository<Issue, Long>{
     Page<Issue> findByProjectId(Long projectId, Pageable pageable);
     Long countByProjectId(Long projectId);
-
-
-
     @Query("SELECT i FROM Issue i WHERE lower(i.name) LIKE lower(concat('%', :name, '%')) And i.projectId = :projectId" )
     Page<Issue> findAllByProjectIdAndName(Long projectId, String name, Pageable pageable);
 }

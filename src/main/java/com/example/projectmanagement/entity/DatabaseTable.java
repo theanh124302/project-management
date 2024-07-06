@@ -17,6 +17,7 @@ public class DatabaseTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private Long projectId;
     private String description;
     private Long databaseServerId;
     private String uuid;

@@ -12,4 +12,5 @@ public interface DatabaseTableService {
     DatabaseTableDTO findById(Long id);
     DatabaseTableDTO findByUuid(String uuid);
     List<DatabaseTableDTO> findAllByDatabaseServerId(Long databaseServerId, Pageable pageable);
+    Long countByProjectId(Long projectId);
 }

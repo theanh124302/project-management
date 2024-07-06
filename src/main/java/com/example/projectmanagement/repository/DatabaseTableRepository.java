@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface DatabaseTableRepository extends JpaRepository<DatabaseTable, Long> {
     Page<DatabaseTable> findAllByDatabaseServerId(Long databaseServerId, Pageable pageable);
     Optional<DatabaseTable> findByUuid(String uuid);
+    Long countByProjectId(Long projectId);
 }

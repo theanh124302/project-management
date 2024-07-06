@@ -10,5 +10,6 @@ public interface EnvironmentService {
     EnvironmentDTO delete(Long id);
     EnvironmentDTO findById(Long id);
     List<EnvironmentDTO> findByProjectId(Long projectId);
+    Long countByProjectId(Long projectId);
     Long count();
 }

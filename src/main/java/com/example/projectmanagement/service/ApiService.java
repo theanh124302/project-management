@@ -21,5 +21,6 @@ public interface ApiService {
     List<ApiDTO> findByName(String name, Pageable pageable);
     List<ApiDTO> findByProjectIdAndStatus(Long projectId, String status, Pageable pageable);
     List<ApiDTO> findByFolderId(Long folderId, Pageable pageable);
+    Long countByProjectId(Long projectId);
     Long count();
 }

@@ -68,6 +68,11 @@ public class ProjectFileServiceImpl implements ProjectFileService {
                 .toList();
     }
 
+    @Override
+    public Long countByProjectId(Long projectId) {
+        return projectFileRepository.countByProjectId(projectId);
+    }
+
 
     @Override
     public Long count() {

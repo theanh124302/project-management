@@ -69,11 +69,17 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
         return databaseTableRepository.findAllByDatabaseServerId(databaseServerId, pageable).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    @Override
+    public Long countByProjectId(Long projectId) {
+        return databaseTableRepository.countByProjectId(projectId);
+    }
+
     private DatabaseTableDTO convertToDTO(DatabaseTable databaseTable) {
         DatabaseTableDTO databaseTableDTO = new DatabaseTableDTO();
         databaseTableDTO.setId(databaseTable.getId());
         databaseTableDTO.setDatabaseServerId(databaseTable.getDatabaseServerId());
         databaseTableDTO.setUuid(databaseTable.getUuid());
+        databaseTableDTO.setProjectId(databaseTable.getProjectId());
         databaseTableDTO.setName(databaseTable.getName());
         databaseTableDTO.setDescription(databaseTable.getDescription());
         return databaseTableDTO;
@@ -83,6 +89,8 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
         DatabaseTable databaseTable = new DatabaseTable();
         databaseTable.setId(databaseTableDTO.getId());
         databaseTable.setDatabaseServerId(databaseTableDTO.getDatabaseServerId());
+        databaseTable.setUuid(databaseTableDTO.getUuid());
+        databaseTable.setProjectId(databaseTableDTO.getProjectId());
         databaseTable.setName(databaseTableDTO.getName());
         databaseTable.setDescription(databaseTableDTO.getDescription());
         return databaseTable;

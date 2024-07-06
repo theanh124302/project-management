@@ -58,6 +58,11 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     }
 
     @Override
+    public Long countByProjectId(Long projectId) {
+        return environmentRepository.countByProjectId(projectId);
+    }
+
+    @Override
     public Long count() {
         return environmentRepository.count();
     }

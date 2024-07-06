@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface EnvironmentRepository extends JpaRepository<Environment, Long> {
     List<Environment> findByProjectId(Long projectId);
+    Long countByProjectId(Long projectId);
 }

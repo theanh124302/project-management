@@ -189,6 +189,11 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
+    public Long countByProjectId(Long projectId) {
+        return apiRepository.countByProjectId(projectId);
+    }
+
+    @Override
     public Long count() {
         return apiRepository.count();
     }

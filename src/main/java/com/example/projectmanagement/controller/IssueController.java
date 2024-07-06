@@ -133,4 +133,14 @@ public class IssueController {
                 .build());
     }
 
+    @GetMapping("/countByProjectId")
+    public ResponseEntity<ResponseTemplate<Long>> countByProjectId(@RequestParam Long projectId) {
+        Long count = issueService.countByProjectId(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<Long>builder()
+                .status(HttpStatus.OK)
+                .message("Issue count found successfully")
+                .data(count)
+                .build());
+    }
+
 }

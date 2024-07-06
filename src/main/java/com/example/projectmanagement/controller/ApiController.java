@@ -301,6 +301,16 @@ public class ApiController {
         }
     }
 
+    @GetMapping("/countByProjectId")
+    public ResponseEntity<ResponseTemplate<Long>> countApisByProjectId(@RequestParam Long projectId) {
+        Long count = apiService.countByProjectId(projectId);
+        return ResponseEntity.ok(ResponseTemplate.<Long>builder()
+                .status(HttpStatus.OK)
+                .message("Counted successfully")
+                .data(count)
+                .build());
+    }
+
     @GetMapping("/count")
     public ResponseEntity<ResponseTemplate<Long>> countApis() {
         Long count = apiService.count();
