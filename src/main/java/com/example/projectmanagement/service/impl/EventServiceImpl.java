@@ -69,7 +69,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDTO> findAllByProjectId(Long projectId, Pageable pageable) {
-        return eventRepository.findAllByProjectId(projectId, pageable).stream().map(this::convertToDTO).collect(Collectors.toList());
+        return eventRepository.findAllByProjectId(projectId, pageable).stream().map(this::convertToDTO).toList();
     }
 
     @Override

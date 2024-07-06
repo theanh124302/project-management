@@ -24,6 +24,7 @@ public class Task {
     private Long reviewerId;
     private String name;
     private String description;
+    @Enumerated(EnumType.ORDINAL)
     private TaskStatus status;
     private LifeCycle lifeCycle;
     private String priority;
