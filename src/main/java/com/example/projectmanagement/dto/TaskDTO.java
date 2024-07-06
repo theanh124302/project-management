@@ -2,6 +2,8 @@ package com.example.projectmanagement.dto;
 
 import com.example.projectmanagement.enums.LifeCycle;
 import com.example.projectmanagement.enums.TaskStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +23,7 @@ public class TaskDTO {
     private Long reviewerId;
     private String name;
     private String description;
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
     private LifeCycle lifeCycle;
     private String priority;

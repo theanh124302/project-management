@@ -21,7 +21,7 @@ public class Event {
     private String description;
     private Long taskId;
     private Long projectId;
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
     private String priority;
     private Timestamp startDate;
