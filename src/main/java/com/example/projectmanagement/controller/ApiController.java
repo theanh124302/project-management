@@ -248,7 +248,7 @@ public class ApiController {
     @GetMapping("/findByFolderId")
     public ResponseEntity<ResponseTemplate<List<ApiDTO>>> findApisByFolderId(@RequestParam Long folderId,
                                                                              @RequestParam(defaultValue = "0") int page,
-                                                                             @RequestParam(defaultValue = "10") int size) {
+                                                                             @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<ApiDTO> apis = apiService.findByFolderId(folderId, pageable);
         long totalItems = apiService.count();

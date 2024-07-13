@@ -90,7 +90,7 @@ public class DatabaseTableController {
 
     @GetMapping("/findAllByDatabaseServerId")
     public ResponseEntity<ResponseTemplate<List<DatabaseTableDTO>>> findAllByDatabaseServerId(@RequestParam Long databaseServerId, @RequestParam(defaultValue = "0") int page,
-                                                                                              @RequestParam(defaultValue = "10") int size) {
+                                                                                              @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<DatabaseTableDTO> databaseTables = databaseTableService.findAllByDatabaseServerId(databaseServerId, pageable);
         return ResponseEntity.ok(ResponseTemplate.<List<DatabaseTableDTO>>builder()

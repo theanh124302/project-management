@@ -129,7 +129,7 @@ public class FolderController {
     @GetMapping("/findByProjectId")
     public ResponseEntity<ResponseTemplate<List<FolderDTO>>> findFoldersByProjectId(@RequestParam Long projectId,
                                                                                     @RequestParam(defaultValue = "0") int page,
-                                                                                    @RequestParam(defaultValue = "10") int size) {
+                                                                                    @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<FolderDTO> folders = folderService.findByProjectId(projectId, pageable);
         long totalItems = folderService.count();
