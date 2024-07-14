@@ -56,6 +56,51 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
+    public ApiDTO updateNameAndDescriptionAndStatus(Long id, String name, String description, String status) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setName(name);
+            existingApi.setDescription(description);
+            existingApi.setStatus(status);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateUserRequirementsAndTechnicalRequirementsAndBusinessProcess(Long id, String userRequirements, String technicalRequirements, String businessProcess) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setUserRequirements(userRequirements);
+            existingApi.setTechnicalRequirements(technicalRequirements);
+            existingApi.setBusinessProcess(businessProcess);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess(Long id, String name, String description, String status, String userRequirements, String technicalRequirements, String businessProcess) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setName(name);
+            existingApi.setDescription(description);
+            existingApi.setStatus(status);
+            existingApi.setUserRequirements(userRequirements);
+            existingApi.setTechnicalRequirements(technicalRequirements);
+            existingApi.setBusinessProcess(businessProcess);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public ApiDTO updateUrlAndMethod(Long id, String url, String method) {
         Optional<Api> existingApiOptional = apiRepository.findById(id);
         if (existingApiOptional.isPresent()) {
@@ -116,6 +161,21 @@ public class ApiServiceImpl implements ApiService {
         Optional<Api> existingApiOptional = apiRepository.findById(id);
         if (existingApiOptional.isPresent()) {
             Api existingApi = existingApiOptional.get();
+            existingApi.setInstallationGuide(installationGuide);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateTestCasesAndTestScenariosAndTestScriptsAndInstallationGuide(Long id, String testCases, String testScenarios, String testScripts, String installationGuide) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setTestCases(testCases);
+            existingApi.setTestScenarios(testScenarios);
+            existingApi.setTestScripts(testScripts);
             existingApi.setInstallationGuide(installationGuide);
             return convertToDTO(apiRepository.save(existingApi));
         } else {

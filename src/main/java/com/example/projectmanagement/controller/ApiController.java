@@ -53,6 +53,65 @@ public class ApiController {
         }
     }
 
+    @PostMapping("/updateNameAndDescriptionAndStatus")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateNameAndDescriptionAndStatus(@RequestParam Long id,
+                                                                                      @RequestParam String name,
+                                                                                      @RequestParam String description,
+                                                                                      @RequestParam String status) {
+        ApiDTO updatedApi = apiService.updateNameAndDescriptionAndStatus(id, name, description, status);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/updateUserRequirementsAndTechnicalRequirementsAndBusinessProcess")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateUserRequirementsAndTechnicalRequirementsAndBusinessProcess(@RequestParam Long id,
+                                                                                                                  @RequestParam String userRequirements,
+                                                                                                                  @RequestParam String technicalRequirements,
+                                                                                                                  @RequestParam String businessProcess) {
+        ApiDTO updatedApi = apiService.updateUserRequirementsAndTechnicalRequirementsAndBusinessProcess(id, userRequirements, technicalRequirements, businessProcess);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess(@RequestBody ApiDTO apiDTO) {
+        //ApiDTO updatedApi = apiService.updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess(id, name, description, status, userRequirements, technicalRequirements, businessProcess);
+
+        ApiDTO updatedApi = apiService.updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess(apiDTO.getId(), apiDTO.getName(), apiDTO.getDescription(), apiDTO.getStatus(), apiDTO.getUserRequirements(), apiDTO.getTechnicalRequirements(), apiDTO.getBusinessProcess());
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
     @PostMapping("/updateUrlAndMethod")
     public ResponseEntity<ResponseTemplate<ApiDTO>> updateUrlAndMethod(@RequestParam Long id,
                                                                        @RequestParam String url,
@@ -138,6 +197,27 @@ public class ApiController {
     public ResponseEntity<ResponseTemplate<ApiDTO>> updateInstallationGuide(@RequestParam Long id,
                                                                             @RequestParam(required = false) String installationGuide) {
         ApiDTO updatedApi = apiService.updateInstallationGuide(id, installationGuide);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/updateTestCasesAndTestScenariosAndTestScriptsAndInstallationGuide")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateTestCasesAndTestScenariosAndTestScriptsAndInstallationGuide(@RequestParam Long id,
+                                                                                                                           @RequestParam(required = false) String testCases,
+                                                                                                                           @RequestParam(required = false) String testScenarios,
+                                                                                                                           @RequestParam(required = false) String testScripts,
+                                                                                                                           @RequestParam(required = false) String installationGuide) {
+        ApiDTO updatedApi = apiService.updateTestCasesAndTestScenariosAndTestScriptsAndInstallationGuide(id, testCases, testScenarios, testScripts, installationGuide);
         if (updatedApi != null) {
             return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
                     .status(HttpStatus.OK)

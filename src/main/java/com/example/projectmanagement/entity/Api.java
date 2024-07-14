@@ -40,5 +40,8 @@ public class Api {
     private String activityDiagram;
     private String classDiagram;
     private String installationGuide;
+    private String testCases;
+    private String testScenarios;
+    private String testScripts;
     private LifeCycle lifeCycle;
 }
