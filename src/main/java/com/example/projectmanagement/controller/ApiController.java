@@ -95,8 +95,6 @@ public class ApiController {
 
     @PostMapping("/updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess")
     public ResponseEntity<ResponseTemplate<ApiDTO>> updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess(@RequestBody ApiDTO apiDTO) {
-        //ApiDTO updatedApi = apiService.updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess(id, name, description, status, userRequirements, technicalRequirements, businessProcess);
-
         ApiDTO updatedApi = apiService.updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess(apiDTO.getId(), apiDTO.getName(), apiDTO.getDescription(), apiDTO.getStatus(), apiDTO.getUserRequirements(), apiDTO.getTechnicalRequirements(), apiDTO.getBusinessProcess());
         if (updatedApi != null) {
             return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()

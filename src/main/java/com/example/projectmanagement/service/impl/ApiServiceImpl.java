@@ -281,6 +281,9 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setUseCaseDiagram(api.getUseCaseDiagram());
         apiDTO.setUserRequirements(api.getUserRequirements());
         apiDTO.setInstallationGuide(api.getInstallationGuide());
+        apiDTO.setTestCases(api.getTestCases());
+        apiDTO.setTestScenarios(api.getTestScenarios());
+        apiDTO.setTestScripts(api.getTestScripts());
         apiDTO.setLifeCycle(api.getLifeCycle());
         return apiDTO;
     }
@@ -308,6 +311,9 @@ public class ApiServiceImpl implements ApiService {
         api.setUseCaseDiagram(apiDTO.getUseCaseDiagram());
         api.setUserRequirements(apiDTO.getUserRequirements());
         api.setInstallationGuide(apiDTO.getInstallationGuide());
+        api.setTestCases(apiDTO.getTestCases());
+        api.setTestScenarios(apiDTO.getTestScenarios());
+        api.setTestScripts(apiDTO.getTestScripts());
         api.setLifeCycle(apiDTO.getLifeCycle());
         return api;
     }
