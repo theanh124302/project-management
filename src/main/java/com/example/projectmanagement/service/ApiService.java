@@ -15,6 +15,7 @@ public interface ApiService {
     ApiDTO updateUrlAndMethod(Long id, String url, String method);
     ApiDTO updateParametersAndBodyAndTokenAndHeader(Long id, String parameters, String body, String token, String header);
     ApiDTO updateUseCaseDiagramAndSequenceDiagramAndActivityDiagramAndClassDiagram(Long id, String useCaseDiagram, String sequenceDiagram, String activityDiagram, String classDiagram);
+    ApiDTO updateUseCaseDiagramAndSequenceDiagramAndActivityDiagramAndClassDiagramAndSolutionDocument(Long id, String useCaseDiagram, String sequenceDiagram, String activityDiagram, String classDiagram, String solutionDocument);
     ApiDTO updateTechnicalRequirementsAndBusinessProcessAndUserRequirements(Long id, String technicalRequirements, String businessProcess, String userRequirements);
     ApiDTO updateInstallationGuide(Long id, String installationGuide);
     ApiDTO updateTestCasesAndTestScenariosAndTestScriptsAndInstallationGuide(Long id, String testCases, String testScenarios, String testScripts, String installationGuide);

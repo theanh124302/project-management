@@ -52,6 +52,7 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setTestScenarios(apiDTO.getTestScenarios());
             existingApi.setTestScripts(apiDTO.getTestScripts());
             existingApi.setSourceCode(apiDTO.getSourceCode());
+            existingApi.setSolutionDocument(apiDTO.getSolutionDocument());
             existingApi.setLifeCycle(apiDTO.getLifeCycle());
             return convertToDTO(apiRepository.save(existingApi));
         } else {
@@ -152,6 +153,22 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setSequenceDiagram(sequenceDiagram);
             existingApi.setActivityDiagram(activityDiagram);
             existingApi.setClassDiagram(classDiagram);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateUseCaseDiagramAndSequenceDiagramAndActivityDiagramAndClassDiagramAndSolutionDocument(Long id, String useCaseDiagram, String sequenceDiagram, String activityDiagram, String classDiagram, String solutionDocument) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setUseCaseDiagram(useCaseDiagram);
+            existingApi.setSequenceDiagram(sequenceDiagram);
+            existingApi.setActivityDiagram(activityDiagram);
+            existingApi.setClassDiagram(classDiagram);
+            existingApi.setSolutionDocument(solutionDocument);
             return convertToDTO(apiRepository.save(existingApi));
         } else {
             return null;
@@ -313,6 +330,7 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setTestScenarios(api.getTestScenarios());
         apiDTO.setTestScripts(api.getTestScripts());
         apiDTO.setSourceCode(api.getSourceCode());
+        apiDTO.setSolutionDocument(api.getSolutionDocument());
         apiDTO.setLifeCycle(api.getLifeCycle());
         return apiDTO;
     }
@@ -344,6 +362,7 @@ public class ApiServiceImpl implements ApiService {
         api.setTestScenarios(apiDTO.getTestScenarios());
         api.setTestScripts(apiDTO.getTestScripts());
         api.setSourceCode(apiDTO.getSourceCode());
+        api.setSolutionDocument(apiDTO.getSolutionDocument());
         api.setLifeCycle(apiDTO.getLifeCycle());
         return api;
     }

@@ -189,6 +189,28 @@ public class ApiController {
         }
     }
 
+    @PostMapping("/updateUseCaseDiagramAndSequenceDiagramAndActivityDiagramAndClassDiagramAndSolutionDocument")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateUseCaseDiagramAndSequenceDiagramAndActivityDiagramAndClassDiagramAndSolutionDocument(@RequestParam Long id,
+                                                                                                                                             @RequestParam(required = false) String useCaseDiagram,
+                                                                                                                                             @RequestParam(required = false) String sequenceDiagram,
+                                                                                                                                             @RequestParam(required = false) String activityDiagram,
+                                                                                                                                             @RequestParam(required = false) String classDiagram,
+                                                                                                                                             @RequestParam(required = false) String solutionDocument) {
+        ApiDTO updatedApi = apiService.updateUseCaseDiagramAndSequenceDiagramAndActivityDiagramAndClassDiagramAndSolutionDocument(id, useCaseDiagram, sequenceDiagram, activityDiagram, classDiagram, solutionDocument);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
     @PostMapping("/updateTechnicalRequirementsAndBusinessProcessAndUserRequirements")
     public ResponseEntity<ResponseTemplate<ApiDTO>> updateTechnicalRequirementsAndBusinessProcessAndUserRequirements(@RequestParam Long id,
                                                                                                                      @RequestParam(required = false) String technicalRequirements,
