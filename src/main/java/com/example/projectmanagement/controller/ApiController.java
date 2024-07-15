@@ -53,6 +53,24 @@ public class ApiController {
         }
     }
 
+    @PostMapping("/updateSourceCode")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateSourceCode(@RequestParam Long id,
+                                                                    @RequestParam String sourceCode) {
+        ApiDTO updatedApi = apiService.updateSourceCode(id, sourceCode);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
     @PostMapping("/updateNameAndDescriptionAndStatus")
     public ResponseEntity<ResponseTemplate<ApiDTO>> updateNameAndDescriptionAndStatus(@RequestParam Long id,
                                                                                       @RequestParam String name,
@@ -234,6 +252,24 @@ public class ApiController {
     public ResponseEntity<ResponseTemplate<ApiDTO>> updateEnvironmentId(@RequestParam Long id,
                                                                         @RequestParam Long environmentId) {
         ApiDTO updatedApi = apiService.updateEnvironmentId(id, environmentId);
+        if (updatedApi != null) {
+            return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("Api updated successfully")
+                    .data(updatedApi)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<ApiDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Api not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/updateSolutionDocument")
+    public ResponseEntity<ResponseTemplate<ApiDTO>> updateSolutionDocument(@RequestParam Long id,
+                                                                           @RequestParam(required = false) String solutionDocument) {
+        ApiDTO updatedApi = apiService.updateSolutionDocument(id, solutionDocument);
         if (updatedApi != null) {
             return ResponseEntity.ok(ResponseTemplate.<ApiDTO>builder()
                     .status(HttpStatus.OK)

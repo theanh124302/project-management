@@ -1,16 +1,11 @@
 package com.example.projectmanagement.dto;
 
-import com.example.projectmanagement.entity.Api;
 import com.example.projectmanagement.enums.LifeCycle;
 import com.example.projectmanagement.enums.Method;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -42,5 +37,7 @@ public class ApiDTO {
     private String testCases;
     private String testScenarios;
     private String testScripts;
+    private String sourceCode;
+    private String solutionDocument;
     private LifeCycle lifeCycle;
 }

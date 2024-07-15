@@ -5,8 +5,6 @@ import com.example.projectmanagement.enums.Method;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,5 +41,7 @@ public class Api {
     private String testCases;
     private String testScenarios;
     private String testScripts;
+    private String sourceCode;
+    private String solutionDocument;
     private LifeCycle lifeCycle;
 }

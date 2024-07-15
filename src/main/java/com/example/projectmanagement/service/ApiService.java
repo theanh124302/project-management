@@ -8,6 +8,7 @@ import java.util.List;
 public interface ApiService {
     ApiDTO create(ApiDTO apiDTO);
     ApiDTO update(ApiDTO apiDTO);
+    ApiDTO updateSourceCode(Long id, String sourceCode);
     ApiDTO updateNameAndDescriptionAndStatus(Long id, String name, String description, String status);
     ApiDTO updateUserRequirementsAndTechnicalRequirementsAndBusinessProcess(Long id, String userRequirements, String technicalRequirements, String businessProcess);
     ApiDTO updateNameAndDescriptionAndStatusAndUserRequirementsAndTechnicalRequirementsAndBusinessProcess(Long id, String name, String description, String status, String userRequirements, String technicalRequirements, String businessProcess);
@@ -18,6 +19,7 @@ public interface ApiService {
     ApiDTO updateInstallationGuide(Long id, String installationGuide);
     ApiDTO updateTestCasesAndTestScenariosAndTestScriptsAndInstallationGuide(Long id, String testCases, String testScenarios, String testScripts, String installationGuide);
     ApiDTO updateEnvironmentId(Long id, Long environmentId);
+    ApiDTO updateSolutionDocument(Long id, String solutionDocument);
     ApiDTO delete(ApiDTO apiDTO);
     ApiDTO findById(Long id);
     List<ApiDTO> findByProjectId(Long projectId, Pageable pageable);

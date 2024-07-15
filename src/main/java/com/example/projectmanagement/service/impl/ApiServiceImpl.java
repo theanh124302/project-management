@@ -48,7 +48,23 @@ public class ApiServiceImpl implements ApiService {
             existingApi.setUseCaseDiagram(apiDTO.getUseCaseDiagram());
             existingApi.setUserRequirements(apiDTO.getUserRequirements());
             existingApi.setInstallationGuide(apiDTO.getInstallationGuide());
+            existingApi.setTestCases(apiDTO.getTestCases());
+            existingApi.setTestScenarios(apiDTO.getTestScenarios());
+            existingApi.setTestScripts(apiDTO.getTestScripts());
+            existingApi.setSourceCode(apiDTO.getSourceCode());
             existingApi.setLifeCycle(apiDTO.getLifeCycle());
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ApiDTO updateSourceCode(Long id, String sourceCode) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setSourceCode(sourceCode);
             return convertToDTO(apiRepository.save(existingApi));
         } else {
             return null;
@@ -196,6 +212,18 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
+    public ApiDTO updateSolutionDocument(Long id, String solutionDocument) {
+        Optional<Api> existingApiOptional = apiRepository.findById(id);
+        if (existingApiOptional.isPresent()) {
+            Api existingApi = existingApiOptional.get();
+            existingApi.setSolutionDocument(solutionDocument);
+            return convertToDTO(apiRepository.save(existingApi));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public ApiDTO delete(ApiDTO apiDTO) {
         Optional<Api> existingApiOptional = apiRepository.findById(apiDTO.getId());
         if (existingApiOptional.isPresent()) {
@@ -284,6 +312,7 @@ public class ApiServiceImpl implements ApiService {
         apiDTO.setTestCases(api.getTestCases());
         apiDTO.setTestScenarios(api.getTestScenarios());
         apiDTO.setTestScripts(api.getTestScripts());
+        apiDTO.setSourceCode(api.getSourceCode());
         apiDTO.setLifeCycle(api.getLifeCycle());
         return apiDTO;
     }
@@ -314,6 +343,7 @@ public class ApiServiceImpl implements ApiService {
         api.setTestCases(apiDTO.getTestCases());
         api.setTestScenarios(apiDTO.getTestScenarios());
         api.setTestScripts(apiDTO.getTestScripts());
+        api.setSourceCode(apiDTO.getSourceCode());
         api.setLifeCycle(apiDTO.getLifeCycle());
         return api;
     }
