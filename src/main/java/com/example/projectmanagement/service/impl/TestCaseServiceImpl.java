@@ -28,18 +28,33 @@ public class TestCaseServiceImpl implements TestCaseService {
 
     @Override
     public TestCaseDTO update(TestCaseDTO testCaseDTO) {
+        System.out.println("testCaseDTO.getId() = " + testCaseDTO.getId());
+        System.out.println("testCaseDTO.getApiId() = " + testCaseDTO.getApiId());
+        System.out.println("testCaseDTO.getName() = " + testCaseDTO.getName());
         Optional<TestCase> existingTestCaseOptional = testCaseRepository.findById(testCaseDTO.getId());
         if (existingTestCaseOptional.isPresent()) {
             TestCase existingTestCase = existingTestCaseOptional.get();
             existingTestCase.setApiId(testCaseDTO.getApiId());
             existingTestCase.setName(testCaseDTO.getName());
             existingTestCase.setDescription(testCaseDTO.getDescription());
+            testCaseRepository.save(existingTestCase);
             return testCaseDTO;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public TestCaseDTO updateStatus(Long id, String status) {
+        Optional<TestCase> existingTestCaseOptional = testCaseRepository.findById(id);
+        if (existingTestCaseOptional.isPresent()) {
+            TestCase existingTestCase = existingTestCaseOptional.get();
+            existingTestCase.setStatus(status);
+            return convertToDTO(testCaseRepository.save(existingTestCase));
         } else {
             return null; // Handle the case where the test case doesn't exist
         }
     }
-
     @Override
     public TestCaseDTO delete(Long id) {
         Optional<TestCase> existingTestCaseOptional = testCaseRepository.findById(id);
@@ -72,6 +87,7 @@ public class TestCaseServiceImpl implements TestCaseService {
         testCaseDTO.setApiId(testCase.getApiId());
         testCaseDTO.setName(testCase.getName());
         testCaseDTO.setDescription(testCase.getDescription());
+        testCaseDTO.setStatus(testCase.getStatus());
         return testCaseDTO;
     }
 
@@ -81,6 +97,7 @@ public class TestCaseServiceImpl implements TestCaseService {
         testCase.setApiId(testCaseDTO.getApiId());
         testCase.setName(testCaseDTO.getName());
         testCase.setDescription(testCaseDTO.getDescription());
+        testCase.setStatus(testCaseDTO.getStatus());
         return testCase;
     }
 }

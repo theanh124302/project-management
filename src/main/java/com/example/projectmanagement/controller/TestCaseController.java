@@ -53,6 +53,23 @@ public class TestCaseController {
         }
     }
 
+    @PostMapping("/updateStatus")
+    public ResponseEntity<ResponseTemplate<TestCaseDTO>> updateTestCaseStatus(@RequestParam Long id, @RequestParam String status) {
+        TestCaseDTO updatedTestCase = testCaseService.updateStatus(id, status);
+        if (updatedTestCase != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TestCaseDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("TestCase status updated successfully")
+                    .data(updatedTestCase)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TestCaseDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("TestCase not found")
+                    .build());
+        }
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseTemplate<TestCaseDTO>> deleteTestCase(@RequestParam Long id) {
         TestCaseDTO deletedTestCase = testCaseService.delete(id);

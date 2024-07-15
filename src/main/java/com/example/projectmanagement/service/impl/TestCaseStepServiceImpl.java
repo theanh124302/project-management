@@ -52,6 +52,18 @@ public class TestCaseStepServiceImpl implements TestCaseStepService {
     }
 
     @Override
+    public TestCaseStepDTO updateStatus(Long id, String status) {
+        Optional<TestCaseStep> existingTestCaseStepOptional = testCaseStepRepository.findById(id);
+        if (existingTestCaseStepOptional.isPresent()) {
+            TestCaseStep existingTestCaseStep = existingTestCaseStepOptional.get();
+            existingTestCaseStep.setStatus(status);
+            return convertToDTO(testCaseStepRepository.save(existingTestCaseStep));
+        } else {
+            return null; // Handle the case where the test case step doesn't exist
+        }
+    }
+
+    @Override
     public TestCaseStepDTO delete(Long id) {
         Optional<TestCaseStep> existingTestCaseStepOptional = testCaseStepRepository.findById(id);
         if (existingTestCaseStepOptional.isPresent()) {

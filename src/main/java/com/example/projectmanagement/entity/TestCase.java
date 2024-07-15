@@ -17,4 +17,5 @@ public class TestCase {
     private Long apiId;
     private String name;
     private String description;
+    private String status;
 }

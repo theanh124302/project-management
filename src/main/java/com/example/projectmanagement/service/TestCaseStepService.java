@@ -7,6 +7,7 @@ import java.util.List;
 public interface TestCaseStepService {
     TestCaseStepDTO create(TestCaseStepDTO testCaseStepDTO);
     TestCaseStepDTO update(TestCaseStepDTO testCaseStepDTO);
+    TestCaseStepDTO updateStatus(Long id, String status);
     TestCaseStepDTO delete(Long id);
     TestCaseStepDTO findById(Long id);
     List<TestCaseStepDTO> findByTestCaseId(Long testCaseId);

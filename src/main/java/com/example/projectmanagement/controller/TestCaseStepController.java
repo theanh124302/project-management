@@ -1,13 +1,9 @@
 package com.example.projectmanagement.controller;
 
-import com.example.projectmanagement.dto.FolderDTO;
 import com.example.projectmanagement.dto.TestCaseStepDTO;
-import com.example.projectmanagement.service.FolderService;
 import com.example.projectmanagement.service.TestCaseStepService;
 import com.example.projectmanagement.template.ResponseTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +37,23 @@ public class TestCaseStepController {
     @PostMapping("/update")
     public ResponseEntity<ResponseTemplate<TestCaseStepDTO>> updateTestCaseStep(@RequestBody TestCaseStepDTO testCaseStepDTO) {
         TestCaseStepDTO updatedTestCaseStep = testCaseStepService.update(testCaseStepDTO);
+        if (updatedTestCaseStep != null) {
+            return ResponseEntity.ok(ResponseTemplate.<TestCaseStepDTO>builder()
+                    .status(HttpStatus.OK)
+                    .message("TestCaseStep updated successfully")
+                    .data(updatedTestCaseStep)
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseTemplate.<TestCaseStepDTO>builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("TestCaseStep not found")
+                    .build());
+        }
+    }
+
+    @PostMapping("/updateStatus")
+    public ResponseEntity<ResponseTemplate<TestCaseStepDTO>> updateTestCaseStepStatus(@RequestParam Long id, @RequestParam String status) {
+        TestCaseStepDTO updatedTestCaseStep = testCaseStepService.updateStatus(id, status);
         if (updatedTestCaseStep != null) {
             return ResponseEntity.ok(ResponseTemplate.<TestCaseStepDTO>builder()
                     .status(HttpStatus.OK)
